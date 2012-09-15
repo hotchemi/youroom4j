@@ -7,5 +7,6 @@
 *.settings
 
 target/
+src/main/youroom4j/examples/
 nb-configuration.xml
 youroom4j.conf

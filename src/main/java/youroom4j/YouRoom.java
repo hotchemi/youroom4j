@@ -10,7 +10,6 @@ import youroom4j.entity.Entry;
 import youroom4j.entity.Group;
 import youroom4j.entity.Paging;
 import youroom4j.entity.Participation;
-import youroom4j.entity.User;
 import youroom4j.auth.Authorization;
 
 import org.apache.commons.codec.binary.BinaryCodec;
@@ -74,8 +73,92 @@ public class YouRoom {
 		return getTimelineProceed(createUrl(paging, url));
 	}
 
-	public List<Entry> showEntry(int id, int groupParam) {
-		return null;
+	public Entry showEntry(int id, int groupParam) {
+
+		final Entry entry = new Entry();
+		String url = ROOM_TIMELINE_URL + groupParam + "/entries/" + id + ".xml";
+		OAuthRequest request = new OAuthRequest(Verb.GET, url);
+		oauthService.signRequest(accessToken, request);
+		Response response = request.send();
+
+		$(response.getBody()).each(new Each() {
+			@Override
+			public void each(Context context) {
+				Match status = $(context.element());
+
+				Match attachmentMatch = status.child("attachment");
+				if (attachmentMatch.isNotEmpty()) {
+
+					Attachment attachment = new Attachment();
+					attachment.setOriginalFilename(attachmentMatch.child("original-filename").text());
+
+					Match dataMatch = attachmentMatch.child("data");
+					if (dataMatch.isNotEmpty()) {
+						Data data = new Data();
+						data.setText(dataMatch.child("text").text());
+						attachment.setData(data);
+					}
+
+					attachment.setContentType(attachmentMatch.child("content-type").text());
+					attachment.setAttachmentType(attachmentMatch.child("attachment-type").text());
+					attachment.setFileName(attachmentMatch.child("filename").text());
+					entry.setAttachment(attachment);
+				}
+
+				entry.setHasRead(status.child("has-read").text());
+				entry.setCreatedAt(status.child("created-at").text());
+				entry.setContent(status.child("content").text());
+				entry.setDescendantsCount(status.child("descendants-count").text());
+				entry.setCanUpdate(status.child("can-update").text());
+				entry.setUpdatedAt(status.child("updated-at").text());
+				entry.setRootId(status.child("root-id").text());
+				entry.setId(status.child("id").text());
+				entry.setLevel(status.child("level").text());
+
+				Match parentId = status.child("parent-id");
+				if (parentId.isNotEmpty()) {
+					entry.setUnreadCommentIds(parentId.text());
+				}
+
+				Match unreadComentIds = status.child("unread-comment-ids");
+				if (unreadComentIds.isNotEmpty()) {
+					entry.setUnreadCommentIds(unreadComentIds.text());
+				}
+
+				Match participationMatch = status.child("participation");
+				if (participationMatch.isNotEmpty()) {
+
+					Participation participation = new Participation();
+					participation.setName(participationMatch.find("name").text());
+
+					Match groupMatch = participationMatch.find("group");
+					if (groupMatch.isNotEmpty()) {
+
+						Group group = new Group();
+						group.setName(groupMatch.find("name").text());
+						group.setToParam(groupMatch.find("to-param").text());
+
+						Match categoryMatch = groupMatch.find("categories>category");
+						while (categoryMatch.is("category")) {
+							Category category = new Category();
+							category.setName(categoryMatch.child("name").text());
+							category.setColor(categoryMatch.child("color").text());
+							category.setToParam(categoryMatch.child("to-param").text());
+							category.setId(categoryMatch.child("id").text());
+							group.setCategory(category);
+							categoryMatch = categoryMatch.next();
+						}
+
+						participation.setGroup(group);
+					}
+
+					participation.setId(participationMatch.find("id").text());
+					entry.setParticipation(participation);
+				}
+			}
+		});
+
+		return entry;
 	}
 
 	public boolean createEntry(Entry entry, int groupParam) {
@@ -98,7 +181,7 @@ public class YouRoom {
 		return null;
 	}
 
-	public List<User> verifyCredentials() {
+	public List<Entry> verifyCredentials() {
 		return null;
 	}
 
