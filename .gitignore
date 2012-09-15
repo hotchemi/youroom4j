@@ -1,0 +1,11 @@
+*.class
+*.DS_Store
+
+# Package Files #
+*.war
+*.ear
+*.settings
+
+target/
+nb-configuration.xml
+youroom4j.conf
