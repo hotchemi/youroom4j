@@ -2,5 +2,4 @@ language: java
 
 jdk:
   - openjdk7
-
-script: "gradle build"
+  - openjdk6
