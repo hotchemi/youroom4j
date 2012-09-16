@@ -88,92 +88,43 @@ public class YouRoom {
 	 * @see <a href="http://apidoc.youroom.in/rest-entry-show">API Doc</a>
 	 */
 	public Entry showEntry(int id, int groupParam) {
-		final Entry entry = new Entry();
 		StringBuilder url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append(".xml");
-
 		OAuthRequest request = new OAuthRequest(Verb.GET, url.toString());
 		oauthService.signRequest(accessToken, request);
 		Response response = request.send();
-
-		$(response.getBody()).each(new Each() {
-			@Override
-			public void each(Context context) {
-				Match status = $(context.element());
-
-				Match attachmentMatch = status.child("attachment");
-				if (attachmentMatch.isNotEmpty()) {
-
-					Attachment attachment = new Attachment();
-					attachment.setOriginalFilename(attachmentMatch.child("original-filename").text());
-
-					Match dataMatch = attachmentMatch.child("data");
-					if (dataMatch.isNotEmpty()) {
-						Data data = new Data();
-						data.setText(dataMatch.child("text").text());
-						attachment.setData(data);
-					}
-
-					attachment.setContentType(attachmentMatch.child("content-type").text());
-					attachment.setAttachmentType(attachmentMatch.child("attachment-type").text());
-					attachment.setFileName(attachmentMatch.child("filename").text());
-					entry.setAttachment(attachment);
-				}
-
-				entry.setHasRead(status.child("has-read").text());
-				entry.setCreatedAt(status.child("created-at").text());
-				entry.setContent(status.child("content").text());
-				entry.setDescendantsCount(status.child("descendants-count").text());
-				entry.setCanUpdate(status.child("can-update").text());
-				entry.setUpdatedAt(status.child("updated-at").text());
-				entry.setRootId(status.child("root-id").text());
-				entry.setId(status.child("id").text());
-				entry.setLevel(status.child("level").text());
-
-				Match parentId = status.child("parent-id");
-				if (parentId.isNotEmpty()) {
-					entry.setUnreadCommentIds(parentId.text());
-				}
-
-				Match unreadComentIds = status.child("unread-comment-ids");
-				if (unreadComentIds.isNotEmpty()) {
-					entry.setUnreadCommentIds(unreadComentIds.text());
-				}
-
-				Match participationMatch = status.child("participation");
-				if (participationMatch.isNotEmpty()) {
-
-					Participation participation = new Participation();
-					participation.setName(participationMatch.find("name").text());
-
-					Match groupMatch = participationMatch.find("group");
-					if (groupMatch.isNotEmpty()) {
-
-						Group group = new Group();
-						group.setName(groupMatch.find("name").text());
-						group.setToParam(groupMatch.find("to-param").text());
-
-						Match categoryMatch = groupMatch.find("categories>category");
-						while (categoryMatch.is("category")) {
-							Category category = new Category();
-							category.setName(categoryMatch.child("name").text());
-							category.setColor(categoryMatch.child("color").text());
-							category.setToParam(categoryMatch.child("to-param").text());
-							category.setId(categoryMatch.child("id").text());
-							group.setCategory(category);
-							categoryMatch = categoryMatch.next();
-						}
-						participation.setGroup(group);
-					}
-					participation.setId(participationMatch.find("id").text());
-					entry.setParticipation(participation);
-				}
-			}
-		});
-		return entry;
+		return getEntryProceed(response.getBody());
 	}
 
-	public boolean createEntry(Entry entry, int groupParam) {
-		return false;
+	/**
+	 * Post one Entry.
+	 *
+	 * @param id The ID of the entry.
+	 * @param groupParam The subdomain of the room include entry.
+	 * @return entry
+	 * @see <a href="http://apidoc.youroom.in/rest-entry-create">API Doc</a>
+	 */
+	public Entry createEntry(Entry entry, int groupParam) throws Exception {
+		String content = entry.getContent();
+		int parentId = entry.getParentId();
+
+		if (content.length() > 140 || content.length() == 0)
+			throw new Exception("content length is illegal.");
+
+		StringBuilder url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries");
+		OAuthRequest request = new OAuthRequest(Verb.POST, url.toString());
+
+		StringBuilder payload = new StringBuilder("<entry><content>").append(content).append("</content>");
+		if (parentId > 0)
+			payload.append("<parent_id>").append(parentId).append("</parent_id>");
+
+		payload.append("</entry>");
+
+    request.addPayload(payload.toString());
+    request.addHeader("Content-Type", "text/xml;charset=UTF-8");
+    oauthService.signRequest(accessToken, request);
+		Response response = request.send();
+
+		return getEntryProceed(response.getBody());
 	}
 
 	public boolean updateEntry(Entry entry, int groupParam) {
@@ -209,7 +160,6 @@ public class YouRoom {
 	 * @see YouRoom#getRoomTimeline(Paging paging)
 	 */
 	private List<Entry> getTimelineProceed(String url) {
-
 		final List<Entry> results = new ArrayList<Entry>();
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
 		oauthService.signRequest(accessToken, request);
@@ -291,6 +241,93 @@ public class YouRoom {
 			}
 		});
 		return results;
+	}
+
+	/**
+	 * use when get one entry information.
+	 *
+	 * @param url
+	 * @return results
+	 * @see YouRoom#getHomeTimeline(Paging paging)
+	 * @see YouRoom#getRoomTimeline(Paging paging)
+	 */
+	private Entry getEntryProceed(String xml) {
+		final Entry entry = new Entry();
+		$(xml).each(new Each() {
+			@Override
+			public void each(Context context) {
+				Match status = $(context.element());
+
+				Match attachmentMatch = status.child("attachment");
+				if (attachmentMatch.isNotEmpty()) {
+
+					Attachment attachment = new Attachment();
+					attachment.setOriginalFilename(attachmentMatch.child("original-filename").text());
+
+					Match dataMatch = attachmentMatch.child("data");
+					if (dataMatch.isNotEmpty()) {
+						Data data = new Data();
+						data.setText(dataMatch.child("text").text());
+						attachment.setData(data);
+					}
+
+					attachment.setContentType(attachmentMatch.child("content-type").text());
+					attachment.setAttachmentType(attachmentMatch.child("attachment-type").text());
+					attachment.setFileName(attachmentMatch.child("filename").text());
+					entry.setAttachment(attachment);
+				}
+
+				entry.setHasRead(status.child("has-read").text());
+				entry.setCreatedAt(status.child("created-at").text());
+				entry.setContent(status.child("content").text());
+				entry.setDescendantsCount(status.child("descendants-count").text());
+				entry.setCanUpdate(status.child("can-update").text());
+				entry.setUpdatedAt(status.child("updated-at").text());
+				entry.setRootId(status.child("root-id").text());
+				entry.setId(status.child("id").text());
+				entry.setLevel(status.child("level").text());
+
+				Match parentId = status.child("parent-id");
+				if (parentId.isNotEmpty()) {
+					entry.setUnreadCommentIds(parentId.text());
+				}
+
+				Match unreadComentIds = status.child("unread-comment-ids");
+				if (unreadComentIds.isNotEmpty()) {
+					entry.setUnreadCommentIds(unreadComentIds.text());
+				}
+
+				Match participationMatch = status.child("participation");
+				if (participationMatch.isNotEmpty()) {
+
+					Participation participation = new Participation();
+					participation.setName(participationMatch.find("name").text());
+
+					Match groupMatch = participationMatch.find("group");
+					if (groupMatch.isNotEmpty()) {
+
+						Group group = new Group();
+						group.setName(groupMatch.find("name").text());
+						group.setToParam(groupMatch.find("to-param").text());
+
+						Match categoryMatch = groupMatch.find("categories>category");
+						while (categoryMatch.is("category")) {
+							Category category = new Category();
+							category.setName(categoryMatch.child("name").text());
+							category.setColor(categoryMatch.child("color").text());
+							category.setToParam(categoryMatch.child("to-param").text());
+							category.setId(categoryMatch.child("id").text());
+							group.setCategory(category);
+							categoryMatch = categoryMatch.next();
+						}
+						participation.setGroup(group);
+					}
+					participation.setId(participationMatch.find("id").text());
+					entry.setParticipation(participation);
+				}
+			}
+		});
+		return entry;
 	}
 
 	/**

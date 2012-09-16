@@ -1,12 +1,9 @@
 *.class
-*.DS_Store
-
-# Package Files #
 *.war
 *.ear
-*.settings
+*.DS_Store
 
 target/
-src/main/youroom4j/examples/
+src/main/java/youroom4j/examples/
 nb-configuration.xml
-youroom4j.conf
+youroom4j.properties
