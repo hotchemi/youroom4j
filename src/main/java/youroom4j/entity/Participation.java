@@ -41,4 +41,18 @@ public class Participation {
 		this.id = Integer.parseInt(id);
 	}
 
+	/**
+	 * Override for debug.
+	 *
+	 * @return all fields.
+	 */
+	@Override
+	public String toString() {
+		return new StringBuilder()
+		.append("name:").append(name).append("\n")
+		.append("group:").append(group).append("\n")
+		.append("id:").append(id).append("\n")
+		.toString();
+	}
+
 }

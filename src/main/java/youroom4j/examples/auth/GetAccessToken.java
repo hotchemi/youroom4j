@@ -21,8 +21,7 @@ import youroom4j.auth.Authorization;
 public class GetAccessToken {
 	public static void main(String[] args) throws Exception {
 		
-		Authorization authorization = new Authorization();
-		OAuthService service = authorization.getOauthService();
+		OAuthService service = Authorization.getOauthService();
 		Token requestToken = service.getRequestToken();
 		String authUrl = service.getAuthorizationUrl(requestToken);
 		

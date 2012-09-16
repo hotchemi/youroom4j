@@ -1,10 +1,11 @@
 package youroom4j.entity;
 
 /**
- * Having base entity method.
+ * Have base entity method.
+ *
  * @author Shintaro Katafuchi
  */
-class BaseEntity {
+abstract class BaseEntity {
 
 	BaseEntity() {
 
@@ -12,11 +13,12 @@ class BaseEntity {
 
 	/**
 	 * Check arugumet is null or empty.
+	 *
 	 * @param argument
 	 * @return if argument is null or empty then true.
 	 */
 	protected boolean isNullOrEmpty(String argumet) {
-		return argumet == null || "".equals(argumet);
+		return argumet == null || argumet.length() == 0;
 	}
 
 }

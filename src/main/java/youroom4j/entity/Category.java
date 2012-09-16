@@ -51,4 +51,19 @@ public class Category {
 		this.color = color;
 	}
 
+	/**
+	 * Override for debug.
+	 *
+	 * @return all fields.
+	 */
+	@Override
+	public String toString() {
+		return new StringBuilder()
+		.append("name:").append(name).append("\n")
+		.append("to_param:").append(toParam).append("\n")
+		.append("id:").append(id).append("\n")
+		.append("color:").append(color).append("\n")
+		.toString();
+	}
+
 }

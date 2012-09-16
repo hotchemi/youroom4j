@@ -101,4 +101,20 @@ public class Paging {
 		this.readState = readState;
 	}
 
+	/**
+	 * Override for debug.
+	 *
+	 * @return all fields.
+	 */
+	@Override
+	public String toString() {
+		return new StringBuilder()
+		.append("group_param:").append(groupParam).append("\n")
+		.append("since:").append(since).append("\n")
+		.append("search_query:").append(searchQuery).append("\n")
+		.append("flat:").append(flat).append("\n")
+		.append("page:").append(page).append("\n")
+		.append("read_state:").append(readState).append("\n")
+		.toString();
+	}
 }

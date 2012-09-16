@@ -17,12 +17,14 @@ import org.joox.Context;
 import org.joox.Each;
 import static org.joox.JOOX.$;
 import org.joox.Match;
+import org.scribe.builder.ServiceBuilder;
 
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
+import youroom4j.auth.YouRoomApi;
 
 /**
  * Defines methods to access youRoom api.
@@ -31,18 +33,24 @@ import org.scribe.oauth.OAuthService;
  */
 public class YouRoom {
 	private static final String HOME_TIMELINE_URL = "https://www.youroom.in/entries.xml?";
-	private static final String ROOM_TIMELINE_URL = "https://www.youroom.in/r/";
+	private static final String ROOM_URL = "https://www.youroom.in/r/";
 
 	private OAuthService oauthService;
 	private Token accessToken;
 
 	/**
-	 * create OAuthService instance.
+	 * create OAuthService.
 	 * @param acceeToken
 	 */
 	public YouRoom(Token acceessToken) {
-		oauthService = new Authorization().getOauthService();
+		oauthService = Authorization.getOauthService();
 		this.accessToken = acceessToken;
+	}
+
+	/** create Service and Token. */
+	public YouRoom() {
+		oauthService = Authorization.getOauthService();
+		this.accessToken = Authorization.getToken();
 	}
 
 	/**
@@ -53,7 +61,7 @@ public class YouRoom {
 	 * @see <a href="http://apidoc.youroom.in/rest-timeline-home">API Doc</a>
 	 */
 	public List<Entry> getHomeTimeline(Paging paging) {
-		return getTimelineProceed(createUrl(paging, HOME_TIMELINE_URL));
+		return getTimelineProceed(addParamaters(paging, HOME_TIMELINE_URL));
 	}
 
 	/**
@@ -64,20 +72,26 @@ public class YouRoom {
 	 * @see <a href="http://apidoc.youroom.in/rest-room-timeline">API Doc</a>
 	 */
 	public List<Entry> getRoomTimeline(Paging paging) {
-		String url = ROOM_TIMELINE_URL + paging.getGroupParam() + "/entries.xml?";
-
+		StringBuilder url = new StringBuilder(ROOM_URL).append(paging.getGroupParam()).append("/entries.xml?");
 		String searchQuery = paging.getSearchQuery();
 		if (searchQuery != null)
-			url += searchQuery;
-
-		return getTimelineProceed(createUrl(paging, url));
+			url.append("search_query=").append(searchQuery);
+		return getTimelineProceed(addParamaters(paging, url.toString()));
 	}
 
+	/**
+	 * Get one Entry information.
+	 *
+	 * @param id The ID of the entry.
+	 * @param groupParam The subdomain of the room include entry.
+	 * @return entry
+	 * @see <a href="http://apidoc.youroom.in/rest-entry-show">API Doc</a>
+	 */
 	public Entry showEntry(int id, int groupParam) {
-
 		final Entry entry = new Entry();
-		String url = ROOM_TIMELINE_URL + groupParam + "/entries/" + id + ".xml";
-		OAuthRequest request = new OAuthRequest(Verb.GET, url);
+		StringBuilder url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append(".xml");
+
+		OAuthRequest request = new OAuthRequest(Verb.GET, url.toString());
 		oauthService.signRequest(accessToken, request);
 		Response response = request.send();
 
@@ -148,16 +162,13 @@ public class YouRoom {
 							group.setCategory(category);
 							categoryMatch = categoryMatch.next();
 						}
-
 						participation.setGroup(group);
 					}
-
 					participation.setId(participationMatch.find("id").text());
 					entry.setParticipation(participation);
 				}
 			}
 		});
-
 		return entry;
 	}
 
@@ -190,16 +201,16 @@ public class YouRoom {
 	}
 
 	/**
-	 * use when get entry collection.
+	 * use when get timeline information.
 	 *
 	 * @param url
-	 * @return List<Entry>
-	 * @see Youroom#getHomeTimeline(Paging paging)
-	 * @see Youroom#getRoomTimeline(Paging paging)
+	 * @return results
+	 * @see YouRoom#getHomeTimeline(Paging paging)
+	 * @see YouRoom#getRoomTimeline(Paging paging)
 	 */
 	private List<Entry> getTimelineProceed(String url) {
-		final List<Entry> results = new ArrayList<Entry>();
 
+		final List<Entry> results = new ArrayList<Entry>();
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
 		oauthService.signRequest(accessToken, request);
 		Response response = request.send();
@@ -212,7 +223,6 @@ public class YouRoom {
 
 				Match attachmentMatch = status.child("attachment");
 				if (attachmentMatch.isNotEmpty()) {
-
 					Attachment attachment = new Attachment();
 					attachment.setOriginalFilename(attachmentMatch.child("original-filename").text());
 
@@ -272,45 +282,44 @@ public class YouRoom {
 							group.setCategory(category);
 							categoryMatch = categoryMatch.next();
 						}
-
 						participation.setGroup(group);
 					}
-
 					participation.setId(participationMatch.find("id").text());
 					entry.setParticipation(participation);
 				}
-
 				results.add(entry);
 			}
 		});
-
 		return results;
 	}
 
-	private String createUrl(Paging paging, String url) {
-		StringBuilder timelineUrl = new StringBuilder(url);
+	/**
+	 * Add paramaters to url for access.
+	 *
+	 * @param paging
+	 * @param url
+	 * @return proceeded url.
+	 */
+	private String addParamaters(Paging paging, String url) {
+		StringBuilder targetUrl = new StringBuilder(url);
 
 		int page = paging.getPage();
-		if (page > 0) {
-			timelineUrl.append("page=").append(page);
-		}
+		if (page > 0)
+			targetUrl.append("page=").append(page);
 
 		boolean flat = paging.getFlat();
-		if (flat) {
-			timelineUrl.append("flat=").append(flat);
-		}
+		if (flat)
+			targetUrl.append("flat=").append(flat);
 
 		String readState = paging.getReadState();
-		if ("unread".equals(readState)) {
-			timelineUrl.append("read_state=").append(readState);
-		}
+		if ("unread".equals(readState))
+			targetUrl.append("read_state=").append(readState);
 
 		String since = paging.getSince();
-		if (since != null) {
-			timelineUrl.append("since=").append(since);
-		}
+		if (since != null)
+			targetUrl.append("since=").append(since);
 
-		return timelineUrl.toString();
+		return targetUrl.toString();
 	}
 
 }

@@ -23,6 +23,7 @@ public class Data {
 
 	/**
 	 * Override for debug.
+	 *
 	 * @return all fields.
 	 */
 	@Override

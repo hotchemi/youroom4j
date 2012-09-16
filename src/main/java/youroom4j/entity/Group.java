@@ -49,4 +49,18 @@ public class Group {
 		this.categories.add(category);
 	}
 
+	/**
+	 * Override for debug.
+	 *
+	 * @return all fields.
+	 */
+	@Override
+	public String toString() {
+		return new StringBuilder()
+		.append("name:").append(name).append("\n")
+		.append("to_param:").append(toParam).append("\n")
+		.append("categories:").append(categories).append("\n")
+		.toString();
+	}
+
 }

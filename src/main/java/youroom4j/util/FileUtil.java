@@ -20,21 +20,18 @@ public class FileUtil {
 	 * @return map key and value.
 	 */
 	public static Map<String, String> loadConf(String filePath) {
-	    Properties prop = new Properties();
-	    
-	    try {
-	      prop.load(new FileInputStream(filePath));
-	    } catch (IOException e) {
-	      e.printStackTrace();
-	    }
-	    
-	    Map<String, String> map = new HashMap<String, String>();
-	    map.put("consumerKey", prop.getProperty("consumerKey").toString());
-	    map.put("consumerSecret", prop.getProperty("consumerSecret").toString());
-	    map.put("callBack", prop.getProperty("callBackUrl").toString());
-	    map.put("accessToken", prop.getProperty("accessToken").toString());
-	    map.put("accessTokenSecret", prop.getProperty("accessTokenSecret").toString());
-	    
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileInputStream(filePath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("consumerKey", prop.getProperty("consumerKey").toString());
+		map.put("consumerSecret", prop.getProperty("consumerSecret").toString());
+		map.put("callBack", prop.getProperty("callBack").toString());
+		map.put("accessToken", prop.getProperty("accessToken").toString());
+		map.put("accessTokenSecret", prop.getProperty("accessTokenSecret").toString());
 		return map;
 	}
 	

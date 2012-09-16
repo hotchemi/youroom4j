@@ -156,6 +156,7 @@ public class Entry extends BaseEntity {
 
 	/**
 	 * Override for debug.
+	 *
 	 * @return all fields.
 	 */
 	@Override
