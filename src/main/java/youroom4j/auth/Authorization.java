@@ -15,6 +15,10 @@ import youroom4j.util.FileUtil;
  */
 public class Authorization {
 
+	private Authorization() {
+
+	}
+
 	/**
 	 * Return OAuthService instance.
 	 *

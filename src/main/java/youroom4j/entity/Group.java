@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Shintaro Katafuchi
  */
-public class Group {
+public class Group implements BaseGroup {
 
 	private String name;
 

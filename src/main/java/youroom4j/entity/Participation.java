@@ -9,9 +9,17 @@ public class Participation {
 
 	private String name;
 
-	private Group group;
+	private BaseGroup group;
 
 	private int id;
+
+	private boolean admin;
+
+	private String createdAt;
+
+	private String updatedAt;
+
+	private boolean applicationAdmin;
 
 	public Participation() {
 
@@ -25,11 +33,11 @@ public class Participation {
 		this.name = name;
 	}
 
-	public Group getGroup() {
+	public BaseGroup getGroup() {
 		return group;
 	}
 
-	public void setGroup(Group group) {
+	public void setGroup(BaseGroup group) {
 		this.group = group;
 	}
 
@@ -41,8 +49,40 @@ public class Participation {
 		this.id = Integer.parseInt(id);
 	}
 
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(String admin) {
+		this.admin = Boolean.valueOf(admin);
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(String updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public boolean isApplicationAdmin() {
+		return applicationAdmin;
+	}
+
+	public void setApplicationAdmin(String applicationAdmin) {
+		this.applicationAdmin = Boolean.valueOf(applicationAdmin);
+	}
+
 	/**
-	 * Override for debug.
+	 * For debug.
 	 *
 	 * @return all fields.
 	 */
@@ -52,6 +92,10 @@ public class Participation {
 		.append("name:").append(name).append("\n")
 		.append("group:").append(group).append("\n")
 		.append("id:").append(id).append("\n")
+		.append("admin:").append(admin).append("\n")
+		.append("created_at:").append(createdAt).append("\n")
+		.append("updated_at:").append(updatedAt).append("\n")
+		.append("application_admin:").append(applicationAdmin).append("\n")
 		.toString();
 	}
 

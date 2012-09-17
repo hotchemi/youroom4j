@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Shintaro Katafuchi
  */
-public class Entry extends BaseEntity {
+public class Entry {
 
   private List<Integer> unreadCommentIds;
 
@@ -50,7 +50,7 @@ public class Entry extends BaseEntity {
 	public void setUnreadCommentIds(String unreadCommentIds) {
 		this.unreadCommentIds = new ArrayList<Integer>();
 
-		if (!isNullOrEmpty(unreadCommentIds)) {
+		if (!(unreadCommentIds == null || unreadCommentIds.length() == 0)) {
 			String[] array = unreadCommentIds.split(",");
 			for(int i = 0; i < array.length; i++){
 				this.unreadCommentIds.add(Integer.parseInt(array[i]));
