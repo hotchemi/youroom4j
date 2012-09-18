@@ -1,4 +1,4 @@
-package youroom4j.entity;
+package youroom4j.model;
 
 /**
  * Representing one single data status.
@@ -22,7 +22,7 @@ public class Data {
 	}
 
 	/**
-	 * Override for debug.
+	 * For debug.
 	 *
 	 * @return all fields.
 	 */
@@ -32,4 +32,5 @@ public class Data {
 		.append("text:").append(text).append("\n")
 		.toString();
 	}
+
 }

@@ -1,4 +1,4 @@
-package youroom4j.entity;
+package youroom4j.model;
 
 /**
  * Representing base group.
@@ -6,5 +6,4 @@ package youroom4j.entity;
  * @author Shintaro Katafuchi
  */
 interface BaseGroup {
-
 }

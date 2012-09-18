@@ -1,4 +1,4 @@
-package youroom4j.entity;
+package youroom4j.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,10 +33,8 @@ public class Entry {
 
   private boolean hasRead;
 
-  /** representing participation status. */
   private Participation participation;
 
-	/** representing attachment status. */
   private Attachment attachment;
 
 	public Entry() {
@@ -155,7 +153,7 @@ public class Entry {
 	}
 
 	/**
-	 * Override for debug.
+	 * For debug.
 	 *
 	 * @return all fields.
 	 */

@@ -4,8 +4,8 @@ import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import youroom4j.entity.Entry;
-import youroom4j.entity.Paging;
+import youroom4j.model.Entry;
+import youroom4j.model.Paging;
 
 /**
  * Test for {@link YouRoom}.

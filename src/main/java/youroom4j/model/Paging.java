@@ -1,4 +1,4 @@
-package youroom4j.entity;
+package youroom4j.model;
 
 /**
  * Representing one single paging status.
@@ -102,7 +102,7 @@ public class Paging {
 	}
 
 	/**
-	 * Override for debug.
+	 * For debug.
 	 *
 	 * @return all fields.
 	 */

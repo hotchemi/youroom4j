@@ -1,4 +1,4 @@
-package youroom4j.entity;
+package youroom4j.model;
 
 /**
  * Representing one single attachment status.
@@ -62,7 +62,7 @@ public class Attachment {
 	}
 
 	/**
-	 * Override for debug.
+	 * For debug.
 	 *
 	 * @return all fields.
 	 */
@@ -76,4 +76,5 @@ public class Attachment {
 		.append("file_name:").append(fileName).append("\n")
 		.toString();
 	}
+
 }

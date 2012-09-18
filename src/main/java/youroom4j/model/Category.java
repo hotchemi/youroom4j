@@ -1,22 +1,21 @@
-package youroom4j.entity;
-
-import java.util.ArrayList;
-import java.util.List;
+package youroom4j.model;
 
 /**
- * Representing one single group status.
+ * Representing one single category status.
  *
  * @author Shintaro Katafuchi
  */
-public class Group implements BaseGroup {
+public class Category {
 
 	private String name;
 
 	private int toParam;
 
-	private List<Category> categories;
+	private int id;
 
-	public Group() {
+	private String color;
+	
+	public Category() {
 
 	}
 
@@ -36,21 +35,24 @@ public class Group implements BaseGroup {
 		this.toParam = Integer.parseInt(toParam);
 	}
 
-	public List<Category> getCategories() {
-		return categories;
+	public int getId() {
+		return id;
 	}
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
+	public void setId(String id) {
+		this.id = Integer.parseInt(id);
 	}
 
-	public void setCategory(Category category) {
-		categories = new ArrayList<Category>();
-		this.categories.add(category);
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	/**
-	 * Override for debug.
+	 * For debug.
 	 *
 	 * @return all fields.
 	 */
@@ -59,7 +61,8 @@ public class Group implements BaseGroup {
 		return new StringBuilder()
 		.append("name:").append(name).append("\n")
 		.append("to_param:").append(toParam).append("\n")
-		.append("categories:").append(categories).append("\n")
+		.append("id:").append(id).append("\n")
+		.append("color:").append(color).append("\n")
 		.toString();
 	}
 
