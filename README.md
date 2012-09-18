@@ -1,19 +1,8 @@
 [![Build Status](https://secure.travis-ci.org/rochefort/gem-search.png)](http://travis-ci.org/rochefort/gem-search)
 youRoom4J
 =========
-youRoom4J is a Java library for the youRoom API.
-
-Coming soon...
-
-
-プロジェクト・タイトル
-======================
-ここにプロジェクトの概要を書きます。
-行末にスペースを2つ入れると
-改行されます。
- 
-段落を分けるには、[空行](<a href="http://example.com/" target="_blank" rel="noreferrer" style="cursor:help;display:inline !important;">http://example.com/</a>) を入れます。
- 
+youRoom4Jは<a target="blank" href="https://www.youroom.in/">youRoom</a>が提供しているAPIのJavaラッパーです。<br/>
+youRoom4Jは非公式のライブラリです｡
 使い方
 ------
 ### インライン ###
