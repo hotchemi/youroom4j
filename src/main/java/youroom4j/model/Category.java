@@ -31,16 +31,16 @@ public class Category {
 		return toParam;
 	}
 
-	public void setToParam(String toParam) {
-		this.toParam = Integer.parseInt(toParam);
+	public void setToParam(int toParam) {
+		this.toParam = toParam;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = Integer.parseInt(id);
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getColor() {
@@ -51,19 +51,13 @@ public class Category {
 		this.color = color;
 	}
 
-	/**
-	 * For debug.
-	 *
-	 * @return all fields.
-	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-		.append("name:").append(name).append("\n")
-		.append("to_param:").append(toParam).append("\n")
-		.append("id:").append(id).append("\n")
-		.append("color:").append(color).append("\n")
-		.toString();
+		return "Categroy{" +
+		"name=" + name +
+		", to_param=" + toParam +
+		"id:" + id +
+		"color:" + color + "}";
 	}
 
 }

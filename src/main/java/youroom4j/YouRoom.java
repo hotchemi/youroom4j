@@ -8,7 +8,7 @@ import youroom4j.model.MyGroup;
 import youroom4j.model.User;
 
 /**
- * Define methods that access youRoom api.
+ * Rhis class prividesw methods that access youRoom api.
  *
  * @author Shintaro Katafuchi
  */
@@ -26,7 +26,7 @@ public interface YouRoom {
 	 * Get home timeline information.
 	 *
 	 * @param paging
-	 * @return results
+	 * @return list contais entryies.
 	 * @see <a href="http://apidoc.youroom.in/rest-timeline-home">API Doc</a>
 	 */
 	List<Entry> getHomeTimeline(Paging paging);

@@ -76,32 +76,32 @@ public class Entry {
 		return rootId;
 	}
 
-	public void setRootId(String rootId) {
-		this.rootId = Integer.parseInt(rootId);
+	public void setRootId(int rootId) {
+		this.rootId = rootId;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = Integer.parseInt(id);
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getLevel() {
 		return level;
 	}
 
-	public void setLevel(String level) {
-		this.level = Integer.parseInt(level);
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	public int getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(String parentId) {
-		this.parentId = Integer.parseInt(parentId);
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
 	}
 
 	public String getContent() {
@@ -116,16 +116,16 @@ public class Entry {
 		return canUpdate;
 	}
 
-	public void setCanUpdate(String canUpdate) {
-		this.canUpdate = Boolean.valueOf(canUpdate);
+	public void setCanUpdate(boolean canUpdate) {
+		this.canUpdate = canUpdate;
 	}
 
 	public int getDescendantsCount() {
 		return descendantsCount;
 	}
 
-	public void setDescendantsCount(String descendantsCount) {
-		this.descendantsCount = Integer.parseInt(descendantsCount);
+	public void setDescendantsCount(int descendantsCount) {
+		this.descendantsCount = descendantsCount;
 	}
 
 	public Participation getParticipation() {
@@ -144,35 +144,29 @@ public class Entry {
 		this.attachment = attachment;
 	}
 
-	public boolean getHasRead() {
+	public boolean isHasRead() {
 		return hasRead;
 	}
 
-	public void setHasRead(String hasRead) {
-		this.hasRead = Boolean.valueOf(hasRead);
+	public void setHasRead(boolean hasRead) {
+		this.hasRead = hasRead;
 	}
 
-	/**
-	 * For debug.
-	 *
-	 * @return all fields.
-	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-		.append("unread_comment_ids:").append(unreadCommentIds).append("\n")
-		.append("created_at:").append(createdAt).append("\n")
-		.append("updated_at:").append(updatedAt).append("\n")
-		.append("root_id:").append(rootId).append("\n")
-		.append("level:").append(level).append("\n")
-		.append("parent_id:").append(parentId).append("\n")
-		.append("content:").append(content).append("\n")
-		.append("can_update:").append(canUpdate).append("\n")
-		.append("descendants_count:").append(descendantsCount).append("\n")
-		.append("has_read:").append(hasRead).append("\n")
-		.append("Participation:").append(participation).append("\n")
-		.append("Attachment:").append(attachment).append("\n")
-		.toString();
+		return "Entry{" +
+		", unread_comment_ids=" + unreadCommentIds +
+		", created_at=" + createdAt +
+		", updated_at=" + updatedAt +
+		", root_id=" + rootId +
+		", level=" + level +
+		", parent_id=" + parentId +
+		", content=" + content +
+		", can_update=" + canUpdate +
+		", descendants_count=" + descendantsCount +
+		", has_read=" + hasRead +
+		", Participation:" + participation +
+		", Attachment=" + attachment + "}";
 	}
 
 }

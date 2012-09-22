@@ -7,7 +7,7 @@ import youroom4j.model.Entry;
 import youroom4j.model.Paging;
 import youroom4j.model.MyGroup;
 import youroom4j.model.User;
-import youroom4j.util.XmlParse;
+import youroom4j.util.HttpRequestUtil;
 
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
@@ -39,9 +39,9 @@ public class YouRoomClient implements YouRoom {
 	/** {@inheritDoc} */
 	@Override
 	public List<Entry> getHomeTimeline(Paging paging) {
-		OAuthRequest request = new OAuthRequest(Verb.GET, addParamaters(paging, HOME_TIMELINE_URL));
+		OAuthRequest request = new OAuthRequest(Verb.GET, HttpRequestUtil.addParamater(paging, HOME_TIMELINE_URL));
 		service.signRequest(token, request);
-		return XmlParse.getTimelineProceed(request.send().getBody());
+		return HttpRequestUtil.getTimelineProceed(request.send().getBody());
 	}
 
 	/** {@inheritDoc} */
@@ -52,9 +52,9 @@ public class YouRoomClient implements YouRoom {
 		if (searchQuery != null && searchQuery.length() != 0)
 			url.append("search_query=").append(searchQuery);
 
-		OAuthRequest request = new OAuthRequest(Verb.GET, addParamaters(paging, url.toString()));
+		OAuthRequest request = new OAuthRequest(Verb.GET, HttpRequestUtil.addParamater(paging, url.toString()));
 		service.signRequest(token, request);
-		return XmlParse.getTimelineProceed(request.send().getBody());
+		return HttpRequestUtil.getTimelineProceed(request.send().getBody());
 	}
 
 	/** {@inheritDoc} */
@@ -63,7 +63,7 @@ public class YouRoomClient implements YouRoom {
 		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append(".xml").toString();
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
 		service.signRequest(token, request);
-		return XmlParse.getEntryProceed(request.send().getBody());
+		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
 	/** {@inheritDoc} */
@@ -84,7 +84,7 @@ public class YouRoomClient implements YouRoom {
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
 		service.signRequest(token, request);
 		Response response = request.send();
-		return XmlParse.getEntryProceed(response.getBody());
+		return HttpRequestUtil.getEntryProceed(response.getBody());
 	}
 
 	/** {@inheritDoc} */
@@ -100,7 +100,7 @@ public class YouRoomClient implements YouRoom {
 		request.addPayload(payload);
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
 		service.signRequest(token, request);
-		return XmlParse.getEntryProceed(request.send().getBody());
+		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
 	/** {@inheritDoc} */
@@ -116,7 +116,7 @@ public class YouRoomClient implements YouRoom {
 		request.addPayload(payload);
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
 		service.signRequest(token, request);
-		return XmlParse.getEntryProceed(request.send().getBody());
+		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
 	/** {@inheritDoc} */
@@ -125,7 +125,7 @@ public class YouRoomClient implements YouRoom {
 		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append(".xml").toString();
 		OAuthRequest request = new OAuthRequest(Verb.DELETE, url);
 		service.signRequest(token, request);
-		return XmlParse.getEntryProceed(request.send().getBody());
+		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
 	/** {@inheritDoc} */
@@ -142,7 +142,7 @@ public class YouRoomClient implements YouRoom {
 	public List<MyGroup> getMyGroups() {
 		OAuthRequest request = new OAuthRequest(Verb.GET, MY_GROUPS_URL);
 		service.signRequest(token, request);
-		return XmlParse.getMyGroups(request.send().getBody());
+		return HttpRequestUtil.getMyGroups(request.send().getBody());
 	}
 
 	/** {@inheritDoc} */
@@ -150,7 +150,7 @@ public class YouRoomClient implements YouRoom {
 	public List<User> verifyCredentials() {
 		OAuthRequest request = new OAuthRequest(Verb.GET, User_VERIFY_CREDENTIALS);
 		service.signRequest(token, request);
-		return XmlParse.getUsers(request.send().getBody());
+		return HttpRequestUtil.getUsers(request.send().getBody());
 	}
 
 	/** {@inheritDoc} */
@@ -160,35 +160,6 @@ public class YouRoomClient implements YouRoom {
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
 		service.signRequest(token, request);
 		return request.send().getBody().getBytes(Charset.forName("UTF-8"));
-	}
-
-	/**
-	 * Add paramaters to url.
-	 *
-	 * @param paging
-	 * @param url
-	 * @return proceeded url.
-	 */
-	private String addParamaters(Paging paging, String url) {
-		StringBuilder resultUrl = new StringBuilder(url);
-
-		int page = paging.getPage();
-		if (page > 0)
-			resultUrl.append("page=").append(page);
-
-		boolean flat = paging.getFlat();
-		if (flat)
-			resultUrl.append("flat=").append(flat);
-
-		String readState = paging.getReadState();
-		if ("unread".equals(readState))
-			resultUrl.append("read_state=").append(readState);
-
-		String since = paging.getSince();
-		if (since != null)
-			resultUrl.append("since=").append(since);
-
-		return resultUrl.toString();
 	}
 
 }

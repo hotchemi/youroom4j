@@ -21,16 +21,10 @@ public class Data {
 		this.text = text;
 	}
 
-	/**
-	 * For debug.
-	 *
-	 * @return all fields.
-	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-		.append("text:").append(text).append("\n")
-		.toString();
+		return "Data{" +
+		"text=" + text + "}";
 	}
 
 }

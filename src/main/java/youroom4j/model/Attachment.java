@@ -61,20 +61,14 @@ public class Attachment {
 		this.fileName = fileName;
 	}
 
-	/**
-	 * For debug.
-	 *
-	 * @return all fields.
-	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-		.append("original_file_name:").append(originalFilename).append("\n")
-		.append("Data:").append(data).append("\n")
-		.append("content_type:").append(contentType).append("\n")
-		.append("attachment_type:").append(attachmentType).append("\n")
-		.append("file_name:").append(fileName).append("\n")
-		.toString();
+		return "Attachment{" +
+						"original_file_name=" + originalFilename +
+						", data=" + data +
+						", content_type=" + contentType +
+						", attachment_type=" + attachmentType +
+						", file_name=" + fileName + "}";
 	}
 
 }

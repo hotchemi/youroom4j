@@ -14,6 +14,7 @@ import youroom4j.model.Data;
 import youroom4j.model.Entry;
 import youroom4j.model.Group;
 import youroom4j.model.MyGroup;
+import youroom4j.model.Paging;
 import youroom4j.model.Participation;
 import youroom4j.model.User;
 
@@ -22,7 +23,7 @@ import youroom4j.model.User;
  *
  * @author Shintaro Katafuchi
  */
-public class XmlParse {
+public class HttpRequestUtil {
 
 	/**
 	 * Executed when access timeline format.
@@ -275,6 +276,35 @@ public class XmlParse {
 			};
 		});
 		return results;
+	}
+
+	/**
+	 * Add paramater to url.
+	 *
+	 * @param paging
+	 * @param url
+	 * @return proceeded url.
+	 */
+	public static String addParamater(Paging paging, String url) {
+		StringBuilder resultUrl = new StringBuilder(url);
+
+		int page = paging.getPage();
+		if (page > 0)
+			resultUrl.append("page=").append(page);
+
+		boolean flat = paging.getFlat();
+		if (flat)
+			resultUrl.append("flat=").append(flat);
+
+		String readState = paging.getReadState();
+		if ("unread".equals(readState))
+			resultUrl.append("read_state=").append(readState);
+
+		String since = paging.getSince();
+		if (since != null)
+			resultUrl.append("since=").append(since);
+
+		return resultUrl.toString();
 	}
 
 }
