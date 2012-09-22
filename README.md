@@ -3,17 +3,51 @@ youRoom4J
 =========
 youRoom4Jは<a target="blank" href="https://www.youroom.in/">youRoom</a>が提供しているAPIのJavaラッパーです。<br/>
 youRoom4Jは非公式のライブラリです｡
+
+※Androidは近日対応予定です｡<br/>
+※Enterprise methodは近日対応予定です｡
+
 使い方
 ------
-### インライン ###
-インラインのコードは、**バッククォート** (`` ` ``) で囲みます。
+### インスタンス生成 ###
+
+    Youroom youYoom = YouRoomBuilder.build(consumerKey, consumerSecret, accessToken);
+    
+### タイムライン(ホーム)の取得 ###
+
+	Status status = youRoom.getHomeTimeline(new Paging());
  
-### ブロックレベル ###
-    function f () {
-        alert(0);  /* 先頭に4文字のスペース、
-                      もしくはタブを挿入します */
-    }
- 
+### タイムライン(ルーム)の取得 ###
+
+	Status status = youRoom.getHomeTimeline(new Paging());
+
+### タイムライン(ルーム)の取得 ###
+
+### タイムライン(ルーム)の取得 ###
+
+### タイムライン(ルーム)の取得 ###
+
+### タイムライン(ルーム)の取得 ###
+
+### タイムライン(ルーム)の取得 ###
+
+### タイムライン(ルーム)の取得 ###
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 パラメータの解説
 ----------------
 リストの間に空行を挟むと、それぞれのリストに `<p>` タグが挿入され、行間が
