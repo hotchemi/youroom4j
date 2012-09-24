@@ -25,7 +25,6 @@ public class Paging {
 	/** If given "unread", response is include only unread topics. */
 	private String readState;
 
-	/** default. */
 	public Paging() {
 
 	}
@@ -101,20 +100,14 @@ public class Paging {
 		this.readState = readState;
 	}
 
-	/**
-	 * For debug.
-	 *
-	 * @return all fields.
-	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-		.append("group_param:").append(groupParam).append("\n")
-		.append("since:").append(since).append("\n")
-		.append("search_query:").append(searchQuery).append("\n")
-		.append("flat:").append(flat).append("\n")
-		.append("page:").append(page).append("\n")
-		.append("read_state:").append(readState).append("\n")
-		.toString();
+		return "Paging{" +
+						"group_param=" + groupParam +
+						", since=" + since +
+						", search_query=" + searchQuery +
+						", flat=" + flat +
+						", page=" + page +
+						", read_stat=" + readState + "}";
 	}
 }

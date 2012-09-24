@@ -17,7 +17,7 @@ public class Group implements BaseGroup {
 	private List<Category> categories;
 
 	public Group() {
-
+		categories = new ArrayList<Category>();
 	}
 
 	public String getName() {
@@ -32,8 +32,8 @@ public class Group implements BaseGroup {
 		return toParam;
 	}
 
-	public void setToParam(String toParam) {
-		this.toParam = Integer.parseInt(toParam);
+	public void setToParam(int toParam) {
+		this.toParam = toParam;
 	}
 
 	public List<Category> getCategories() {
@@ -45,22 +45,15 @@ public class Group implements BaseGroup {
 	}
 
 	public void setCategory(Category category) {
-		categories = new ArrayList<Category>();
 		this.categories.add(category);
 	}
 
-	/**
-	 * For debug.
-	 *
-	 * @return all fields.
-	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-		.append("name:").append(name).append("\n")
-		.append("to_param:").append(toParam).append("\n")
-		.append("categories:").append(categories).append("\n")
-		.toString();
+		return "Group{" +
+						"name=" + name +
+						", to_param=" + toParam +
+						", categories=" + categories + "}";
 	}
 
 }

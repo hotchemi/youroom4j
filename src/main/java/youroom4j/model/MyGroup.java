@@ -39,8 +39,8 @@ public class MyGroup implements BaseGroup {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = Integer.parseInt(id);
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -51,12 +51,12 @@ public class MyGroup implements BaseGroup {
 		this.name = name;
 	}
 
-	public boolean getOpened() {
+	public boolean isOpened() {
 		return opened;
 	}
 
-	public void setOpened(String opened) {
-		this.opened = Boolean.valueOf(opened);
+	public void setOpened(boolean opened) {
+		this.opened = opened;
 	}
 
 	public String getUpdatedAt() {
@@ -71,16 +71,16 @@ public class MyGroup implements BaseGroup {
 		return toParam;
 	}
 
-	public void setToParam(String toParam) {
-		this.toParam = Integer.parseInt(toParam);
+	public void setToParam(int toParam) {
+		this.toParam = toParam;
 	}
 
 	public boolean getIsExpired() {
 		return isExpired;
 	}
 
-	public void setIsExpired(String isExpired) {
-		this.opened = Boolean.valueOf(isExpired);
+	public void setIsExpired(boolean isExpired) {
+		this.opened = isExpired;
 	}
 
 	public String getBilling() {
@@ -91,23 +91,17 @@ public class MyGroup implements BaseGroup {
 		this.billing = billing;
 	}
 
-	/**
-	 * For debug.
-	 *
-	 * @return all fields.
-	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-		.append("created_at:").append(createdAt).append("\n")
-		.append("id:").append(id).append("\n")
-		.append("name:").append(name).append("\n")
-		.append("opened:").append(opened).append("\n")
-		.append("updated_at:").append(updatedAt).append("\n")
-		.append("to_param:").append(toParam).append("\n")
-		.append("is_expired:").append(isExpired).append("\n")
-		.append("billing:").append(billing).append("\n")
-		.toString();
+		return "MyGroup{" +
+						"created_at=" + createdAt +
+						", id=" + id +
+						", name=" + name +
+						", opened=" + opened +
+						", updated_at=" + updatedAt +
+						", to_param=" + toParam +
+						", is_expired=" + isExpired +
+						", billing=" + billing + "}";
 	}
 
 }

@@ -16,7 +16,7 @@ public class YouRoomTest {
 
 	@Before
 	public void setUp(){
-		youroom = new YouRoom();
+		youroom = YouRoomClient.getInstance();
 	}
 
 	@Test

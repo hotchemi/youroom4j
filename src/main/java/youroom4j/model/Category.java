@@ -54,10 +54,10 @@ public class Category {
 	@Override
 	public String toString() {
 		return "Categroy{" +
-		"name=" + name +
-		", to_param=" + toParam +
-		"id:" + id +
-		"color:" + color + "}";
+						"name=" + name +
+						", to_param=" + toParam +
+						", id=" + id +
+						", color=" + color + "}";
 	}
 
 }

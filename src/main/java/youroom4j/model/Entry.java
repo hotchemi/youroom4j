@@ -11,35 +11,35 @@ import java.util.List;
  */
 public class Entry {
 
-  private List<Integer> unreadCommentIds;
+	private List<Integer> unreadCommentIds;
 
-  private String createdAt;
+	private String createdAt;
 
-  private String updatedAt;
+	private String updatedAt;
 
-  private int rootId;
+	private int rootId;
 
-  private int id;
+	private int id;
 
-  private int level;
+	private int level;
 
-  private int parentId;
+	private int parentId;
 
-  private String content;
+	private String content;
 
-  private boolean canUpdate;
+	private boolean canUpdate;
 
-  private int descendantsCount;
+	private int descendantsCount;
 
-  private boolean hasRead;
+	private boolean hasRead;
 
-  private Participation participation;
+	private Participation participation;
 
-  private Attachment attachment;
+	private Attachment attachment;
 
 	public Entry() {
 
-  }
+	}
 
 	public List<Integer> getUnreadCommentIds() {
 		return unreadCommentIds;
@@ -155,18 +155,18 @@ public class Entry {
 	@Override
 	public String toString() {
 		return "Entry{" +
-		", unread_comment_ids=" + unreadCommentIds +
-		", created_at=" + createdAt +
-		", updated_at=" + updatedAt +
-		", root_id=" + rootId +
-		", level=" + level +
-		", parent_id=" + parentId +
-		", content=" + content +
-		", can_update=" + canUpdate +
-		", descendants_count=" + descendantsCount +
-		", has_read=" + hasRead +
-		", Participation:" + participation +
-		", Attachment=" + attachment + "}";
+						"unread_comment_ids=" + unreadCommentIds +
+						", created_at=" + createdAt +
+						", updated_at=" + updatedAt +
+						", root_id=" + rootId +
+						", level=" + level +
+						", parent_id=" + parentId +
+						", content=" + content +
+						", can_update=" + canUpdate +
+						", descendants_count=" + descendantsCount +
+						", has_read=" + hasRead +
+						", Participation:" + participation +
+						", Attachment=" + attachment + "}";
 	}
 
 }

@@ -2,6 +2,7 @@ package youroom4j;
 
 import java.nio.charset.Charset;
 import java.util.List;
+import org.scribe.builder.ServiceBuilder;
 
 import youroom4j.model.Entry;
 import youroom4j.model.Paging;
@@ -14,6 +15,7 @@ import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
+import youroom4j.auth.YouRoomApi;
 
 /**
  * This class provides methods to access YouRoom api.
@@ -23,16 +25,43 @@ import org.scribe.oauth.OAuthService;
  */
 public class YouRoomClient implements YouRoom {
 
-	private final OAuthService service;
+	private OAuthService service;
 
 	private Token token;
 
-	/**
-	 * @param service
-	 * @param token
-	 */
-	public YouRoomClient(OAuthService service, Token token) {
+	private YouRoomClient() {
+
+	}
+
+	public OAuthService getService() {
+		return service;
+	}
+
+	public void setService(OAuthService service) {
 		this.service = service;
+	}
+
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
+	public static YouRoom getInstance() {
+		return new YouRoomClient();
+	}
+
+	public void setOAuthConsumer(String consumerKey, String consumerSecret){
+		this.service = new ServiceBuilder()
+						.provider(YouRoomApi.class)
+						.apiKey(consumerKey)
+						.apiSecret(consumerSecret)
+						.build();
+	}
+
+	public void setOAuthAccessToken(Token token){
 		this.token = token;
 	}
 
@@ -40,7 +69,7 @@ public class YouRoomClient implements YouRoom {
 	@Override
 	public List<Entry> getHomeTimeline(Paging paging) {
 		OAuthRequest request = new OAuthRequest(Verb.GET, HttpRequestUtil.addParamater(paging, HOME_TIMELINE_URL));
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return HttpRequestUtil.getTimelineProceed(request.send().getBody());
 	}
 
@@ -53,7 +82,7 @@ public class YouRoomClient implements YouRoom {
 			url.append("search_query=").append(searchQuery);
 
 		OAuthRequest request = new OAuthRequest(Verb.GET, HttpRequestUtil.addParamater(paging, url.toString()));
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return HttpRequestUtil.getTimelineProceed(request.send().getBody());
 	}
 
@@ -62,7 +91,7 @@ public class YouRoomClient implements YouRoom {
 	public Entry showEntry(int id, int groupParam) {
 		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append(".xml").toString();
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
@@ -82,7 +111,7 @@ public class YouRoomClient implements YouRoom {
 
 		request.addPayload(payload.toString());
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		Response response = request.send();
 		return HttpRequestUtil.getEntryProceed(response.getBody());
 	}
@@ -99,7 +128,7 @@ public class YouRoomClient implements YouRoom {
 		String payload = new StringBuilder("<entry><content>").append(content).append("</content></entry>").toString();
 		request.addPayload(payload);
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
@@ -115,7 +144,7 @@ public class YouRoomClient implements YouRoom {
 		String payload = new StringBuilder("<entry><content>").append(content).append("</content></entry>").toString();
 		request.addPayload(payload);
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
@@ -124,7 +153,7 @@ public class YouRoomClient implements YouRoom {
 	public Entry destroyEntry(int id, int groupParam) {
 		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append(".xml").toString();
 		OAuthRequest request = new OAuthRequest(Verb.DELETE, url);
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
@@ -133,7 +162,7 @@ public class YouRoomClient implements YouRoom {
 	public byte[] showAttachment(int id, int groupParam) {
 		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append("/attachment").toString();
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return request.send().getBody().getBytes(Charset.forName("UTF-8"));
 	}
 
@@ -141,7 +170,7 @@ public class YouRoomClient implements YouRoom {
 	@Override
 	public List<MyGroup> getMyGroups() {
 		OAuthRequest request = new OAuthRequest(Verb.GET, MY_GROUPS_URL);
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return HttpRequestUtil.getMyGroups(request.send().getBody());
 	}
 
@@ -149,7 +178,7 @@ public class YouRoomClient implements YouRoom {
 	@Override
 	public List<User> verifyCredentials() {
 		OAuthRequest request = new OAuthRequest(Verb.GET, User_VERIFY_CREDENTIALS);
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return HttpRequestUtil.getUsers(request.send().getBody());
 	}
 
@@ -158,7 +187,7 @@ public class YouRoomClient implements YouRoom {
 	public byte[] showPicture(int groupParam, int participationId) {
 		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/participations/").append(participationId).append("/picture").toString();
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
-		service.signRequest(token, request);
+		getService().signRequest(getToken(), request);
 		return request.send().getBody().getBytes(Charset.forName("UTF-8"));
 	}
 

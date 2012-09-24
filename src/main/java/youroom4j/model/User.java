@@ -46,8 +46,8 @@ public class User {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = Integer.parseInt(id);
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getLastRequestAt() {
@@ -78,21 +78,15 @@ public class User {
 		this.participations.add(participation);
 	}
 
-	/**
-	 * For debug.
-	 *
-	 * @return all fields.
-	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-		.append("created_at:").append(createdAt).append("\n")
-		.append("email:").append(email).append("\n")
-		.append("id:").append(id).append("\n")
-		.append("last_request_at:").append(lastRequestAt).append("\n")
-		.append("updated_at:").append(updatedAt).append("\n")
-		.append("participations:").append(participations).append("\n")
-		.toString();
+		return "User{" +
+						"created_at=" + createdAt +
+						", email=" + email +
+						", id=" + id +
+						", last_request_at=" + lastRequestAt +
+						", updated_at=" + updatedAt +
+						", participations=" + participations + "}";
 	}
 
 }

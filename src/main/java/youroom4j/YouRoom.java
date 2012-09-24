@@ -8,7 +8,7 @@ import youroom4j.model.MyGroup;
 import youroom4j.model.User;
 
 /**
- * Rhis class prividesw methods that access youRoom api.
+ * This class provides methods that access youRoom api.
  *
  * @author Shintaro Katafuchi
  */

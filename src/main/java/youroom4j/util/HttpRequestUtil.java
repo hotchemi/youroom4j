@@ -60,15 +60,15 @@ public class HttpRequestUtil {
 					entry.setAttachment(attachment);
 				}
 
-				entry.setHasRead(status.child("has-read").text());
+				entry.setHasRead(Boolean.valueOf(status.child("has-read").text()));
 				entry.setCreatedAt(status.child("created-at").text());
 				entry.setContent(status.child("content").text());
-				entry.setDescendantsCount(status.child("descendants-count").text());
-				entry.setCanUpdate(status.child("can-update").text());
+				entry.setDescendantsCount(Integer.parseInt(status.child("descendants-count").text()));
+				entry.setCanUpdate(Boolean.valueOf(status.child("can-update").text()));
 				entry.setUpdatedAt(status.child("updated-at").text());
-				entry.setRootId(status.child("root-id").text());
-				entry.setId(status.child("id").text());
-				entry.setLevel(status.child("level").text());
+				entry.setRootId(Integer.parseInt(status.child("root-id").text()));
+				entry.setId(Integer.parseInt(status.child("id").text()));
+				entry.setLevel(Integer.parseInt(status.child("level").text()));
 
 				Match parentId = status.child("parent-id");
 				if (parentId.isNotEmpty()) {
@@ -82,30 +82,28 @@ public class HttpRequestUtil {
 
 				Match participationMatch = status.child("participation");
 				if (participationMatch.isNotEmpty()) {
-
 					Participation participation = new Participation();
 					participation.setName(participationMatch.find("name").text());
 
 					Match groupMatch = participationMatch.find("group");
 					if (groupMatch.isNotEmpty()) {
-
 						Group group = new Group();
 						group.setName(groupMatch.find("name").text());
-						group.setToParam(groupMatch.find("to-param").text());
+						group.setToParam(Integer.parseInt(groupMatch.find("to-param").text()));
 
 						Match categoryMatch = groupMatch.find("categories>category");
 						while (categoryMatch.is("category")) {
 							Category category = new Category();
 							category.setName(categoryMatch.child("name").text());
 							category.setColor(categoryMatch.child("color").text());
-							category.setToParam(categoryMatch.child("to-param").text());
-							category.setId(categoryMatch.child("id").text());
+							category.setToParam(Integer.parseInt(categoryMatch.child("to-param").text()));
+							category.setId(Integer.parseInt(categoryMatch.child("id").text()));
 							group.setCategory(category);
 							categoryMatch = categoryMatch.next();
 						}
 						participation.setGroup(group);
 					}
-					participation.setId(participationMatch.find("id").text());
+					participation.setId(Integer.parseInt(participationMatch.find("id").text()));
 					entry.setParticipation(participation);
 				}
 				results.add(entry);
@@ -131,7 +129,6 @@ public class HttpRequestUtil {
 
 				Match attachmentMatch = status.child("attachment");
 				if (attachmentMatch.isNotEmpty()) {
-
 					Attachment attachment = new Attachment();
 					attachment.setOriginalFilename(attachmentMatch.child("original-filename").text());
 
@@ -148,15 +145,15 @@ public class HttpRequestUtil {
 					entry.setAttachment(attachment);
 				}
 
-				entry.setHasRead(status.child("has-read").text());
+				entry.setHasRead(Boolean.valueOf(status.child("has-read").text()));
 				entry.setCreatedAt(status.child("created-at").text());
 				entry.setContent(status.child("content").text());
-				entry.setDescendantsCount(status.child("descendants-count").text());
-				entry.setCanUpdate(status.child("can-update").text());
+				entry.setDescendantsCount(Integer.parseInt(status.child("descendants-count").text()));
+				entry.setCanUpdate(Boolean.valueOf(status.child("can-update").text()));
 				entry.setUpdatedAt(status.child("updated-at").text());
-				entry.setRootId(status.child("root-id").text());
-				entry.setId(status.child("id").text());
-				entry.setLevel(status.child("level").text());
+				entry.setRootId(Integer.parseInt(status.child("root-id").text()));
+				entry.setId(Integer.parseInt(status.child("id").text()));
+				entry.setLevel(Integer.parseInt(status.child("level").text()));
 
 				Match parentId = status.child("parent-id");
 				if (parentId.isNotEmpty()) {
@@ -170,30 +167,28 @@ public class HttpRequestUtil {
 
 				Match participationMatch = status.child("participation");
 				if (participationMatch.isNotEmpty()) {
-
 					Participation participation = new Participation();
 					participation.setName(participationMatch.find("name").text());
 
 					Match groupMatch = participationMatch.find("group");
 					if (groupMatch.isNotEmpty()) {
-
 						Group group = new Group();
 						group.setName(groupMatch.find("name").text());
-						group.setToParam(groupMatch.find("to-param").text());
+						group.setToParam(Integer.parseInt(groupMatch.find("to-param").text()));
 
 						Match categoryMatch = groupMatch.find("categories>category");
 						while (categoryMatch.is("category")) {
 							Category category = new Category();
 							category.setName(categoryMatch.child("name").text());
 							category.setColor(categoryMatch.child("color").text());
-							category.setToParam(categoryMatch.child("to-param").text());
-							category.setId(categoryMatch.child("id").text());
+							category.setToParam(Integer.parseInt(categoryMatch.child("to-param").text()));
+							category.setId(Integer.parseInt(categoryMatch.child("id").text()));
 							group.setCategory(category);
 							categoryMatch = categoryMatch.next();
 						}
 						participation.setGroup(group);
 					}
-					participation.setId(participationMatch.find("id").text());
+					participation.setId(Integer.parseInt(participationMatch.find("id").text()));
 					entry.setParticipation(participation);
 				}
 			}
@@ -286,25 +281,25 @@ public class HttpRequestUtil {
 	 * @return proceeded url.
 	 */
 	public static String addParamater(Paging paging, String url) {
-		StringBuilder resultUrl = new StringBuilder(url);
+		StringBuilder proceededUrl = new StringBuilder(url);
 
 		int page = paging.getPage();
 		if (page > 0)
-			resultUrl.append("page=").append(page);
+			proceededUrl.append("page=").append(page);
 
 		boolean flat = paging.getFlat();
 		if (flat)
-			resultUrl.append("flat=").append(flat);
+			proceededUrl.append("flat=").append(flat);
 
 		String readState = paging.getReadState();
 		if ("unread".equals(readState))
-			resultUrl.append("read_state=").append(readState);
+			proceededUrl.append("read_state=").append(readState);
 
 		String since = paging.getSince();
 		if (since != null)
-			resultUrl.append("since=").append(since);
+			proceededUrl.append("since=").append(since);
 
-		return resultUrl.toString();
+		return proceededUrl.toString();
 	}
 
 }

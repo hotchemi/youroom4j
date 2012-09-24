@@ -45,16 +45,16 @@ public class Participation {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = Integer.parseInt(id);
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public boolean isAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(String admin) {
-		this.admin = Boolean.valueOf(admin);
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	public String getCreatedAt() {
@@ -77,26 +77,20 @@ public class Participation {
 		return applicationAdmin;
 	}
 
-	public void setApplicationAdmin(String applicationAdmin) {
-		this.applicationAdmin = Boolean.valueOf(applicationAdmin);
+	public void setApplicationAdmin(boolean applicationAdmin) {
+		this.applicationAdmin = applicationAdmin;
 	}
 
-	/**
-	 * For debug.
-	 *
-	 * @return all fields.
-	 */
 	@Override
 	public String toString() {
-		return new StringBuilder()
-		.append("name:").append(name).append("\n")
-		.append("group:").append(group).append("\n")
-		.append("id:").append(id).append("\n")
-		.append("admin:").append(admin).append("\n")
-		.append("created_at:").append(createdAt).append("\n")
-		.append("updated_at:").append(updatedAt).append("\n")
-		.append("application_admin:").append(applicationAdmin).append("\n")
-		.toString();
+		return "Participation{" +
+						"name=" + name +
+						", group=" + group +
+						", id=" + id +
+						", admin=" + admin +
+						", created_at=" + createdAt +
+						", updated_at=" + updatedAt +
+						", pplication_admin=" + applicationAdmin + "}";
 	}
 
 }
