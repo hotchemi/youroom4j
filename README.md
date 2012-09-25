@@ -10,8 +10,10 @@ youRoom4Jは非公式のライブラリです｡
 使い方
 ------
 ### インスタンス生成 ###
-
+```java
     Youroom youYoom = YouRoomBuilder.build(consumerKey, consumerSecret, accessToken);
+```
+
     
 ### タイムライン(ホーム)の取得 ###
 
