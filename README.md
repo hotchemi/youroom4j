@@ -11,18 +11,19 @@ youRoom4Jは非公式のライブラリです｡
 ------
 ### インスタンス生成 ###
 ```java
-    Youroom youYoom = YouRoomBuilder.build(consumerKey, consumerSecret, accessToken);
+  Youroom youYoom = YouRoomFactory.getInstance();
+  youroom.setOAuthConsumer("consumerKey", "consumerSecret");
+  youroom.setOAuthAccessToken("accessToken", "accessTokenSecret");
 ```
-
-    
 ### タイムライン(ホーム)の取得 ###
-
-	Status status = youRoom.getHomeTimeline(new Paging());
- 
+ホームタイムラインを返します｡
+```java
+  List<Entry> list = youRoom.getHomeTimeline(new Paging());
+```
 ### タイムライン(ルーム)の取得 ###
-
-	Status status = youRoom.getHomeTimeline(new Paging());
-
+```java
+  List<Entry> list = youRoom.getRoomTimeline(new Paging());
+```
 ### タイムライン(ルーム)の取得 ###
 
 ### タイムライン(ルーム)の取得 ###
