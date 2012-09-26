@@ -29,7 +29,6 @@ public class Paging {
 
 	}
 
-	/** for home timelime. */
 	public Paging(String since, boolean flat, int page, String readState) {
 		this.since = since;
 		this.flat = flat;
@@ -37,12 +36,16 @@ public class Paging {
 		this.readState = readState;
 	}
 
-	/** for room timelime(minimum). */
+	public Paging(boolean flat, int page, String readState) {
+		this.flat = flat;
+		this.page = page;
+		this.readState = readState;
+	}
+
 	public Paging(int groupParam) {
 		this.groupParam = groupParam;
 	}
 
-	/** for room timelime(max). */
 	public Paging(int groupParam, String since, String searchQuery, boolean flat, int page, String readState) {
 		this.groupParam = groupParam;
 		this.since = since;

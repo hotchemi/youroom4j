@@ -90,7 +90,7 @@ public class Participation {
 						", admin=" + admin +
 						", created_at=" + createdAt +
 						", updated_at=" + updatedAt +
-						", pplication_admin=" + applicationAdmin + "}";
+						", application_admin=" + applicationAdmin + "}";
 	}
 
 }

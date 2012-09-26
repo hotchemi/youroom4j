@@ -42,11 +42,6 @@ public class YouRoomImpl implements YouRoom {
 	}
 
 	@Override
-	public void setOAuthAccessToken(Token token) {
-		this.token = token;
-	}
-
-	@Override
 	public void setOAuthAccessToken(String accessToken, String accsessTokenSecret) {
 		this.token = new Token(accessToken, accsessTokenSecret);
 	}
@@ -64,7 +59,7 @@ public class YouRoomImpl implements YouRoom {
 
 		String searchQuery = paging.getSearchQuery();
 		if (searchQuery != null && searchQuery.length() != 0)
-			url.append("search_query=").append(searchQuery);
+			url.append("search_query=").append(searchQuery).append("&");
 
 		OAuthRequest request = new OAuthRequest(Verb.GET, addParamater(paging, url.toString()));
 		service.signRequest(token, request);
@@ -173,26 +168,26 @@ public class YouRoomImpl implements YouRoom {
 	 * @param url
 	 * @return added url.
 	 */
-	private static String addParamater(Paging paging, String url) {
-		StringBuilder added = new StringBuilder(url);
+	private String addParamater(Paging paging, String url) {
+		StringBuilder newUrl = new StringBuilder(url);
 
 		int page = paging.getPage();
 		if (page > 0)
-			added.append("page=").append(page);
+			newUrl.append("page=").append(page).append("&");
 
 		boolean flat = paging.getFlat();
 		if (flat)
-			added.append("flat=").append(flat);
+			newUrl.append("flat=").append(flat).append("&");
 
 		String readState = paging.getReadState();
 		if ("unread".equals(readState))
-			added.append("read_state=").append(readState);
+			newUrl.append("read_state=").append(readState).append("&");
 
 		String since = paging.getSince();
 		if (since != null)
-			added.append("since=").append(since);
+			newUrl.append("since=").append(since).append("&");
 
-		return added.toString();
+		return newUrl.toString();
 	}
 
 }

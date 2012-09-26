@@ -28,11 +28,6 @@ public interface YouRoom {
 	void setOAuthConsumer(String consumerKey, String consumerSecret);
 
 	/**
-	 * @param token
-	 */
-	void setOAuthAccessToken(Token token);
-
-	/**
 	 * @param accessToken
 	 * @param accessTokenSecret
 	 */
