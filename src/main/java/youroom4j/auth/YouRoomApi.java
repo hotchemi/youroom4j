@@ -4,8 +4,6 @@ import org.scribe.builder.api.DefaultApi10a;
 import org.scribe.model.Token;
 
 /**
- * Authenticate youRoom.
- * 
  * @author Shintaro Katafuchi
  */
 public class YouRoomApi extends DefaultApi10a {

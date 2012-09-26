@@ -19,7 +19,7 @@ import youroom4j.model.Participation;
 import youroom4j.model.User;
 
 /**
- * This class provides xml parse methods.
+ * This class provides methods that support http request.
  *
  * @author Shintaro Katafuchi
  */
@@ -211,11 +211,11 @@ public class HttpRequestUtil {
 				Match status = $(context.element());
 				MyGroup group = new MyGroup();
 				group.setCreatedAt(status.child("created-at").text());
-				group.setId(status.child("id").text());
-				group.setIsExpired(status.child("is-expired").text());
+				group.setId(Integer.parseInt(status.child("id").text()));
+				group.setIsExpired(Boolean.valueOf(status.child("is-expired").text()));
 				group.setName(status.child("name").text());
-				group.setOpened(status.child("opened").text());
-				group.setToParam(status.child("to-param").text());
+				group.setOpened(Boolean.valueOf(status.child("opened").text()));
+				group.setToParam(Integer.parseInt(status.child("to-param").text()));
 				group.setUpdatedAt(status.child("updated-at").text());
 				results.add(group);
 			}
@@ -240,66 +240,36 @@ public class HttpRequestUtil {
 				User user = new User();
 				user.setCreatedAt(status.child("created-at").text());
 				user.setEmail(status.child("email").text());
-				user.setId(status.child("id").text());
+				user.setId(Integer.parseInt(status.child("id").text()));
 				user.setLastRequestAt(status.child("last-request-at").text());
 				user.setUpdatedAt(status.child("updated-at").text());
 
 				Match participationMatch = status.find("participations>participation");
 				while (participationMatch.is("participation")) {
 					Participation participation = new Participation();
-					participation.setAdmin(participationMatch.child("admin").text());
+					participation.setAdmin(Boolean.valueOf(participationMatch.child("admin").text()));
 					participation.setCreatedAt(participationMatch.child("created-at").text());
-					participation.setId(participationMatch.child("id").text());
+					participation.setId(Integer.parseInt(participationMatch.child("id").text()));
 					participation.setName(participationMatch.child("name").text());
 					participation.setUpdatedAt(participationMatch.child("updated-at").text());
-					participation.setApplicationAdmin(participationMatch.child("application-admin").text());
+					participation.setApplicationAdmin(Boolean.valueOf(participationMatch.child("application-admin").text()));
 
 					Match groupMatch = status.find("group");
 					MyGroup group = new MyGroup();
 					group.setBilling(groupMatch.child("billing").text());
 					group.setCreatedAt(groupMatch.child("cerated-at").text());
-					group.setId(groupMatch.child("id").text());
+					group.setId(Integer.parseInt(groupMatch.child("id").text()));
 					group.setName(groupMatch.child("name").text());
 					group.setUpdatedAt(groupMatch.child("updated-at").text());
-					group.setToParam(groupMatch.child("to-param").text());
+					group.setToParam(Integer.parseInt(groupMatch.child("to-param").text()));
 					participation.setGroup(group);
 					user.setParticipation(participation);
-
 					participationMatch = participationMatch.next();
 				}
 				results.add(user);
 			};
 		});
 		return results;
-	}
-
-	/**
-	 * Add paramater to url.
-	 *
-	 * @param paging
-	 * @param url
-	 * @return proceeded url.
-	 */
-	public static String addParamater(Paging paging, String url) {
-		StringBuilder proceededUrl = new StringBuilder(url);
-
-		int page = paging.getPage();
-		if (page > 0)
-			proceededUrl.append("page=").append(page);
-
-		boolean flat = paging.getFlat();
-		if (flat)
-			proceededUrl.append("flat=").append(flat);
-
-		String readState = paging.getReadState();
-		if ("unread".equals(readState))
-			proceededUrl.append("read_state=").append(readState);
-
-		String since = paging.getSince();
-		if (since != null)
-			proceededUrl.append("since=").append(since);
-
-		return proceededUrl.toString();
 	}
 
 }

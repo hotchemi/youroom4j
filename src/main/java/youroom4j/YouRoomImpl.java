@@ -9,51 +9,31 @@ import youroom4j.model.Paging;
 import youroom4j.model.MyGroup;
 import youroom4j.model.User;
 import youroom4j.util.HttpRequestUtil;
+import youroom4j.auth.YouRoomApi;
 
 import org.scribe.model.OAuthRequest;
-import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
-import youroom4j.auth.YouRoomApi;
 
 /**
- * This class provides methods to access YouRoom api.
- * To get an instance of YouRoomClient you should use YouRoomBuilder.
+ * A java representation of the <a href="http://apidoc.youroom.in">youRoom API</a><br>.
+ * To get an instance of YouRoomImpl you should use YouRoomFactory.
  *
  * @author Shintaro Katafuchi
  */
-public class YouRoomClient implements YouRoom {
+public class YouRoomImpl implements YouRoom {
 
 	private OAuthService service;
 
 	private Token token;
 
-	private YouRoomClient() {
+	YouRoomImpl() {
 
 	}
 
-	public OAuthService getService() {
-		return service;
-	}
-
-	public void setService(OAuthService service) {
-		this.service = service;
-	}
-
-	public Token getToken() {
-		return token;
-	}
-
-	public void setToken(Token token) {
-		this.token = token;
-	}
-
-	public static YouRoom getInstance() {
-		return new YouRoomClient();
-	}
-
-	public void setOAuthConsumer(String consumerKey, String consumerSecret){
+	@Override
+	public void setOAuthConsumer(String consumerKey, String consumerSecret) {
 		this.service = new ServiceBuilder()
 						.provider(YouRoomApi.class)
 						.apiKey(consumerKey)
@@ -61,47 +41,50 @@ public class YouRoomClient implements YouRoom {
 						.build();
 	}
 
-	public void setOAuthAccessToken(Token token){
+	@Override
+	public void setOAuthAccessToken(Token token) {
 		this.token = token;
 	}
 
-	/** {@inheritDoc} */
+	@Override
+	public void setOAuthAccessToken(String accessToken, String accsessTokenSecret) {
+		this.token = new Token(accessToken, accsessTokenSecret);
+	}
+
 	@Override
 	public List<Entry> getHomeTimeline(Paging paging) {
-		OAuthRequest request = new OAuthRequest(Verb.GET, HttpRequestUtil.addParamater(paging, HOME_TIMELINE_URL));
-		getService().signRequest(getToken(), request);
+		OAuthRequest request = new OAuthRequest(Verb.GET, addParamater(paging, HOME_TIMELINE_URL));
+		service.signRequest(token, request);
 		return HttpRequestUtil.getTimelineProceed(request.send().getBody());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public List<Entry> getRoomTimeline(Paging paging) {
 		StringBuilder url = new StringBuilder(ROOM_URL).append(paging.getGroupParam()).append("/entries.xml?");
+
 		String searchQuery = paging.getSearchQuery();
 		if (searchQuery != null && searchQuery.length() != 0)
 			url.append("search_query=").append(searchQuery);
 
-		OAuthRequest request = new OAuthRequest(Verb.GET, HttpRequestUtil.addParamater(paging, url.toString()));
-		getService().signRequest(getToken(), request);
+		OAuthRequest request = new OAuthRequest(Verb.GET, addParamater(paging, url.toString()));
+		service.signRequest(token, request);
 		return HttpRequestUtil.getTimelineProceed(request.send().getBody());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public Entry showEntry(int id, int groupParam) {
-		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append(".xml").toString();
+		String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
-		getService().signRequest(getToken(), request);
+		service.signRequest(token, request);
 		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public Entry createEntry(String content, int parentId, int groupParam) throws Exception {
 		if (content.length() > 140 || content.length() == 0)
 			throw new Exception("Illegal content length.");
 
-		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries.xml").toString();
+		String url = ROOM_URL + groupParam + "/entries.xml";
 		OAuthRequest request = new OAuthRequest(Verb.POST, url);
 
 		StringBuilder payload = new StringBuilder("<entry><content>").append(content).append("</content>");
@@ -111,84 +94,105 @@ public class YouRoomClient implements YouRoom {
 
 		request.addPayload(payload.toString());
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
-		getService().signRequest(getToken(), request);
-		Response response = request.send();
-		return HttpRequestUtil.getEntryProceed(response.getBody());
+		service.signRequest(token, request);
+		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public Entry createEntry(String content, int groupParam) throws Exception {
 		if (content.length() > 140 || content.length() == 0)
 			throw new Exception("Illegal content length.");
 
-		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries.xml").toString();
+		String url = ROOM_URL + groupParam + "/entries.xml";
 		OAuthRequest request = new OAuthRequest(Verb.POST, url);
 
-		String payload = new StringBuilder("<entry><content>").append(content).append("</content></entry>").toString();
+		String payload = "<entry><content>" + content + "</content></entry>";
 		request.addPayload(payload);
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
-		getService().signRequest(getToken(), request);
+		service.signRequest(token, request);
 		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public Entry updateEntry(int id, String content, int groupParam) throws Exception {
 		if (content.length() > 140 || content.length() == 0)
 			throw new Exception("illegal content length.");
 
-		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append(".xml").toString();
+		String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
 		OAuthRequest request = new OAuthRequest(Verb.PUT, url);
 
-		String payload = new StringBuilder("<entry><content>").append(content).append("</content></entry>").toString();
+		String payload = "<entry><content>" + content + "</content></entry>";
 		request.addPayload(payload);
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
-		getService().signRequest(getToken(), request);
+		service.signRequest(token, request);
 		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public Entry destroyEntry(int id, int groupParam) {
-		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append(".xml").toString();
+		String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
 		OAuthRequest request = new OAuthRequest(Verb.DELETE, url);
-		getService().signRequest(getToken(), request);
+		service.signRequest(token, request);
 		return HttpRequestUtil.getEntryProceed(request.send().getBody());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public byte[] showAttachment(int id, int groupParam) {
-		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/entries/").append(id).append("/attachment").toString();
+		String url = ROOM_URL + groupParam + "/entries/" + id + "/attachment";
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
-		getService().signRequest(getToken(), request);
+		service.signRequest(token, request);
 		return request.send().getBody().getBytes(Charset.forName("UTF-8"));
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public List<MyGroup> getMyGroups() {
 		OAuthRequest request = new OAuthRequest(Verb.GET, MY_GROUPS_URL);
-		getService().signRequest(getToken(), request);
+		service.signRequest(token, request);
 		return HttpRequestUtil.getMyGroups(request.send().getBody());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public List<User> verifyCredentials() {
-		OAuthRequest request = new OAuthRequest(Verb.GET, User_VERIFY_CREDENTIALS);
-		getService().signRequest(getToken(), request);
+		OAuthRequest request = new OAuthRequest(Verb.GET, USER_VERIFY_CREDENTIALS_URL);
+		service.signRequest(token, request);
 		return HttpRequestUtil.getUsers(request.send().getBody());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public byte[] showPicture(int groupParam, int participationId) {
-		String url = new StringBuilder(ROOM_URL).append(groupParam).append("/participations/").append(participationId).append("/picture").toString();
+		String url = ROOM_URL + groupParam + "/participations/" + participationId + "/picture";
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
-		getService().signRequest(getToken(), request);
+		service.signRequest(token, request);
 		return request.send().getBody().getBytes(Charset.forName("UTF-8"));
+	}
+
+	/**
+	 * Add paramater to url.
+	 *
+	 * @param paging
+	 * @param url
+	 * @return added url.
+	 */
+	private static String addParamater(Paging paging, String url) {
+		StringBuilder added = new StringBuilder(url);
+
+		int page = paging.getPage();
+		if (page > 0)
+			added.append("page=").append(page);
+
+		boolean flat = paging.getFlat();
+		if (flat)
+			added.append("flat=").append(flat);
+
+		String readState = paging.getReadState();
+		if ("unread".equals(readState))
+			added.append("read_state=").append(readState);
+
+		String since = paging.getSince();
+		if (since != null)
+			added.append("since=").append(since);
+
+		return added.toString();
 	}
 
 }

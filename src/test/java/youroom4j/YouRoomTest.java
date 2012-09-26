@@ -16,11 +16,11 @@ public class YouRoomTest {
 
 	@Before
 	public void setUp(){
-		youroom = YouRoomClient.getInstance();
+		youroom = YouRoomFactory.getInstance();
 	}
 
 	@Test
-	public void getHomeTimeLineTest() {
+	public void getHomeTimeLine() {
 		List<Entry> list = youroom.getHomeTimeline(new Paging("a", true, 1, "unread"));
 		assertSame(list.size(), 7);
 		assertNotNull(list);
