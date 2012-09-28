@@ -1,50 +1,61 @@
 [![Build Status](https://secure.travis-ci.org/rochefort/gem-search.png)](http://travis-ci.org/rochefort/gem-search)
 youRoom4J
 =========
-youRoom4Jは<a target="blank" href="https://www.youroom.in/">youRoom</a>が提供しているAPIのJavaラッパーです。<br/>
+youRoom4Jは<a target="blank" href="https://www.youroom.in">youRoom</a>が提供している<a target="blank" href="http://apidoc.youroom.in">API</a>のJavaラッパーです。<br/>
 youRoom4Jは非公式のライブラリです｡
 
-※Androidは近日対応予定です｡<br/>
+※Androidには現在対応していません｡
 ※Enterprise methodは近日対応予定です｡
 
 使い方
 ------
 ### インスタンス生成 ###
 ```java
-  Youroom youYoom = YouRoomFactory.getInstance();
-  youroom.setOAuthConsumer("consumerKey", "consumerSecret");
-  youroom.setOAuthAccessToken("accessToken", "accessTokenSecret");
+Youroom youYoom = YouRoomFactory.getInstance();
+youroom.setOAuthConsumer("consumerKey", "consumerSecret");
+youroom.setOAuthAccessToken("accessToken", "accessTokenSecret");
 ```
 ### タイムライン(ホーム)の取得 ###
 ホームタイムラインを返します｡
 ```java
-  List<Entry> list = youRoom.getHomeTimeline(new Paging());
+List<Entry> list = youRoom.getHomeTimeline(new Paging());
 ```
 ### タイムライン(ルーム)の取得 ###
 ```java
-  List<Entry> list = youRoom.getRoomTimeline(new Paging());
+List<Entry> list = youRoom.getRoomTimeline(new Paging());
 ```
 ### エントリの取得 ###
 ```java
-  Entry entry = youRoom.showEntry(int id, int groupParam);
+Entry entry = youRoom.showEntry(int id, int groupParam);
 ```
 ### エントリの作成 ###
 ```java
-  Entry entry = youRoom.createEntry(String content, int parentId, int groupParam);
+Entry entry = youRoom.createEntry(String content, int parentId, int groupParam);
 ```
 ### エントリの更新 ###
 ```java
-  Entry entry = youRoom.createEntry(String content, int parentId, int groupParam);
+Entry entry = youRoom.createEntry(int id, String content, int groupParam);
 ```
-
-### タイムライン(ルーム)の取得 ###
-
-### タイムライン(ルーム)の取得 ###
-
-### タイムライン(ルーム)の取得 ###
-    
-    
-
+### エントリの削除 ###
+```java
+Entry entry = youRoom.destroyEntry(int id, int groupParam);
+```
+### アタッチメントの取得 ###
+```java
+byte[] attachment = youRoom.showAttachment(int id, int groupParam);
+```
+### 参加しているグループの取得 ###
+```java
+List<MyGroup> groups = youRoom.getMyGroups();
+```
+### User/verify_credentialsの取得 ###
+```java
+List<User> groups = youRoom.verifyCredentials();
+```    
+### User/verify_credentialsの取得 ###
+```java
+byte[] picture = youRoom.showPicture(int groupParam, int participationId);
+```
 
 
 
