@@ -4,43 +4,50 @@ youRoom4J
 youRoom4Jは<a target="blank" href="https://www.youroom.in">youRoom</a>が提供している<a target="blank" href="http://apidoc.youroom.in">API</a>のJavaラッパーです。<br/>
 youRoom4Jは非公式のライブラリです｡
 
-※Androidには現在対応していません｡
+Twitter4J は JSON レスポンスの解析のため JSON.org のソフトウェアを含んでいます。JSON.org のソフトウェアのライセンスについてはThe JSON Licenseをご覧ください。
+
+※Androidには現在対応していません｡<br/>
 ※Enterprise methodは近日対応予定です｡
 
-使い方
-------
-### インスタンス生成 ###
+##使い方
+### インスタンス生成
 ```java
 Youroom youYoom = YouRoomFactory.getInstance();
 youroom.setOAuthConsumer("consumerKey", "consumerSecret");
 youroom.setOAuthAccessToken("accessToken", "accessTokenSecret");
 ```
-### タイムライン(ホーム)の取得 ###
+### タイムライン(ホーム)の取得
 ホームタイムラインを返します｡
 ```java
 List<Entry> list = youRoom.getHomeTimeline(new Paging());
 ```
-### タイムライン(ルーム)の取得 ###
+### タイムライン(ルーム)の取得
+指定したルームのタイムラインを返します｡
 ```java
 List<Entry> list = youRoom.getRoomTimeline(new Paging());
 ```
-### エントリの取得 ###
+### エントリの取得
+指定したエントリの情報を返します｡
 ```java
 Entry entry = youRoom.showEntry(int id, int groupParam);
 ```
-### エントリの作成 ###
+### エントリの作成
+YouRoom#createEntry()メソッドで指定したルームにエントリを投稿することができます。
 ```java
 Entry entry = youRoom.createEntry(String content, int parentId, int groupParam);
 ```
-### エントリの更新 ###
+### エントリの更新
+YouRoom#updateEntry()メソッドで指定したエントリを更新することができます。
 ```java
 Entry entry = youRoom.createEntry(int id, String content, int groupParam);
 ```
-### エントリの削除 ###
+### エントリの削除
+YouRoom#deleteEntry()メソッドで指定したエントリを削除することができます。
 ```java
 Entry entry = youRoom.destroyEntry(int id, int groupParam);
 ```
-### アタッチメントの取得 ###
+### アタッチメントの取得
+YouRoom#showAttachment()メソッドで指定したエントリを削除することができます。
 ```java
 byte[] attachment = youRoom.showAttachment(int id, int groupParam);
 ```
