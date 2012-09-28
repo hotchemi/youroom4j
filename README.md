@@ -24,11 +24,18 @@ youRoom4Jは非公式のライブラリです｡
 ```java
   List<Entry> list = youRoom.getRoomTimeline(new Paging());
 ```
-### タイムライン(ルーム)の取得 ###
-
-### タイムライン(ルーム)の取得 ###
-
-### タイムライン(ルーム)の取得 ###
+### エントリの取得 ###
+```java
+  Entry entry = youRoom.showEntry(int id, int groupParam);
+```
+### エントリの作成 ###
+```java
+  Entry entry = youRoom.createEntry(String content, int parentId, int groupParam);
+```
+### エントリの更新 ###
+```java
+  Entry entry = youRoom.createEntry(String content, int parentId, int groupParam);
+```
 
 ### タイムライン(ルーム)の取得 ###
 
