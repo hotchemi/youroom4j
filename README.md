@@ -1,31 +1,89 @@
-[![Build Status](https://secure.travis-ci.org/rochefort/gem-search.png)](http://travis-ci.org/rochefort/gem-search)
-youRoom4J
+youRoom4J [![Build Status](https://secure.travis-ci.org/rochefort/gem-search.png)](http://travis-ci.org/rochefort/gem-search)
 =========
 youRoom4Jは<a target="blank" href="https://www.youroom.in">youRoom</a>が提供している<a target="blank" href="http://apidoc.youroom.in">API</a>のJavaラッパーです。<br/>
-youRoom4Jは非公式のライブラリです｡
+youRoom4Jを使うとyouRoomのAPIを活用したアプリケーションを容易に開発することが出来ます｡<br/>
 
-Twitter4J は JSON レスポンスの解析のため JSON.org のソフトウェアを含んでいます。JSON.org のソフトウェアのライセンスについてはThe JSON Licenseをご覧ください。
+* OAuthに対応｡
+* XAuthは今後対応予定｡
+* Enterprise methodsは現在対応中｡
+* Android､GAEは今後対応予定｡
+* youRoom4Jは非公式のライブラリです｡
 
-※Androidには現在対応していません｡<br/>
-※Enterprise methodは近日対応予定です｡
-
-##使い方
-### インスタンス生成
+##Installation
+Downloadsより最新版を取得し､youroom4j.jarにクラスパスを通して好きなメソッドを呼び出して下さい｡
+##Code Sample
+### 1. OAuth
+OAuth認証を利用するとユーザーにメールアドレスとパスワードを提供してもらうことなくユーザのアカウントにアクセスできます｡<br/>
+OAuthを利用するにはhttp://apidoc.youroom.in/authentication で事前に申請を行いconsumer key､consumer secretを取得しておく必要があります｡<br/>
+取得したconsumer keyとconsumer secretはOAuthAuthorization#setOAuthConsumerクラスにセットします｡<br/>
+この際､認証後にコールバックされてくるURLも同時に指定する必要があります｡
 ```java
-Youroom youYoom = YouRoomFactory.getInstance();
+OAuthAuthorization authorization= new OAuthAuthorization();
+authorization.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
+```
+以下のようにauthorization URLにユーザを誘導し､AccessTokenを取得する必要があります。
+```java
+public static void main(String[] args) throws Exception {
+  OAuthAuthorization authorization= new OAuthAuthorization();
+  authorization.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
+  
+  System.out.println(authorization.getAuthorizationUrl());
+  System.out.print("enter oauth_verifier:");
+  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  String oauthVerifier = "";
+  
+  try {
+    // コールバックURLについてくるoauth_verifier=以下を入力
+    oauthVerifier = br.readLine();
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+
+  // accessToken.getAceessToken()とaccessToken.getAceessTokenSecret()を永続化
+  AccessToken accessToken = authorization.getAccessToken(oauthVerifier);
+  System.out.println("accessToken=" + accessToken.getAceessToken());
+  System.out.println("accessTokenSecret" + accessToken.getAceessTokenSecret());
+}
+```
+次回からはconsumer key/secretとaccess token/secretのみでユーザアカウントにアクセスできます｡
+取得したconsumer key/secretとaccess token/secretを設定します｡
+```java
+Youroom youRoom = YouRoomFactory.getInstance();
 youroom.setOAuthConsumer("consumerKey", "consumerSecret");
 youroom.setOAuthAccessToken("accessToken", "accessTokenSecret");
 ```
-### タイムライン(ホーム)の取得
-ホームタイムラインを返します｡
+### 2. Home Timeline
+YouRoom#getHomeTimeline()メソッドはホームタイムラインを返します｡<br/>
+引数にPagingオブジェクトを指定します｡
 ```java
-List<Entry> list = youRoom.getHomeTimeline(new Paging());
+Paging paging = new Paging(String since, boolean flat, int page, String readState);
+List<Entry> list = youRoom.getHomeTimeline(paging);
 ```
-### タイムライン(ルーム)の取得
-指定したルームのタイムラインを返します｡
++ `since` :
+  Bigining time of fetch entries. Use the RFC 3339 timestamp format. _For example: 2005-08-09T10:57:00-08:00._
++ `flat` :
+  If given _"true"_, response is include topics and comments and sorted by created_at.
++ `page` :
+  Pagination entries.
++ `readState` :
+  If given _"unread"_, response is include only unread topics.
+
+### 3. Home Timeline
+YouRoom#getRoomTimeline()メソッドは指定したルームのタイムラインを返します｡<br/>
+引数にPagingオブジェクトを指定します｡
 ```java
-List<Entry> list = youRoom.getRoomTimeline(new Paging());
+Paging paging = new Paging(int groupParam, String since, String searchQuery, boolean flat, int page, String readState);
+List<Entry> list = youRoom.getRoomTimeline(paging);
 ```
++ `since` :
+  Bigining time of fetch entries. Use the RFC 3339 timestamp format. _For example: 2005-08-09T10:57:00-08:00._
++ `flat` :
+  If given _"true"_, response is include topics and comments and sorted by created_at.
++ `page` :
+  Pagination entries.
++ `readState` :
+  If given _"unread"_, response is include only unread topics.
+
 ### エントリの取得
 指定したエントリの情報を返します｡
 ```java
@@ -63,6 +121,8 @@ List<User> groups = youRoom.verifyCredentials();
 ```java
 byte[] picture = youRoom.showPicture(int groupParam, int participationId);
 ```
+
+Twitter4J  JSON レスポンスの解析のため JSON.org のソフトウェアを含んでいます。JSON.org のソフトウェアのライセンスについてはThe JSON Licenseをご覧ください。
 
 
 
