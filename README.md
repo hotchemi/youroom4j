@@ -13,19 +13,19 @@ youRoom4Jを使うとyouRoomのAPIを活用したアプリケーションを容�
 Downloadsより最新版を取得し､youroom4j.jarにクラスパスを通して好きなメソッドを呼び出して下さい｡
 ##Source Code
 プロジェクトのリポジトリには以下のURLからアクセスできます｡
-```sh
+```ruby
 github: https://github.com/hotchemi/youroom4j
 ```
 また､以下のようにgitを使って最新のソースコードをチェックアウトすることもできます。
-```sh
+```ruby
 git clone git@github.com:hotchemi/youroom4j.git
 ```
 ##Sample Code
 ### 1. OAuth
 OAuth認証を利用するとユーザーにメールアドレスとパスワードを提供してもらうことなくユーザのアカウントにアクセスできます｡<br/>
-OAuthを利用するにはhttp://apidoc.youroom.in/authentication で事前に申請を行いconsumer key､consumer secretを取得しておく必要があります｡<br/>
-取得したconsumer keyとconsumer secretはOAuthAuthorization#setOAuthConsumerクラスにセットします｡<br/>
-この際､認証後にコールバックされてくるURLも同時に指定する必要があります｡
+OAuthを利用するにはhttp://apidoc.youroom.in/authentication で事前に申請を行いconsumer key/secretを取得しておく必要があります｡<br/>
+取得したconsumer key/secretはOAuthAuthorization#setOAuthConsumerクラスに設定します｡<br/>
+この際､認証後にコールバックされるURLも同時に指定する必要があります｡
 ```java
 OAuthAuthorization authorization= new OAuthAuthorization();
 authorization.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
@@ -132,7 +132,7 @@ Entry entry = youRoom.createEntry(int id, String content, int groupParam);
   __Required.__ The subdomain of the room include entry to update.
 
 ### 7. Destroy Entry
-YouRoom#deleteEntry()メソッドで指定したエントリを削除することができます。
+YouRoom#destroyEntry()メソッドで指定したエントリを削除することができます。
 ```java
 Entry entry = youRoom.destroyEntry(int id, int groupParam);
 ```
@@ -157,9 +157,9 @@ YouRoom#getMyGroups()メソッドで所属しているルーム一覧を取得�
 List<MyGroup> groups = youRoom.getMyGroups();
 ```
 ### 10. User/verify_credentials
-YouRoom#verifyCredentials()メソッドでユーザ情報を取得できます｡
+YouRoom#verifyCredentials()メソッドでユーザアカウント情報を取得できます｡
 ```java
-List<User> groups = youRoom.verifyCredentials();
+User user = youRoom.verifyCredentials();
 ```    
 ### 11. Show Picture
 YouRoom#showPicture()メソッドでエントリに添付されている画像情報を取得できます｡
