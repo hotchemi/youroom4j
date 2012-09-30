@@ -9,8 +9,6 @@ youRoom4Jを使うとyouRoomのAPIを活用したアプリケーションを容�
 * Android､GAEは今後対応予定｡
 * youRoom4Jは非公式のライブラリです｡
 
-##Install
-Downloadsより最新版を取得し､youroom4j.jarにクラスパスを通して好きなメソッドを呼び出して下さい｡
 ##Source Code
 プロジェクトのリポジトリには以下のURLからアクセスできます｡
 ```ruby
@@ -20,6 +18,9 @@ github: https://github.com/hotchemi/youroom4j
 ```ruby
 git clone git@github.com:hotchemi/youroom4j.git
 ```
+##Usage
+<a target="blank" href="https://github.com/hotchemi/youroom4j/downloads">Downloads</a>より最新版のjarを取得し､クラスパスを通して下さい｡<br/>
+Javaが分かっていれば<a target="blank" href="http://youroom4j.herokuapp.com">JavaDoc</a>を見る事をお薦めします｡
 ##Sample Code
 ### 1. OAuth
 OAuth認証を利用するとユーザーにメールアドレスとパスワードを提供してもらうことなくユーザのアカウントにアクセスできます｡<br/>
