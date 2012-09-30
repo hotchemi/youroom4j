@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>youRoom4J by hotchemi</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>youRoom4J</h1>
+        <h2>youRoom4J is a Java library for the youRoom API.</h2>
+        <a href="https://github.com/hotchemi/youroom4j" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>youRoom4J <a href="http://travis-ci.org/rochefort/gem-search"><img src="https://secure.travis-ci.org/rochefort/gem-search.png" alt="Build Status"></a>
+</h1>
+
+<p>youRoom4Jは<a target="blank" href="https://www.youroom.in">youRoom</a>が提供している<a target="blank" href="http://apidoc.youroom.in">API</a>のJavaラッパーです。<br>
+youRoom4Jを使うとyouRoomのAPIを活用したアプリケーションを容易に開発することが出来ます｡<br></p>
+
+<ul>
+<li>OAuthに対応｡</li>
+<li>XAuthは今後対応予定｡</li>
+<li>Enterprise methodsは現在対応中｡</li>
+<li>Android､GAEは今後対応予定｡</li>
+<li>youRoom4Jは非公式のライブラリです｡</li>
+</ul><h2>Source Code</h2>
+
+<p>プロジェクトのリポジトリには以下のURLからアクセスできます｡</p>
+
+<div class="highlight"><pre><span class="n">github</span><span class="p">:</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">hotchemi</span><span class="o">/</span><span class="n">youroom4j</span>
+</pre></div>
+
+<p>また､以下のようにgitを使って最新のソースコードをチェックアウトすることもできます。</p>
+
+<div class="highlight"><pre><span class="n">git</span> <span class="nb">clone</span> <span class="n">git</span><span class="vi">@github</span><span class="o">.</span><span class="n">com</span><span class="ss">:hotchemi</span><span class="o">/</span><span class="n">youroom4j</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+
+<h2>Usage</h2>
+
+<p><a target="blank" href="https://github.com/hotchemi/youroom4j/downloads">Downloads</a>より最新版のjarを取得し､クラスパスを通して下さい｡<br>
+Javaが分かっていれば<a target="blank" href="http://youroom4j.herokuapp.com">JavaDoc</a>を見る事をお薦めします｡</p>
+
+<h2>Sample Code</h2>
+
+<h3>1. OAuth</h3>
+
+<p>OAuth認証を利用するとユーザーにメールアドレスとパスワードを提供してもらうことなくユーザのアカウントにアクセスできます｡<br>
+OAuthを利用するには<a href="http://apidoc.youroom.in/authentication">http://apidoc.youroom.in/authentication</a> で事前に申請を行いconsumer key/secretを取得しておく必要があります｡<br>
+取得したconsumer key/secretはOAuthAuthorization#setOAuthConsumerクラスに設定します｡<br>
+この際､認証後にコールバックされるURLも同時に指定する必要があります｡</p>
+
+<div class="highlight"><pre><span class="n">OAuthAuthorization</span> <span class="n">authorization</span><span class="o">=</span> <span class="k">new</span> <span class="n">OAuthAuthorization</span><span class="o">();</span>
+<span class="n">authorization</span><span class="o">.</span><span class="na">setOAuthConsumer</span><span class="o">(</span><span class="s">"consumerKey"</span><span class="o">,</span> <span class="s">"consumerSecret"</span><span class="o">,</span> <span class="s">"callbackUrl"</span><span class="o">);</span>
+</pre></div>
+
+<p>以下のようにauthorization URLにユーザを誘導し､AccessTokenを取得する必要があります。</p>
+
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+  <span class="n">OAuthAuthorization</span> <span class="n">authorization</span><span class="o">=</span> <span class="k">new</span> <span class="n">OAuthAuthorization</span><span class="o">();</span>
+  <span class="n">authorization</span><span class="o">.</span><span class="na">setOAuthConsumer</span><span class="o">(</span><span class="s">"consumerKey"</span><span class="o">,</span> <span class="s">"consumerSecret"</span><span class="o">,</span> <span class="s">"callbackUrl"</span><span class="o">);</span>
+
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">authorization</span><span class="o">.</span><span class="na">getAuthorizationUrl</span><span class="o">());</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"enter oauth_verifier:"</span><span class="o">);</span>
+  <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">));</span>
+  <span class="n">String</span> <span class="n">oauthVerifier</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="c1">// コールバックURLについてくるoauth_verifier=以下を入力</span>
+    <span class="n">oauthVerifier</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="c1">// accessToken.getAceessToken()とaccessToken.getAceessTokenSecret()を永続化</span>
+  <span class="n">AccessToken</span> <span class="n">accessToken</span> <span class="o">=</span> <span class="n">authorization</span><span class="o">.</span><span class="na">getAccessToken</span><span class="o">(</span><span class="n">oauthVerifier</span><span class="o">);</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"accessToken="</span> <span class="o">+</span> <span class="n">accessToken</span><span class="o">.</span><span class="na">getAceessToken</span><span class="o">());</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"accessTokenSecret"</span> <span class="o">+</span> <span class="n">accessToken</span><span class="o">.</span><span class="na">getAceessTokenSecret</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>次回からはconsumer key/secretとaccess token/secretのみでユーザアカウントにアクセスできます｡
+取得したconsumer key/secretとaccess token/secretを設定します｡</p>
+
+<div class="highlight"><pre><span class="n">Youroom</span> <span class="n">youRoom</span> <span class="o">=</span> <span class="n">YouRoomFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+<span class="n">youroom</span><span class="o">.</span><span class="na">setOAuthConsumer</span><span class="o">(</span><span class="s">"consumerKey"</span><span class="o">,</span> <span class="s">"consumerSecret"</span><span class="o">);</span>
+<span class="n">youroom</span><span class="o">.</span><span class="na">setOAuthAccessToken</span><span class="o">(</span><span class="s">"accessToken"</span><span class="o">,</span> <span class="s">"accessTokenSecret"</span><span class="o">);</span>
+</pre></div>
+
+<h3>2. Home Timeline</h3>
+
+<p>YouRoom#getHomeTimeline()メソッドはホームタイムラインを返します｡<br>
+引数にPagingオブジェクトを指定します｡</p>
+
+<div class="highlight"><pre><span class="n">Paging</span> <span class="n">paging</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paging</span><span class="o">(</span><span class="n">String</span> <span class="n">since</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">flat</span><span class="o">,</span> <span class="kt">int</span> <span class="n">page</span><span class="o">,</span> <span class="n">String</span> <span class="n">readState</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">getHomeTimeline</span><span class="o">(</span><span class="n">paging</span><span class="o">);</span>
+</pre></div>
+
+<ul>
+<li>
+<code>since</code> :
+Bigining time of fetch entries. Use the RFC 3339 timestamp format. <em>For example: 2005-08-09T10:57:00-08:00.</em>
+</li>
+<li>
+<code>flat</code> :
+If given <em>"true"</em>, response is include topics and comments and sorted by created_at.</li>
+<li>
+<code>page</code> :
+Pagination entries.</li>
+<li>
+<code>readState</code> :
+If given <em>"unread"</em>, response is include only unread topics.</li>
+</ul><h3>3. Room Timeline</h3>
+
+<p>YouRoom#getRoomTimeline()メソッドは指定したルームのタイムラインを返します｡<br>
+引数にPagingオブジェクトを指定します｡</p>
+
+<div class="highlight"><pre><span class="n">Paging</span> <span class="n">paging</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paging</span><span class="o">(</span><span class="kt">int</span> <span class="n">groupParam</span><span class="o">,</span> <span class="n">String</span> <span class="n">since</span><span class="o">,</span> <span class="n">String</span> <span class="n">searchQuery</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">flat</span><span class="o">,</span> <span class="kt">int</span> <span class="n">page</span><span class="o">,</span> <span class="n">String</span> <span class="n">readState</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">getRoomTimeline</span><span class="o">(</span><span class="n">paging</span><span class="o">);</span>
+</pre></div>
+
+<ul>
+<li>
+<code>groupParam</code> :
+<strong>Required.</strong> The subdomain of the room include entry to destroy.</li>
+<li>
+<code>since</code> :
+Bigining time of fetch entries. Use the RFC 3339 timestamp format. <em>For example: 2005-08-09T10:57:00-08:00.</em>
+</li>
+<li>
+<code>searchQuery</code> :
+Keyword for search entries.</li>
+<li>
+<code>flat</code> :
+If given <em>"true"</em>, response is include topics and comments and sorted by created_at.</li>
+<li>
+<code>page</code> :
+Pagination entries.</li>
+<li>
+<code>readState</code> :
+If given <em>"unread"</em>, response is include only unread topics.</li>
+</ul><h3>4. Entry Show</h3>
+
+<p>YouRoom#showEntry()メソッドは指定したエントリの情報を返します｡</p>
+
+<div class="highlight"><pre><span class="n">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">showEntry</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="kt">int</span> <span class="n">groupParam</span><span class="o">);</span>
+</pre></div>
+
+<ul>
+<li>
+<code>id</code> :
+<strong>Required.</strong> The ID of the entry.</li>
+<li>
+<code>groupParam</code> :
+<strong>Required.</strong> The subdomain of the room include entry.</li>
+</ul><h3>5. Create Entry</h3>
+
+<p>YouRoom#createEntry()メソッドで指定したルームにエントリを投稿することができます。</p>
+
+<div class="highlight"><pre><span class="n">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">createEntry</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">,</span> <span class="kt">int</span> <span class="n">parentId</span><span class="o">,</span> <span class="kt">int</span> <span class="n">groupParam</span><span class="o">);</span>
+</pre></div>
+
+<ul>
+<li>
+<code>content</code> :
+<strong>Required.</strong> The text of Entry's content. Text over 140 characters will cause a 422 error to be returned from the API.</li>
+<li>
+<code>parentId</code> :
+<strong>Optional.</strong> The id of parent entry.</li>
+<li>
+<code>groupParam</code> :
+<strong>Required.</strong> The subdomain of the room include entry to create.</li>
+</ul><h3>6. Update Entry</h3>
+
+<p>YouRoom#updateEntry()メソッドで指定したエントリを更新することができます。</p>
+
+<div class="highlight"><pre><span class="n">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">createEntry</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">content</span><span class="o">,</span> <span class="kt">int</span> <span class="n">groupParam</span><span class="o">);</span>
+</pre></div>
+
+<ul>
+<li>
+<code>id</code> :
+<strong>Required.</strong> The ID of the entry to update.</li>
+<li>
+<code>content</code> :
+<strong>Required.</strong> The text of Entry's content. Text over 140 characters will cause a 422 error to be returned from the API.</li>
+<li>
+<code>groupParam</code> :
+<strong>Required.</strong> The subdomain of the room include entry to update.</li>
+</ul><h3>7. Destroy Entry</h3>
+
+<p>YouRoom#destroyEntry()メソッドで指定したエントリを削除することができます。</p>
+
+<div class="highlight"><pre><span class="n">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">destroyEntry</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="kt">int</span> <span class="n">groupParam</span><span class="o">);</span>
+</pre></div>
+
+<ul>
+<li>
+<code>id</code> :
+<strong>Required.</strong> The ID of the entry to destroy.</li>
+<li>
+<code>groupParam</code> :
+<strong>Required.</strong> The subdomain of the room include entry to destroy.</li>
+</ul><h3>8. show Attachment</h3>
+
+<p>YouRoom#showAttachment()メソッドで指定したエントリの添付ファイルを取得します｡</p>
+
+<div class="highlight"><pre><span class="kt">byte</span><span class="o">[]</span> <span class="n">attachment</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">showAttachment</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="kt">int</span> <span class="n">groupParam</span><span class="o">);</span>
+</pre></div>
+
+<ul>
+<li>
+<code>id</code> :
+<strong>Required.</strong> The ID of the entry.</li>
+<li>
+<code>groupParam</code> :
+<strong>Required.</strong> The subdomain of the room include entry.</li>
+</ul><h3>9. My Groups</h3>
+
+<p>YouRoom#getMyGroups()メソッドで所属しているルーム一覧を取得できます｡</p>
+
+<div class="highlight"><pre><span class="n">List</span><span class="o">&lt;</span><span class="n">MyGroup</span><span class="o">&gt;</span> <span class="n">groups</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">getMyGroups</span><span class="o">();</span>
+</pre></div>
+
+<h3>10. User/verify_credentials</h3>
+
+<p>YouRoom#verifyCredentials()メソッドでユーザアカウント情報を取得できます｡</p>
+
+<div class="highlight"><pre><span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">verifyCredentials</span><span class="o">();</span>
+</pre></div>
+
+<h3>11. Show Picture</h3>
+
+<p>YouRoom#showPicture()メソッドでエントリに添付されている画像情報を取得できます｡</p>
+
+<div class="highlight"><pre><span class="kt">byte</span><span class="o">[]</span> <span class="n">picture</span> <span class="o">=</span> <span class="n">youRoom</span><span class="o">.</span><span class="na">showPicture</span><span class="o">(</span><span class="kt">int</span> <span class="n">groupParam</span><span class="o">,</span> <span class="kt">int</span> <span class="n">participationId</span><span class="o">);</span>
+</pre></div>
+
+<ul>
+<li>
+<code>groupParam</code> :
+<strong>Required.</strong> The subdomain of the room include entry.</li>
+<li>
+<code>participationId</code> :
+<strong>Required.</strong> The ID of the entry.</li>
+</ul><h2>ライセンス</h2>
+
+<ul>
+<li><p>youRoom4JはXMLレスポンスの解析のため､<a target="blank" href="http://code.google.com/p/joox/">jOOX</a>のソフトウェアを含んでいます｡<br>
+jOOXのソフトウェアのライセンスについては<a target="blank" href="http://www.apache.org/licenses/">こちら</a>をご覧ください｡<br></p></li>
+<li><p>youRoom4JはOAuth認証のため､<a target="blank" href="https://github.com/fernandezpablo85/scribe-java">scribe-java</a>のソフトウェアを含んでいます｡<br>
+scribe-javaのソフトウェアのライセンスについては<a target="blank" href="https://github.com/fernandezpablo85/scribe-java/blob/master/LICENSE.txt">こちら</a>をご覧ください。</p></li>
+</ul>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/hotchemi/youroom4j/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/hotchemi/youroom4j/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/hotchemi/youroom4j"></a> is maintained by <a href="https://github.com/hotchemi">hotchemi</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
