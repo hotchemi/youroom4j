@@ -75,9 +75,12 @@ public class YouRoomImpl implements YouRoom {
 	}
 
 	@Override
-	public Entry createEntry(String content, int parentId, int groupParam) throws Exception {
-		if (content.length() > 140 || content.length() == 0)
-			throw new Exception("Illegal content length.");
+	public Entry createEntry(String content, int parentId, int groupParam) throws IllegalArgumentException {
+		if (content.length() > 140)
+			throw new IllegalArgumentException("Content length over 140.");
+
+		if (content.length() == 0)
+			throw new IllegalArgumentException("Content length is 0.");
 
 		String url = ROOM_URL + groupParam + "/entries.xml";
 		OAuthRequest request = new OAuthRequest(Verb.POST, url);
@@ -85,6 +88,7 @@ public class YouRoomImpl implements YouRoom {
 		StringBuilder payload = new StringBuilder("<entry><content>").append(content).append("</content>");
 		if (parentId > 0)
 			payload.append("<parent_id>").append(parentId).append("</parent_id>");
+
 		payload.append("</entry>");
 
 		request.addPayload(payload.toString());
@@ -94,9 +98,12 @@ public class YouRoomImpl implements YouRoom {
 	}
 
 	@Override
-	public Entry createEntry(String content, int groupParam) throws Exception {
-		if (content.length() > 140 || content.length() == 0)
-			throw new Exception("Illegal content length.");
+	public Entry createEntry(String content, int groupParam) throws IllegalArgumentException {
+		if (content.length() > 140)
+			throw new IllegalArgumentException("Content length over 140.");
+
+		if (content.length() == 0)
+			throw new IllegalArgumentException("Content length is 0.");
 
 		String url = ROOM_URL + groupParam + "/entries.xml";
 		OAuthRequest request = new OAuthRequest(Verb.POST, url);
@@ -109,9 +116,12 @@ public class YouRoomImpl implements YouRoom {
 	}
 
 	@Override
-	public Entry updateEntry(int id, String content, int groupParam) throws Exception {
-		if (content.length() > 140 || content.length() == 0)
-			throw new Exception("illegal content length.");
+	public Entry updateEntry(int id, String content, int groupParam) throws IllegalArgumentException {
+		if (content.length() > 140)
+			throw new IllegalArgumentException("Content length over 140.");
+
+		if (content.length() == 0)
+			throw new IllegalArgumentException("Content length is 0.");
 
 		String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
 		OAuthRequest request = new OAuthRequest(Verb.PUT, url);
