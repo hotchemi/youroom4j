@@ -8,7 +8,7 @@ import youroom4j.model.Entry;
 import youroom4j.model.Paging;
 import youroom4j.model.MyGroup;
 import youroom4j.model.User;
-import youroom4j.util.HttpRequestUtil;
+import youroom4j.util.RequestUtil;
 import youroom4j.auth.YouRoomApi;
 
 import org.scribe.model.OAuthRequest;
@@ -42,15 +42,15 @@ public class YouRoomImpl implements YouRoom {
 	}
 
 	@Override
-	public void setOAuthAccessToken(String accessToken, String accsessTokenSecret) {
-		this.token = new Token(accessToken, accsessTokenSecret);
+	public void setOAuthAccessToken(String accessToken, String accessTokenSecret) {
+		this.token = new Token(accessToken, accessTokenSecret);
 	}
 
 	@Override
 	public List<Entry> getHomeTimeline(Paging paging) {
 		OAuthRequest request = new OAuthRequest(Verb.GET, addParamater(paging, HOME_TIMELINE_URL));
 		service.signRequest(token, request);
-		return HttpRequestUtil.getTimelineProceed(request.send().getBody());
+		return RequestUtil.getTimeline(request.send().getBody());
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class YouRoomImpl implements YouRoom {
 
 		OAuthRequest request = new OAuthRequest(Verb.GET, addParamater(paging, url.toString()));
 		service.signRequest(token, request);
-		return HttpRequestUtil.getTimelineProceed(request.send().getBody());
+		return RequestUtil.getTimeline(request.send().getBody());
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class YouRoomImpl implements YouRoom {
 		String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
 		OAuthRequest request = new OAuthRequest(Verb.GET, url);
 		service.signRequest(token, request);
-		return HttpRequestUtil.getEntryProceed(request.send().getBody());
+		return RequestUtil.getEntry(request.send().getBody());
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class YouRoomImpl implements YouRoom {
 		request.addPayload(payload.toString());
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
 		service.signRequest(token, request);
-		return HttpRequestUtil.getEntryProceed(request.send().getBody());
+		return RequestUtil.getEntry(request.send().getBody());
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class YouRoomImpl implements YouRoom {
 		request.addPayload(payload);
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
 		service.signRequest(token, request);
-		return HttpRequestUtil.getEntryProceed(request.send().getBody());
+		return RequestUtil.getEntry(request.send().getBody());
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class YouRoomImpl implements YouRoom {
 		request.addPayload(payload);
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
 		service.signRequest(token, request);
-		return HttpRequestUtil.getEntryProceed(request.send().getBody());
+		return RequestUtil.getEntry(request.send().getBody());
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class YouRoomImpl implements YouRoom {
 		String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
 		OAuthRequest request = new OAuthRequest(Verb.DELETE, url);
 		service.signRequest(token, request);
-		return HttpRequestUtil.getEntryProceed(request.send().getBody());
+		return RequestUtil.getEntry(request.send().getBody());
 	}
 
 	@Override
@@ -153,14 +153,14 @@ public class YouRoomImpl implements YouRoom {
 	public List<MyGroup> getMyGroups() {
 		OAuthRequest request = new OAuthRequest(Verb.GET, MY_GROUPS_URL);
 		service.signRequest(token, request);
-		return HttpRequestUtil.getMyGroups(request.send().getBody());
+		return RequestUtil.getMyGroups(request.send().getBody());
 	}
 
 	@Override
-	public List<User> verifyCredentials() {
+	public User verifyCredentials() {
 		OAuthRequest request = new OAuthRequest(Verb.GET, USER_VERIFY_CREDENTIALS_URL);
 		service.signRequest(token, request);
-		return HttpRequestUtil.getUsers(request.send().getBody());
+		return RequestUtil.getUser(request.send().getBody());
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package youroom4j;
 
 import java.util.List;
-import org.scribe.model.Token;
 
 import youroom4j.model.Entry;
 import youroom4j.model.Paging;
@@ -31,28 +30,28 @@ public interface YouRoom {
 	 * @param accessToken
 	 * @param accessTokenSecret
 	 */
-	void setOAuthAccessToken(String accessToken, String accsessTokenSecret);
+	void setOAuthAccessToken(String accessToken, String accessTokenSecret);
 
 	/**
-	 * Get home timeline information.
+	 * Get home timeline.
 	 *
 	 * @param paging
-	 * @return list contain entries.
+	 * @return list contains entry.
 	 * @see <a href="http://apidoc.youroom.in/rest-timeline-home">API Doc</a>
 	 */
 	List<Entry> getHomeTimeline(Paging paging);
 
 	/**
-	 * Get room timeline information.
+	 * Get room timeline.
 	 *
 	 * @param paging
-	 * @return list contain entries.
+	 * @return list contains entry.
 	 * @see <a href="http://apidoc.youroom.in/rest-room-timeline">API Doc</a>
 	 */
 	List<Entry> getRoomTimeline(Paging paging);
 
 	/**
-	 * Get one single entry status.
+	 * Get one single entry.
 	 *
 	 * @param id The ID of the entry.
 	 * @param groupParam The subdomain of the room include entry.
@@ -68,9 +67,10 @@ public interface YouRoom {
 	 * @param parentId Optional The id of parent entry.
 	 * @param groupParam The subdomain of the room include entry to create.
 	 * @return one single entry.
+	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-entry-create">API Doc</a>
 	 */
-	Entry createEntry(String content, int parentId, int groupParam) throws Exception;
+	Entry createEntry(String content, int parentId, int groupParam) throws IllegalArgumentException;
 
 	/**
 	 * Create one single entry.<br>
@@ -79,9 +79,10 @@ public interface YouRoom {
 	 * @param content The text of Entry's content. Text over 140 characters will cause a 422 error to be returned from the API.
 	 * @param groupParam The subdomain of the room include entry to create.
 	 * @return one single entry.
+	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-entry-create">API Doc</a>
 	 */
-	Entry createEntry(String content, int groupParam) throws Exception;
+	Entry createEntry(String content, int groupParam) throws IllegalArgumentException;
 
 	/**
 	 * Update one single entry.
@@ -90,9 +91,10 @@ public interface YouRoom {
 	 * @param content The text of Entry's content. Text over 140 characters will cause a 422 error to be returned from the API.
 	 * @param groupParam The subdomain of the room include entry to update.
 	 * @return one single entry.
+	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-entry-update">API Doc</a>
 	 */
-	Entry updateEntry(int id, String content, int groupParam) throws Exception;
+	Entry updateEntry(int id, String content, int groupParam) throws IllegalArgumentException;
 
 	/**
 	 * Destroy one single entry.
@@ -115,20 +117,20 @@ public interface YouRoom {
 	byte[] showAttachment(int id, int groupParam);
 
 	/**
-	 * Get my groups information.
+	 * Get my groups.
 	 *
-	 * @return results
+	 * @return list contains mygroup.
 	 * @see <a href="http://apidoc.youroom.in/rest-my-groups">API Doc</a>
 	 */
 	List<MyGroup> getMyGroups();
 
 	/**
-	 * Get User/verify_credentials information.
+	 * Get User/verify_credentials.
 	 *
-	 * @return entry
+	 * @return one single user.
 	 * @see <a href="http://apidoc.youroom.in/rest-user-verify-credentials">API Doc</a>
 	 */
-	List<User> verifyCredentials();
+	User verifyCredentials();
 
 	/**
 	 * Get one single picture.

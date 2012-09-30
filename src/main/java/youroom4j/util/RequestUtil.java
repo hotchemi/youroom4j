@@ -19,21 +19,19 @@ import youroom4j.model.Participation;
 import youroom4j.model.User;
 
 /**
- * This class provides methods that support http request.
+ * This class provides methods to support http request.
  *
  * @author Shintaro Katafuchi
  */
-public class HttpRequestUtil {
+public class RequestUtil {
 
 	/**
 	 * Executed when access timeline format.
 	 *
 	 * @param xml
 	 * @return results
-	 * @see YouRoom#getHomeTimeline(Paging paging)
-	 * @see YouRoom#getRoomTimeline(Paging paging)
 	 */
-	public static List<Entry> getTimelineProceed(String xml) {
+	public static List<Entry> getTimeline(String xml) {
 		final List<Entry> results = new ArrayList<Entry>();
 
 		$(xml).find("entry").each(new Each() {
@@ -117,10 +115,8 @@ public class HttpRequestUtil {
 	 *
 	 * @param xml
 	 * @return results
-	 * @see YouRoom#getHomeTimeline(Paging paging)
-	 * @see YouRoom#getRoomTimeline(Paging paging)
 	 */
-	public static Entry getEntryProceed(String xml) {
+	public static Entry getEntry(String xml) {
 		final Entry entry = new Entry();
 		$(xml).each(new Each() {
 			@Override
@@ -201,7 +197,6 @@ public class HttpRequestUtil {
 	 *
 	 * @param xml
 	 * @return results
-	 * @see YouRoom#getMyGroup
 	 */
 	public static List<MyGroup> getMyGroups(String xml) {
 		final List<MyGroup> results = new ArrayList<MyGroup>();
@@ -228,16 +223,14 @@ public class HttpRequestUtil {
 	 *
 	 * @param xml
 	 * @return results
-	 * @see YouRoom#getMyGroup
 	 */
-	public static List<User> getUsers(String xml) {
-		final List<User> results = new ArrayList<User>();
+	public static User getUser(String xml) {
+		final User user = new User();
 
 		$(xml).each(new Each() {
 			@Override
 			public void each(Context context) {
 				Match status = $(context.element());
-				User user = new User();
 				user.setCreatedAt(status.child("created-at").text());
 				user.setEmail(status.child("email").text());
 				user.setId(Integer.parseInt(status.child("id").text()));
@@ -266,10 +259,9 @@ public class HttpRequestUtil {
 					user.setParticipation(participation);
 					participationMatch = participationMatch.next();
 				}
-				results.add(user);
 			};
 		});
-		return results;
+		return user;
 	}
 
 }

@@ -1,11 +1,15 @@
 package youroom4j.model;
 
+import java.io.Serializable;
+
 /**
  * Representing one single my group status.
  *
  * @author Shintaro Katafuchi
  */
-public class MyGroup implements BaseGroup {
+public class MyGroup implements BaseGroup, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String createdAt;
 

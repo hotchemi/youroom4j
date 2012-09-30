@@ -1,5 +1,6 @@
 package youroom4j.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import java.util.List;
  *
  * @author Shintaro Katafuchi
  */
-public class User {
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String createdAt;
 

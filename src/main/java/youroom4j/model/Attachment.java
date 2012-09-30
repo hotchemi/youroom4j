@@ -1,11 +1,15 @@
 package youroom4j.model;
 
+import java.io.Serializable;
+
 /**
  * Representing one single attachment status.
  *
  * @author Shintaro Katafuchi
  */
-public class Attachment {
+public class Attachment implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String originalFilename;
 

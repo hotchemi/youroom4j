@@ -1,5 +1,6 @@
 package youroom4j.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +10,9 @@ import java.util.List;
  *
  * @author Shintaro Katafuchi
  */
-public class Entry {
+public class Entry implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private List<Integer> unreadCommentIds;
 

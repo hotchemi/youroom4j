@@ -1,11 +1,15 @@
 package youroom4j.model;
 
+import java.io.Serializable;
+
 /**
  * Representing one single paging status.
  *
  * @author Shintaro Katafuchi
  */
-public class Paging {
+public class Paging implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/** The subdomain of the room include entry to destroy. */
 	private int groupParam;

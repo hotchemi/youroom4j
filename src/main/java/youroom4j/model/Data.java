@@ -1,11 +1,15 @@
 package youroom4j.model;
 
+import java.io.Serializable;
+
 /**
  * Representing one single data status.
  *
  * @author Shintaro Katafuchi
  */
-public class Data {
+public class Data implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String text;
 
@@ -23,8 +27,7 @@ public class Data {
 
 	@Override
 	public String toString() {
-		return "Data{" +
-						"text=" + text + "}";
+		return "Data{text=" + text + "}";
 	}
 
 }
