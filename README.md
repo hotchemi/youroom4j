@@ -1,92 +1,179 @@
-[![Build Status](https://secure.travis-ci.org/rochefort/gem-search.png)](http://travis-ci.org/rochefort/gem-search)
-youRoom4J
+youRoom4J [![Build Status](https://secure.travis-ci.org/rochefort/gem-search.png)](http://travis-ci.org/rochefort/gem-search)
 =========
-youRoom4Jは<a target="blank" href="https://www.youroom.in/">youRoom</a>が提供しているAPIのJavaラッパーです。<br/>
-youRoom4Jは非公式のライブラリです｡
+youRoom4Jは<a target="blank" href="https://www.youroom.in">youRoom</a>が提供している<a target="blank" href="http://apidoc.youroom.in">API</a>のJavaラッパーです。<br/>
+youRoom4Jを使うとyouRoomのAPIを活用したアプリケーションを容易に開発することが出来ます｡<br/>
 
-※Androidは近日対応予定です｡<br/>
-※Enterprise methodは近日対応予定です｡
+* OAuthに対応｡
+* XAuthは今後対応予定｡
+* Enterprise methodsは現在対応中｡
+* Android､GAEは今後対応予定｡
+* youRoom4Jは非公式のライブラリです｡
 
-使い方
-------
-### インスタンス生成 ###
-```java
-    Youroom youYoom = YouRoomBuilder.build(consumerKey, consumerSecret, accessToken);
+##Install
+Downloadsより最新版を取得し､youroom4j.jarにクラスパスを通して好きなメソッドを呼び出して下さい｡
+##Source Code
+プロジェクトのリポジトリには以下のURLからアクセスできます｡
+```sh
+github: https://github.com/hotchemi/youroom4j
 ```
+また､以下のようにgitを使って最新のソースコードをチェックアウトすることもできます。
+```sh
+git clone git@github.com:hotchemi/youroom4j.git
+```
+##Sample Code
+### 1. OAuth
+OAuth認証を利用するとユーザーにメールアドレスとパスワードを提供してもらうことなくユーザのアカウントにアクセスできます｡<br/>
+OAuthを利用するにはhttp://apidoc.youroom.in/authentication で事前に申請を行いconsumer key､consumer secretを取得しておく必要があります｡<br/>
+取得したconsumer keyとconsumer secretはOAuthAuthorization#setOAuthConsumerクラスにセットします｡<br/>
+この際､認証後にコールバックされてくるURLも同時に指定する必要があります｡
+```java
+OAuthAuthorization authorization= new OAuthAuthorization();
+authorization.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
+```
+以下のようにauthorization URLにユーザを誘導し､AccessTokenを取得する必要があります。
+```java
+public static void main(String[] args) throws Exception {
+  OAuthAuthorization authorization= new OAuthAuthorization();
+  authorization.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
+  
+  System.out.println(authorization.getAuthorizationUrl());
+  System.out.print("enter oauth_verifier:");
+  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  String oauthVerifier = "";
+  
+  try {
+    // コールバックURLについてくるoauth_verifier=以下を入力
+    oauthVerifier = br.readLine();
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
 
-    
-### タイムライン(ホーム)の取得 ###
+  // accessToken.getAceessToken()とaccessToken.getAceessTokenSecret()を永続化
+  AccessToken accessToken = authorization.getAccessToken(oauthVerifier);
+  System.out.println("accessToken=" + accessToken.getAceessToken());
+  System.out.println("accessTokenSecret" + accessToken.getAceessTokenSecret());
+}
+```
+次回からはconsumer key/secretとaccess token/secretのみでユーザアカウントにアクセスできます｡
+取得したconsumer key/secretとaccess token/secretを設定します｡
+```java
+Youroom youRoom = YouRoomFactory.getInstance();
+youroom.setOAuthConsumer("consumerKey", "consumerSecret");
+youroom.setOAuthAccessToken("accessToken", "accessTokenSecret");
+```
+### 2. Home Timeline
+YouRoom#getHomeTimeline()メソッドはホームタイムラインを返します｡<br/>
+引数にPagingオブジェクトを指定します｡
+```java
+Paging paging = new Paging(String since, boolean flat, int page, String readState);
+List<Entry> list = youRoom.getHomeTimeline(paging);
+```
++ `since` :
+  Bigining time of fetch entries. Use the RFC 3339 timestamp format. _For example: 2005-08-09T10:57:00-08:00._
++ `flat` :
+  If given _"true"_, response is include topics and comments and sorted by created_at.
++ `page` :
+  Pagination entries.
++ `readState` :
+  If given _"unread"_, response is include only unread topics.
 
-	Status status = youRoom.getHomeTimeline(new Paging());
- 
-### タイムライン(ルーム)の取得 ###
+### 3. Room Timeline
+YouRoom#getRoomTimeline()メソッドは指定したルームのタイムラインを返します｡<br/>
+引数にPagingオブジェクトを指定します｡
+```java
+Paging paging = new Paging(int groupParam, String since, String searchQuery, boolean flat, int page, String readState);
+List<Entry> list = youRoom.getRoomTimeline(paging);
+```
++ `groupParam` :
+  __Required.__ The subdomain of the room include entry to destroy.
++ `since` :
+  Bigining time of fetch entries. Use the RFC 3339 timestamp format. _For example: 2005-08-09T10:57:00-08:00._
++ `searchQuery` :
+  Keyword for search entries.
++ `flat` :
+  If given _"true"_, response is include topics and comments and sorted by created_at.
++ `page` :
+  Pagination entries.
++ `readState` :
+  If given _"unread"_, response is include only unread topics.
 
-	Status status = youRoom.getHomeTimeline(new Paging());
+### 4. Entry Show
+YouRoom#showEntry()メソッドは指定したエントリの情報を返します｡
+```java
+Entry entry = youRoom.showEntry(int id, int groupParam);
+```
++ `id` :
+  __Required.__ The ID of the entry.
++ `groupParam` :
+  __Required.__ The subdomain of the room include entry.
 
-### タイムライン(ルーム)の取得 ###
+### 5. Create Entry
+YouRoom#createEntry()メソッドで指定したルームにエントリを投稿することができます。
+```java
+Entry entry = youRoom.createEntry(String content, int parentId, int groupParam);
+```
++ `content` :
+  __Required.__ The text of Entry's content. Text over 140 characters will cause a 422 error to be returned from the API.
++ `parentId` :
+  __Optional.__ The id of parent entry.
++ `groupParam` :
+  __Required.__ The subdomain of the room include entry to create.
 
-### タイムライン(ルーム)の取得 ###
+### 6. Update Entry
+YouRoom#updateEntry()メソッドで指定したエントリを更新することができます。
+```java
+Entry entry = youRoom.createEntry(int id, String content, int groupParam);
+```
++ `id` :
+  __Required.__ The ID of the entry to update.
++ `content` :
+  __Required.__ The text of Entry's content. Text over 140 characters will cause a 422 error to be returned from the API.
++ `groupParam` :
+  __Required.__ The subdomain of the room include entry to update.
 
-### タイムライン(ルーム)の取得 ###
+### 7. Destroy Entry
+YouRoom#deleteEntry()メソッドで指定したエントリを削除することができます。
+```java
+Entry entry = youRoom.destroyEntry(int id, int groupParam);
+```
++ `id` :
+  __Required.__ The ID of the entry to destroy.
++ `groupParam` :
+  __Required.__ The subdomain of the room include entry to destroy.
 
-### タイムライン(ルーム)の取得 ###
+### 8. show Attachment
+YouRoom#showAttachment()メソッドで指定したエントリの添付ファイルを取得します｡
+```java
+byte[] attachment = youRoom.showAttachment(int id, int groupParam);
+```
++ `id` :
+  __Required.__ The ID of the entry.
++ `groupParam` :
+  __Required.__ The subdomain of the room include entry.
 
-### タイムライン(ルーム)の取得 ###
+### 9. My Groups
+YouRoom#getMyGroups()メソッドで所属しているルーム一覧を取得できます｡
+```java
+List<MyGroup> groups = youRoom.getMyGroups();
+```
+### 10. User/verify_credentials
+YouRoom#verifyCredentials()メソッドでユーザ情報を取得できます｡
+```java
+List<User> groups = youRoom.verifyCredentials();
+```    
+### 11. Show Picture
+YouRoom#showPicture()メソッドでエントリに添付されている画像情報を取得できます｡
+```java
+byte[] picture = youRoom.showPicture(int groupParam, int participationId);
+```
++ `groupParam` :
+  __Required.__ The subdomain of the room include entry.
++ `participationId` :
+  __Required.__ The ID of the entry.
 
-### タイムライン(ルーム)の取得 ###
-    
-    
+##ライセンス
+* youRoom4JはXMLレスポンスの解析のため､<a target="blank" href="http://code.google.com/p/joox/">jOOX</a>のソフトウェアを含んでいます｡<br/>
+jOOXのソフトウェアのライセンスについては<a target="blank" href="http://www.apache.org/licenses/">こちら</a>をご覧ください｡<br/>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-パラメータの解説
-----------------
-リストの間に空行を挟むと、それぞれのリストに `<p>` タグが挿入され、行間が
-広くなります。
- 
-    def MyFunction(param1, param2, ...)
- 
-+   `param1` :
-    _パラメータ1_ の説明
- 
-+   `param2` :
-    _パラメータ2_ の説明
- 
-関連情報
---------
-### リンク、ネストしたリスト
-1. [リンク1](<a href="http://example.com/" target="_blank" rel="noreferrer" style="cursor:help;display:inline !important;">http://example.com/</a> "リンクのタイトル")
-    * ![画像1](<a href="http://github.com/unicorn.png" target="_blank" rel="noreferrer" style="cursor:help;display:inline !important;">http://github.com/unicorn.png</a> "画像のタイトル")
-2. [リンク2][link]
-    - [![画像2][image]](<a href="https://github.com/" target="_blank" rel="noreferrer" style="cursor:help;display:inline !important;">https://github.com/</a>)
- 
-  [link]: <a href="http://example.com/" target="_blank" rel="noreferrer" style="cursor:help;display:inline !important;">http://example.com/</a> "インデックス型のリンク"
-  [image]: <a href="http://github.com/github.png" target="_blank" rel="noreferrer" style="cursor:help;display:inline !important;">http://github.com/github.png</a> "インデックス型の画像"
- 
-### 引用、ネストした引用
-> これは引用です。
->
-> > スペースを挟んで `>` を重ねると、引用の中で引用ができますが、
-> > GitHubの場合、1行前に空の引用が無いと、正しくマークアップされません。
- 
-ライセンス
-----------
-Copyright &copy; 2011 xxxxxx
-Licensed under the [Apache License, Version 2.0][Apache]
-Distributed under the [MIT License][mit].
-Dual licensed under the [MIT license][MIT] and [GPL license][GPL].
- 
-[Apache]: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noreferrer" style="cursor:help;display:inline !important;">http://www.apache.org/licenses/LICENSE-2.0</a>
-[MIT]: <a href="http://www.opensource.org/licenses/mit-license.php" target="_blank" rel="noreferrer" style="cursor:help;display:inline !important;">http://www.opensource.org/licenses/mit-license.php</a>
-[GPL]: <a href="http://www.gnu.org/licenses/gpl.html" target="_blank
+* youRoom4JはOAuth認証のため､<a target="blank" href="https://github.com/fernandezpablo85/scribe-java">scribe-java</a>のソフトウェアを含んでいます｡<br/>
+scribe-javaのソフトウェアのライセンスについては<a target="blank" href="https://github.com/fernandezpablo85/scribe-java/blob/master/LICENSE.txt">こちら</a>をご覧ください。
