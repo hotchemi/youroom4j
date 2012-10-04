@@ -19,9 +19,7 @@ public class Category implements Serializable {
 
 	private String color;
 	
-	public Category() {
-
-	}
+	public Category() {}
 
 	public String getName() {
 		return name;

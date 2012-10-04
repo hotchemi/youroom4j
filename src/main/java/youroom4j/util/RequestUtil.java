@@ -19,14 +19,16 @@ import youroom4j.model.Participation;
 import youroom4j.model.User;
 
 /**
- * This class provides methods to support http request.
+ * This class provides methods to support request.
  *
  * @author Shintaro Katafuchi
  */
 public class RequestUtil {
 
+	private RequestUtil() {}
+
 	/**
-	 * Executed when access timeline format.
+	 * Parse timeline xml.
 	 *
 	 * @param xml
 	 * @return results
@@ -69,14 +71,12 @@ public class RequestUtil {
 				entry.setLevel(Integer.parseInt(status.child("level").text()));
 
 				Match parentId = status.child("parent-id");
-				if (parentId.isNotEmpty()) {
+				if (parentId.isNotEmpty())
 					entry.setUnreadCommentIds(parentId.text());
-				}
 
 				Match unreadComentIds = status.child("unread-comment-ids");
-				if (unreadComentIds.isNotEmpty()) {
+				if (unreadComentIds.isNotEmpty())
 					entry.setUnreadCommentIds(unreadComentIds.text());
-				}
 
 				Match participationMatch = status.child("participation");
 				if (participationMatch.isNotEmpty()) {
@@ -111,7 +111,7 @@ public class RequestUtil {
 	}
 
 	/**
-	 * Executed when access entry format.
+	 * Parse entry xml.
 	 *
 	 * @param xml
 	 * @return results
@@ -152,14 +152,12 @@ public class RequestUtil {
 				entry.setLevel(Integer.parseInt(status.child("level").text()));
 
 				Match parentId = status.child("parent-id");
-				if (parentId.isNotEmpty()) {
+				if (parentId.isNotEmpty())
 					entry.setUnreadCommentIds(parentId.text());
-				}
 
 				Match unreadComentIds = status.child("unread-comment-ids");
-				if (unreadComentIds.isNotEmpty()) {
+				if (unreadComentIds.isNotEmpty())
 					entry.setUnreadCommentIds(unreadComentIds.text());
-				}
 
 				Match participationMatch = status.child("participation");
 				if (participationMatch.isNotEmpty()) {
@@ -193,13 +191,14 @@ public class RequestUtil {
 	}
 
 	/**
-	 * Executed when access my group format.
+	 * Parse my group xml.
 	 *
 	 * @param xml
 	 * @return results
 	 */
 	public static List<MyGroup> getMyGroups(String xml) {
 		final List<MyGroup> results = new ArrayList<MyGroup>();
+
 		$(xml).find("group").each(new Each() {
 			@Override
 			public void each(Context context) {
@@ -219,7 +218,7 @@ public class RequestUtil {
 	}
 
 	/**
-	 * Executed when access user format.
+	 * Parse user xml.
 	 *
 	 * @param xml
 	 * @return results
@@ -263,5 +262,4 @@ public class RequestUtil {
 		});
 		return user;
 	}
-
 }

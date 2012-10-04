@@ -13,9 +13,7 @@ public class Data implements Serializable {
 
 	private String text;
 
-	public Data() {
-
-	}
+	public Data() {}
 
 	public String getText() {
 		return text;

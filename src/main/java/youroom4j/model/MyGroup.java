@@ -27,9 +27,7 @@ public class MyGroup implements BaseGroup, Serializable {
 
 	private String billing;
 
-	public MyGroup() {
-
-	}
+	public MyGroup() {}
 
 	public String getCreatedAt() {
 		return createdAt;

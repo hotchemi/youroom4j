@@ -66,7 +66,6 @@ public class YouRoomTest {
 
 	@Test(expected= org.w3c.dom.DOMException.class)
 	public void testShowEntryFail() {
-		// illegal value
 		Entry entry = youroom.showEntry(111111, 1111);
 	}
 
@@ -82,8 +81,8 @@ public class YouRoomTest {
 		Entry entry = youroom.createEntry("test from JUnit.", groupParam);
 		assertNotNull(entry);
 		logger.info(entry.toString());
-		int createEntryId = entry.getRootId();
 
+		int createEntryId = entry.getRootId();
 		entry = youroom.updateEntry(createEntryId, "update from JUnit.", groupParam);
 		assertNotNull(entry);
 		logger.info(entry.toString());
@@ -94,8 +93,8 @@ public class YouRoomTest {
 		Entry entry = youroom.createEntry("test from junit", groupParam);
 		assertNotNull(entry);
 		logger.info(entry.toString());
-		int createEntryId = entry.getRootId();
 
+		int createEntryId = entry.getRootId();
 		entry = youroom.destroyEntry(createEntryId, groupParam);
 		assertNotNull(entry);
 		logger.info(entry.toString());
@@ -105,7 +104,7 @@ public class YouRoomTest {
 	public void testShowAttachment() {
 		byte[] attachment = youroom.showAttachment(3155703, groupParam);
 		assertNotNull(attachment);
-		for (int i = 0, l = attachment.length; i < l; i++) {
+		for (int i = 0, j = attachment.length; i < j; i++) {
 			logger.info(String.valueOf(attachment[i]));
 		}
 	}

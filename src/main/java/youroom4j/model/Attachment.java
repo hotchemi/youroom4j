@@ -21,9 +21,7 @@ public class Attachment implements Serializable {
 
 	private String fileName;
 
-	public Attachment() {
-
-	}
+	public Attachment() {}
 
 	public String getOriginalFilename() {
 		return originalFilename;

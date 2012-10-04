@@ -40,9 +40,7 @@ public class Entry implements Serializable {
 
 	private Attachment attachment;
 
-	public Entry() {
-
-	}
+	public Entry() {}
 
 	public List<Integer> getUnreadCommentIds() {
 		return unreadCommentIds;
@@ -53,7 +51,7 @@ public class Entry implements Serializable {
 
 		if (!(unreadCommentIds == null || unreadCommentIds.length() == 0)) {
 			String[] array = unreadCommentIds.split(",");
-			for(int i = 0; i < array.length; i++){
+			for(int i = 0, j = array.length; i < j; i++){
 				this.unreadCommentIds.add(Integer.parseInt(array[i]));
 			}
 		}

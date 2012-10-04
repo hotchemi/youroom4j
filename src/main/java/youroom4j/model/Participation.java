@@ -25,9 +25,7 @@ public class Participation implements Serializable {
 
 	private boolean applicationAdmin;
 
-	public Participation() {
-
-	}
+	public Participation() {}
 
 	public String getName() {
 		return name;

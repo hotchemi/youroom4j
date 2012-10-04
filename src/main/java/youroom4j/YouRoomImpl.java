@@ -28,9 +28,7 @@ public class YouRoomImpl implements YouRoom {
 
 	private Token token;
 
-	YouRoomImpl() {
-
-	}
+	YouRoomImpl() {}
 
 	@Override
 	public void setOAuthConsumer(String consumerKey, String consumerSecret) {
@@ -55,7 +53,7 @@ public class YouRoomImpl implements YouRoom {
 
 	@Override
 	public List<Entry> getRoomTimeline(Paging paging) {
-		StringBuilder url = new StringBuilder(ROOM_URL).append(paging.getGroupParam()).append("/entries.xml?");
+		StringBuilder url = new StringBuilder(ROOM_URL + paging.getGroupParam() + "/entries.xml?");
 
 		String searchQuery = paging.getSearchQuery();
 		if (searchQuery != null && searchQuery.length() != 0)
@@ -76,16 +74,12 @@ public class YouRoomImpl implements YouRoom {
 
 	@Override
 	public Entry createEntry(String content, int parentId, int groupParam) throws IllegalArgumentException {
-		if (content.length() > 140)
-			throw new IllegalArgumentException("Content length over 140.");
-
-		if (content.length() == 0)
-			throw new IllegalArgumentException("Content length is 0.");
+		isValidContent(content.length());
 
 		String url = ROOM_URL + groupParam + "/entries.xml";
 		OAuthRequest request = new OAuthRequest(Verb.POST, url);
 
-		StringBuilder payload = new StringBuilder("<entry><content>").append(content).append("</content>");
+		StringBuilder payload = new StringBuilder("<entry><content>" + content + "</content>");
 		if (parentId > 0)
 			payload.append("<parent_id>").append(parentId).append("</parent_id>");
 
@@ -99,17 +93,12 @@ public class YouRoomImpl implements YouRoom {
 
 	@Override
 	public Entry createEntry(String content, int groupParam) throws IllegalArgumentException {
-		if (content.length() > 140)
-			throw new IllegalArgumentException("Content length over 140.");
-
-		if (content.length() == 0)
-			throw new IllegalArgumentException("Content length is 0.");
+		isValidContent(content.length());
 
 		String url = ROOM_URL + groupParam + "/entries.xml";
 		OAuthRequest request = new OAuthRequest(Verb.POST, url);
 
-		String payload = "<entry><content>" + content + "</content></entry>";
-		request.addPayload(payload);
+		request.addPayload("<entry><content>" + content + "</content></entry>");
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
 		service.signRequest(token, request);
 		return RequestUtil.getEntry(request.send().getBody());
@@ -117,17 +106,12 @@ public class YouRoomImpl implements YouRoom {
 
 	@Override
 	public Entry updateEntry(int id, String content, int groupParam) throws IllegalArgumentException {
-		if (content.length() > 140)
-			throw new IllegalArgumentException("Content length over 140.");
-
-		if (content.length() == 0)
-			throw new IllegalArgumentException("Content length is 0.");
+		isValidContent(content.length());
 
 		String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
 		OAuthRequest request = new OAuthRequest(Verb.PUT, url);
 
-		String payload = "<entry><content>" + content + "</content></entry>";
-		request.addPayload(payload);
+		request.addPayload("<entry><content>" + content + "</content></entry>");
 		request.addHeader("Content-Type", "text/xml;charset=UTF-8");
 		service.signRequest(token, request);
 		return RequestUtil.getEntry(request.send().getBody());
@@ -198,6 +182,19 @@ public class YouRoomImpl implements YouRoom {
 			newUrl.append("since=").append(since).append("&");
 
 		return newUrl.toString();
+	}
+
+	/**
+	 * Check content length.
+	 *
+	 * @param contentLength
+	 * @throws IllegalArgumentException
+	 */
+	private void isValidContent(int contentLength){
+		if (contentLength > 280)
+			throw new IllegalArgumentException("Content over 280.");
+		if (contentLength == 0)
+			throw new IllegalArgumentException("Content is empty.");
 	}
 
 }

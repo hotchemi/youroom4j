@@ -17,9 +17,7 @@ public class OAuthAuthorization {
 
 	private Token requestToken;
 
-	public OAuthAuthorization() {
-
-	}
+	public OAuthAuthorization() {}
 
 	/**
 	 * @param consumerKey

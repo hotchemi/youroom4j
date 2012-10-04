@@ -3,6 +3,7 @@ package youroom4j.model;
 import java.io.Serializable;
 
 /**
+ * Representing one single access token status.
  *
  * @author Shintaro Katafuchi
  */

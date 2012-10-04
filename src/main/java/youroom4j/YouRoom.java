@@ -63,7 +63,7 @@ public interface YouRoom {
 	/**
 	 * Create one single entry.
 	 *
-	 * @param content The text of Entry's content. Text over 140 characters will cause a 422 error to be returned from the API.
+	 * @param content The text of Entry's content. Text over 280 characters will cause a 422 error to be returned from the API.
 	 * @param parentId Optional The id of parent entry.
 	 * @param groupParam The subdomain of the room include entry to create.
 	 * @return one single entry.
@@ -74,9 +74,8 @@ public interface YouRoom {
 
 	/**
 	 * Create one single entry.<br>
-	 * Without parentId.
 	 *
-	 * @param content The text of Entry's content. Text over 140 characters will cause a 422 error to be returned from the API.
+	 * @param content The text of Entry's content. Text over 280 characters will cause a 422 error to be returned from the API.
 	 * @param groupParam The subdomain of the room include entry to create.
 	 * @return one single entry.
 	 * @throws IllegalArgumentException
@@ -88,7 +87,7 @@ public interface YouRoom {
 	 * Update one single entry.
 	 *
 	 * @param id The ID of the entry to update.
-	 * @param content The text of Entry's content. Text over 140 characters will cause a 422 error to be returned from the API.
+	 * @param content The text of Entry's content. Text over 280 characters will cause a 422 error to be returned from the API.
 	 * @param groupParam The subdomain of the room include entry to update.
 	 * @return one single entry.
 	 * @throws IllegalArgumentException

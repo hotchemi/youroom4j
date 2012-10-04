@@ -29,9 +29,7 @@ public class Paging implements Serializable {
 	/** If given "unread", response is include only unread topics. */
 	private String readState;
 
-	public Paging() {
-
-	}
+	public Paging() {}
 
 	public Paging(String since, boolean flat, int page, String readState) {
 		this.since = since;

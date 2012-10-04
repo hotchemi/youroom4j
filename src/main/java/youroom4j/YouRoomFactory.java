@@ -8,8 +8,7 @@ package youroom4j;
  */
 public class YouRoomFactory {
 
-	private YouRoomFactory() {
-	}
+	private YouRoomFactory() {}
 
 	/** 
 	 * @return new instance of YouRoomImpl.
