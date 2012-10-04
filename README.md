@@ -1,4 +1,4 @@
-youRoom4J [![Build Status](https://secure.travis-ci.org/rochefort/gem-search.png)](http://travis-ci.org/rochefort/gem-search)
+youRoom4J [![Build Status](https://buildhive.cloudbees.com/job/hotchemi/job/youroom4j/badge/icon)](https://buildhive.cloudbees.com/job/hotchemi/job/youroom4j/)
 =========
 youRoom4Jは<a target="blank" href="https://www.youroom.in">youRoom</a>が提供している<a target="blank" href="http://apidoc.youroom.in">API</a>のJavaラッパーです。<br/>
 youRoom4Jを使うとyouRoomのAPIを活用したアプリケーションを容易に開発することが出来ます｡<br/>
