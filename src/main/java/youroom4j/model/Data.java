@@ -27,5 +27,4 @@ public class Data implements Serializable {
 	public String toString() {
 		return "Data{text=" + text + "}";
 	}
-
 }

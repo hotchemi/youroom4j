@@ -105,5 +105,4 @@ public class MyGroup implements BaseGroup, Serializable {
 						", is_expired=" + isExpired +
 						", billing=" + billing + "}";
 	}
-
 }

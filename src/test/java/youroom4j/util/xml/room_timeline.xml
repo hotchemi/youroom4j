@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entries type="array">
+  <entry>
+    <created-at type="datetime">2011-06-02T02:33:23Z</created-at>
+    <updated-at type="datetime">2011-06-02T02:33:23Z</updated-at>
+    <root-id type="integer">1363</root-id>
+    <can-update type="boolean">false</can-update>
+    <id type="integer">1363</id>
+    <level type="integer">0</level>
+    <has-read type="boolean">false</has-read>
+    <parent-id nil="true"></parent-id>
+    <content>Entry content 2</content>
+    <descendants-count type="integer">0</descendants-count>
+    <unread-comment-ids></unread-comment-ids>
+    <participation>
+      <name>us</name>
+      <group>
+        <name>My room</name>
+        <categories type="array"/>
+        <to-param>31</to-param>
+      </group>
+      <id type="integer">158</id>
+    </participation>
+  </entry>
+  <entry>
+    <created-at type="datetime">2011-06-02T02:33:12Z</created-at>
+    <updated-at type="datetime">2011-06-02T02:33:12Z</updated-at>
+    <root-id type="integer">1362</root-id>
+    <can-update type="boolean">false</can-update>
+    <id type="integer">1362</id>
+    <level type="integer">0</level>
+    <has-read type="boolean">true</has-read>
+    <parent-id nil="true"></parent-id>
+    <content>Entry content 1</content>
+    <descendants-count type="integer">0</descendants-count>
+    <unread-comment-ids></unread-comment-ids>
+    <participation>
+      <name>us</name>
+      <group>
+        <name>My room</name>
+        <categories type="array"/>
+        <to-param>31</to-param>
+      </group>
+      <id type="integer">158</id>
+    </participation>
+  </entry>
+</entries>

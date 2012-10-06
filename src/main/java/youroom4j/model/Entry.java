@@ -169,5 +169,4 @@ public class Entry implements Serializable {
 						", Participation:" + participation +
 						", Attachment=" + attachment + "}";
 	}
-
 }

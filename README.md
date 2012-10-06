@@ -2,12 +2,12 @@ youRoom4J [![Build Status](https://buildhive.cloudbees.com/job/hotchemi/job/your
 =========
 youRoom4Jは<a target="blank" href="https://www.youroom.in">youRoom</a>が提供している<a target="blank" href="http://apidoc.youroom.in">API</a>のJavaラッパーです。<br/>
 youRoom4Jを使うとyouRoomのAPIを活用したアプリケーションを容易に開発することが出来ます｡<br/>
+youRoom4Jは非公式のライブラリです｡
 
 * OAuthに対応｡
-* XAuthは今後対応予定｡
+* XAuthは対応予定｡
 * Enterprise methodsは現在対応中｡
-* Android､GAEは今後対応予定｡
-* youRoom4Jは非公式のライブラリです｡
+* Android､GAEは対応予定｡
 
 ##Source Code
 プロジェクトのリポジトリには以下のURLからアクセスできます｡
@@ -58,7 +58,7 @@ public static void main(String[] args) throws Exception {
 次回からはconsumer key/secretとaccess token/secretのみでユーザアカウントにアクセスできます｡
 取得したconsumer key/secretとaccess token/secretを設定します｡
 ```java
-Youroom youRoom = YouRoomFactory.getInstance();
+Youroom youRoom = YouRoomFactory.createInstance();
 youroom.setOAuthConsumer("consumerKey", "consumerSecret");
 youroom.setOAuthAccessToken("accessToken", "accessTokenSecret");
 ```
@@ -173,6 +173,30 @@ byte[] picture = youRoom.showPicture(int groupParam, int participationId);
   __Required.__ The ID of the entry.
 
 ##ライセンス
+youRoom4JはMIT Licenseに基づきリリースされています｡
+```
+The MIT License
+
+Copyright (c) 2012 Shintaro Katafuchi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+```
 * youRoom4JはXMLレスポンスの解析のため､<a target="blank" href="http://code.google.com/p/joox/">jOOX</a>のソフトウェアを含んでいます｡<br/>
 jOOXのソフトウェアのライセンスについては<a target="blank" href="http://www.apache.org/licenses/">こちら</a>をご覧ください｡<br/>
 

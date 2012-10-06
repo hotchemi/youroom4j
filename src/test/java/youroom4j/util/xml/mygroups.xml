@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups type="array">
+  <group>
+    <created-at type="datetime">2010-05-11T09:05:10Z</created-at>
+    <id type="integer">1</id>
+    <name>Room one</name>
+    <opened type="boolean">false</opened>
+    <updated-at type="datetime">2010-05-24T07:40:34Z</updated-at>
+    <to-param>1</to-param>
+  </group>
+  <group>
+    <created-at type="datetime">2010-04-21T06:14:49Z</created-at>
+    <id type="integer">2</id>
+    <name>My room</name>
+    <opened type="boolean">false</opened>
+    <updated-at type="datetime">2010-05-20T10:04:22Z</updated-at>
+    <to-param>2</to-param>
+  </group>
+</groups>

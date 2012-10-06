@@ -1,10 +1,12 @@
-package youroom4j;
+package youroom4j.impl;
+
+import youroom4j.YouRoom;
+import youroom4j.impl.YouRoomImpl;
 
 /**
  * This class provides methods to create ready to use YouRoomImpl.
  *
  * @author Shintaro Katafuchi
- * @see YouRoomImpl
  */
 public class YouRoomFactory {
 
@@ -13,7 +15,7 @@ public class YouRoomFactory {
 	/** 
 	 * @return new instance of YouRoomImpl.
 	 */
-	public static YouRoom getInstance() {
+	public static YouRoom createInstance() {
 		return new YouRoomImpl();
 	}
 

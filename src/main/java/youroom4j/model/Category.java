@@ -61,5 +61,4 @@ public class Category implements Serializable {
 						", id=" + id +
 						", color=" + color + "}";
 	}
-
 }

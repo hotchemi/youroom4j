@@ -28,4 +28,13 @@ public class AccessToken implements Serializable {
 		return accessTokenSecret;
 	}
 
+	public AccessToken() {
+	}
+
+	@Override
+	public String toString() {
+		return "AccessToken{" +
+						"accessToken=" + accessToken +
+						", accessTokenSecret=" + accessTokenSecret + "}";
+	}
 }

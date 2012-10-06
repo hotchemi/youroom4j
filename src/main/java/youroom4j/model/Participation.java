@@ -94,5 +94,4 @@ public class Participation implements Serializable {
 						", updated_at=" + updatedAt +
 						", application_admin=" + applicationAdmin + "}";
 	}
-
 }

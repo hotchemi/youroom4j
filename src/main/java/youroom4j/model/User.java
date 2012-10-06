@@ -91,5 +91,4 @@ public class User implements Serializable {
 						", updated_at=" + updatedAt +
 						", participations=" + participations + "}";
 	}
-
 }

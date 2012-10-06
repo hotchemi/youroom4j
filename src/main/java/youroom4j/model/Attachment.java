@@ -72,5 +72,4 @@ public class Attachment implements Serializable {
 						", attachment_type=" + attachmentType +
 						", file_name=" + fileName + "}";
 	}
-
 }

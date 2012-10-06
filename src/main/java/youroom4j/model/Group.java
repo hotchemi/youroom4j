@@ -58,5 +58,4 @@ public class Group implements BaseGroup, Serializable {
 						", to_param=" + toParam +
 						", categories=" + categories + "}";
 	}
-
 }

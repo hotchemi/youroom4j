@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entries type="array">
+	<entry>
+		<can-update type="boolean">true</can-update>
+		<created-at type="datetime">2012-10-06T15:49:25Z</created-at>
+		<has-read type="boolean">false</has-read>
+		<updated-at type="datetime">2012-10-06T15:49:25Z</updated-at>
+		<root-id type="integer">3192662</root-id>
+		<unread-comment-ids/>
+		<id type="integer">3192662</id>
+		<level type="integer">0</level>
+		<parent-id nil="true"/>
+		<content>test from youRoom4j.</content>
+		<descendants-count type="integer">0</descendants-count>
+		<participation>
+			<name>hot.chemistry21+youroom4j</name>
+			<group>
+				<name>youroom4j検証用</name>
+				<to-param>32096</to-param>
+				<categories type="array"/>
+			</group>
+			<id type="integer">93384</id>
+		</participation>
+	</entry>
+	<entry>
+		<can-update type="boolean">true</can-update>
+		<created-at type="datetime">2012-10-06T15:49:20Z</created-at>
+		<has-read type="boolean">false</has-read>
+		<updated-at type="datetime">2012-10-06T15:49:20Z</updated-at>
+		<root-id type="integer">3192660</root-id>
+		<unread-comment-ids/>
+		<id type="integer">3192660</id>
+		<level type="integer">0</level>
+		<parent-id nil="true"/>
+		<content>test from youRoom4j.</content>
+		<descendants-count type="integer">0</descendants-count>
+		<participation>
+			<name>hot.chemistry21+youroom4j</name>
+			<group>
+				<name>youroom4j検証用</name>
+				<to-param>32096</to-param>
+				<categories type="array"/>
+			</group>
+			<id type="integer">93384</id>
+		</participation>
+	</entry>
+	<entry>
+		<can-update type="boolean">true</can-update>
+		<created-at type="datetime">2012-10-06T15:49:19Z</created-at>
+		<has-read type="boolean">false</has-read>
+		<updated-at type="datetime">2012-10-06T15:49:19Z</updated-at>
+		<root-id type="integer">3192659</root-id>
+		<unread-comment-ids/>
+		<id type="integer">3192659</id>
+		<level type="integer">0</level>
+		<parent-id nil="true"/>
+		<content>update from youRoom4j.</content>
+		<descendants-count type="integer">0</descendants-count>
+		<participation>
+			<name>hot.chemistry21+youroom4j</name>
+			<group>
+				<name>youroom4j検証用</name>
+				<to-param>32096</to-param>
+				<categories type="array"/>
+			</group>
+			<id type="integer">93384</id>
+		</participation>
+	</entry>
+	<entry>
+		<can-update type="boolean">true</can-update>
+		<created-at type="datetime">2012-10-06T15:49:16Z</created-at>
+		<has-read type="boolean">false</has-read>
+		<updated-at type="datetime">2012-10-06T15:49:16Z</updated-at>
+		<root-id type="integer">3192657</root-id>
+		<unread-comment-ids/>
+		<id type="integer">3192657</id>
+		<level type="integer">0</level>
+		<parent-id nil="true"/>
+		<content>test from youRoom4j.</content>
+		<descendants-count type="integer">1</descendants-count>
+		<participation>
+			<name>hot.chemistry21+youroom4j</name>
+			<group>
+				<name>youroom4j検証用</name>
+				<to-param>32096</to-param>
+				<categories type="array"/>
+			</group>
+			<id type="integer">93384</id>
+		</participation>
+	</entry>
+	<entry>
+		<can-update type="boolean">true</can-update>
+		<created-at type="datetime">2012-10-06T15:46:16Z</created-at>
+		<has-read type="boolean">false</has-read>
+		<updated-at type="datetime">2012-10-06T15:46:16Z</updated-at>
+		<root-id type="integer">3192645</root-id>
+		<unread-comment-ids/>
+		<id type="integer">3192645</id>
+		<level type="integer">0</level>
+		<parent-id nil="true"/>
+		<content>test from youRoom4j.</content>
+		<descendants-count type="integer">0</descendants-count>
+		<participation>
+			<name>hot.chemistry21+youroom4j</name>
+			<group>
+				<name>youroom4j検証用</name>
+				<to-param>32096</to-param>
+				<categories type="array"/>
+			</group>
+			<id type="integer">93384</id>
+		</participation>
+	</entry>
+	<entry>
+		<can-update type="boolean">true</can-update>
+		<created-at type="datetime">2012-10-06T15:46:12Z</created-at>
+		<has-read type="boolean">false</has-read>
+		<updated-at type="datetime">2012-10-06T15:46:12Z</updated-at>
+		<root-id type="integer">3192643</root-id>
+		<unread-comment-ids/>
+		<id type="integer">3192643</id>
+		<level type="integer">0</level>
+		<parent-id nil="true"/>
+		<content>test from youRoom4j.</content>
+		<descendants-count type="integer">0</descendants-count>
+		<participation>
+			<name>hot.chemistry21+youroom4j</name>
+			<group>
+				<name>youroom4j検証用</name>
+				<to-param>32096</to-param>
+				<categories type="array"/>
+			</group>
+			<id type="integer">93384</id>
+		</participation>
+	</entry>
+	<entry>
+		<can-update type="boolean">true</can-update>
+		<created-at type="datetime">2012-10-06T15:46:11Z</created-at>
+		<has-read type="boolean">false</has-read>
+		<updated-at type="datetime">2012-10-06T15:46:11Z</updated-at>
+		<root-id type="integer">3192642</root-id>
+		<unread-comment-ids/>
+		<id type="integer">3192642</id>
+		<level type="integer">0</level>
+		<parent-id nil="true"/>
+		<content>update from youRoom4j.</content>
+		<descendants-count type="integer">0</descendants-count>
+		<participation>
+			<name>hot.chemistry21+youroom4j</name>
+			<group>
+				<name>youroom4j検証用</name>
+				<to-param>32096</to-param>
+				<categories type="array"/>
+			</group>
+			<id type="integer">93384</id>
+		</participation>
+	</entry>
+</entries>

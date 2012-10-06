@@ -37,28 +37,31 @@ public interface YouRoom {
 	 *
 	 * @param paging
 	 * @return list contains entry.
+	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-timeline-home">API Doc</a>
 	 */
-	List<Entry> getHomeTimeline(Paging paging);
+	List<Entry> getHomeTimeline(Paging paging) throws IllegalArgumentException;
 
 	/**
 	 * Get room timeline.
 	 *
 	 * @param paging
 	 * @return list contains entry.
+	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-room-timeline">API Doc</a>
 	 */
-	List<Entry> getRoomTimeline(Paging paging);
+	List<Entry> getRoomTimeline(Paging paging) throws IllegalArgumentException;
 
 	/**
 	 * Get one single entry.
 	 *
 	 * @param id The ID of the entry.
 	 * @param groupParam The subdomain of the room include entry.
-	 * @return one single entry.
+	 * @return entry.
+	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-entry-show">API Doc</a>
 	 */
-	Entry showEntry(int id, int groupParam);
+	Entry showEntry(int id, int groupParam) throws IllegalArgumentException;
 
 	/**
 	 * Create one single entry.
@@ -66,21 +69,12 @@ public interface YouRoom {
 	 * @param content The text of Entry's content. Text over 280 characters will cause a 422 error to be returned from the API.
 	 * @param parentId Optional The id of parent entry.
 	 * @param groupParam The subdomain of the room include entry to create.
-	 * @return one single entry.
+	 * @return entry.
 	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-entry-create">API Doc</a>
 	 */
 	Entry createEntry(String content, int parentId, int groupParam) throws IllegalArgumentException;
 
-	/**
-	 * Create one single entry.<br>
-	 *
-	 * @param content The text of Entry's content. Text over 280 characters will cause a 422 error to be returned from the API.
-	 * @param groupParam The subdomain of the room include entry to create.
-	 * @return one single entry.
-	 * @throws IllegalArgumentException
-	 * @see <a href="http://apidoc.youroom.in/rest-entry-create">API Doc</a>
-	 */
 	Entry createEntry(String content, int groupParam) throws IllegalArgumentException;
 
 	/**
@@ -89,7 +83,7 @@ public interface YouRoom {
 	 * @param id The ID of the entry to update.
 	 * @param content The text of Entry's content. Text over 280 characters will cause a 422 error to be returned from the API.
 	 * @param groupParam The subdomain of the room include entry to update.
-	 * @return one single entry.
+	 * @return entry.
 	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-entry-update">API Doc</a>
 	 */
@@ -100,20 +94,22 @@ public interface YouRoom {
 	 *
 	 * @param id The ID of the entry to destroy.
 	 * @param groupParam The subdomain of the room include entry to destroy.
-	 * @return one single entry.
+	 * @return entry.
+	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-entry-detroy">API Doc</a>
 	 */
-	Entry destroyEntry(int id, int groupParam);
+	Entry destroyEntry(int id, int groupParam) throws IllegalArgumentException;
 
 	/**
-	 * Get one single attachment.
+	 * Get attachment.
 	 *
 	 * @param id The ID of the entry.
 	 * @param groupParam The subdomain of the room include entry.
 	 * @return A binary data.
+	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-attachment-show">API Doc</a>
 	 */
-	byte[] showAttachment(int id, int groupParam);
+	byte[] showAttachment(int id, int groupParam) throws IllegalArgumentException;
 
 	/**
 	 * Get my groups.
@@ -126,19 +122,19 @@ public interface YouRoom {
 	/**
 	 * Get User/verify_credentials.
 	 *
-	 * @return one single user.
+	 * @return user.
 	 * @see <a href="http://apidoc.youroom.in/rest-user-verify-credentials">API Doc</a>
 	 */
 	User verifyCredentials();
 
 	/**
-	 * Get one single picture.
+	 * Get picture.
 	 *
 	 * @param groupParam The subdomain of the room include entry.
 	 * @param participationId The ID of the entry.
 	 * @return A binary data.
+	 * @throws IllegalArgumentException
 	 * @see <a href="http://apidoc.youroom.in/rest-picture-show">API Doc</a>
 	 */
-	byte[] showPicture(int groupParam, int participationId);
-
+	byte[] showPicture(int groupParam, int participationId) throws IllegalArgumentException;
 }
