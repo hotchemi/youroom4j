@@ -50,5 +50,4 @@ public class OAuthAuthorization {
 		Token token = service.getAccessToken(requestToken, new Verifier(verifier));
 		return new AccessToken(token.getToken(), token.getSecret());
 	}
-
 }

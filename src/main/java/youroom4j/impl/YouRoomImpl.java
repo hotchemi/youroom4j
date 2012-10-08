@@ -147,7 +147,12 @@ public class YouRoomImpl implements YouRoom {
 
 	@Override
 	public byte[] showPicture(int groupParam, int participationId) throws IllegalArgumentException {
-		return showAttachment(participationId, groupParam);
+		String url = ROOM_URL + groupParam + "/participations/" + participationId + "/picture";
+		OAuthRequest request = new OAuthRequest(Verb.GET, url);
+		service.signRequest(token, request);
+		Response response = request.send();
+		if (response.getCode() == 404) throw new IllegalArgumentException("Some of the arguments are invalid.");
+		return response.getBody().getBytes(Charset.forName("UTF-8"));
 	}
 
 	/**

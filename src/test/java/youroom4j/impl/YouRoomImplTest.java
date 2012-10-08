@@ -216,9 +216,14 @@ public class YouRoomImplTest {
 		youroom.showPicture(00000, 3155703);
 	}
 
-	@Test(expected= IllegalArgumentException.class)
+	/*
+	 * 存在しないparticipation-idを指定した場合はデフォルト値が返却される
+	 * https://www.youroom.in/images/default_group_picture.png
+	 */
+	@Test
 	public void showPictureIllegalParticipationId() {
-		youroom.showPicture(groupParam, 00000);
+		byte[] picture = youroom.showPicture(groupParam, 00000);
+		assertNotNull(picture);
 	}
 
 	@Test

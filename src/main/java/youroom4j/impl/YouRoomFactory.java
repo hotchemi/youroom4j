@@ -18,5 +18,4 @@ public class YouRoomFactory {
 	public static YouRoom createInstance() {
 		return new YouRoomImpl();
 	}
-
 }

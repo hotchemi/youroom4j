@@ -163,7 +163,7 @@ YouRoom#verifyCredentials()メソッドでユーザアカウント情報を取�
 User user = youRoom.verifyCredentials();
 ```    
 ### 11. Show Picture
-YouRoom#showPicture()メソッドでエントリに添付されている画像情報を取得できます｡
+YouRoom#showPicture()メソッドでユーザのプロフィール画像を取得できます｡
 ```java
 byte[] picture = youRoom.showPicture(int groupParam, int participationId);
 ```
