@@ -13,7 +13,7 @@ public class YouRoomFactoryTest {
 
 	@Test
 	public void createInstance() {
-		YouRoom youroom = YouRoomFactory.createInstance();
+		YouRoom youroom = YouRoomFactory.getInstance();
 		String className = youroom.getClass().getCanonicalName();
 		assertEquals(className, "youroom4j.impl.YouRoomImpl");
 	}

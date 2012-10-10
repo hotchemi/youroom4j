@@ -15,7 +15,7 @@ public final class YouRoomFactory {
 	/** 
 	 * @return new instance of YouRoomImpl.
 	 */
-	public static YouRoom createInstance() {
+	public static YouRoom getInstance() {
 		return new YouRoomImpl();
 	}
 }

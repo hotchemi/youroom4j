@@ -33,7 +33,7 @@ public class YouRoomImplTest {
 
 	@Before
 	public void setUp(){
-		youroom = YouRoomFactory.createInstance();
+		youroom = YouRoomFactory.getInstance();
 		Properties conf = PropertyUtil.loadElements();
 		youroom.setOAuthConsumer(conf.getProperty("consumerKey"), conf.getProperty("consumerSecret"));
 		youroom.setOAuthAccessToken(conf.getProperty("accessToken"), conf.getProperty("accessTokenSecret"));
