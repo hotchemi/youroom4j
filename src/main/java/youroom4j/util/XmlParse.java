@@ -23,7 +23,7 @@ import youroom4j.model.User;
  *
  * @author Shintaro Katafuchi
  */
-public class XmlParse {
+public final class XmlParse {
 
 	private XmlParse() {}
 

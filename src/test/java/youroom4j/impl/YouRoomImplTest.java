@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import org.junit.Test;
@@ -24,18 +25,18 @@ import youroom4j.model.User;
  */
 public class YouRoomImplTest {
 
-	private YouRoom youroom;
+	YouRoom youroom;
 
-	private final int groupParam = 32096;
+	final int groupParam = 32096;
 
-	private static final Logger logger = Logger.getLogger("YouRoomImplTest");
+	final Logger logger = Logger.getLogger("YouRoomImplTest");
 
 	@Before
 	public void setUp(){
 		youroom = YouRoomFactory.createInstance();
-		Map<String ,String> map = PropertyUtil.loadElements();
-		youroom.setOAuthConsumer(map.get("consumerKey"), map.get("consumerSecret"));
-		youroom.setOAuthAccessToken(map.get("accessToken"), map.get("accessTokenSecret"));
+		Properties conf = PropertyUtil.loadElements();
+		youroom.setOAuthConsumer(conf.getProperty("consumerKey"), conf.getProperty("consumerSecret"));
+		youroom.setOAuthAccessToken(conf.getProperty("accessToken"), conf.getProperty("accessTokenSecret"));
 	}
 
 	@Test

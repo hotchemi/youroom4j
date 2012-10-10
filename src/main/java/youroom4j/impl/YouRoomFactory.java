@@ -8,7 +8,7 @@ import youroom4j.impl.YouRoomImpl;
  *
  * @author Shintaro Katafuchi
  */
-public class YouRoomFactory {
+public final class YouRoomFactory {
 
 	private YouRoomFactory() {}
 

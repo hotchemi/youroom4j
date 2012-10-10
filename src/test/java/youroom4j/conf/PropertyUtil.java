@@ -11,7 +11,7 @@ import java.util.Properties;
  *
  * @author Shintaro Katafuchi
  */
-public class PropertyUtil {
+public final class PropertyUtil {
 
 	private static final String CONF_FILE_PATH = "src/test/java/youroom4j/conf/youroom4j.properties";
 
@@ -22,19 +22,13 @@ public class PropertyUtil {
 	 *
 	 * @return map contains property.
 	 */
-	public static Map<String, String> loadElements() {
+	public static Properties loadElements() {
 		Properties conf = new Properties();
 		try {
 			conf.load(new FileInputStream(CONF_FILE_PATH));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("consumerKey", conf.getProperty("consumerKey"));
-		map.put("consumerSecret", conf.getProperty("consumerSecret"));
-		map.put("accessToken", conf.getProperty("accessToken"));
-		map.put("accessTokenSecret", conf.getProperty("accessTokenSecret"));
-		return map;
+		return conf;
 	}
 }

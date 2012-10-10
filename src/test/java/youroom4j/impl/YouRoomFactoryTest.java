@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import youroom4j.YouRoom;
 
 /**
- * Test for {@link YouRoomImpl}.
+ * Test for {@link YouRoomFactory}.
  *
  * @author Shintaro Katafuchi
  */
