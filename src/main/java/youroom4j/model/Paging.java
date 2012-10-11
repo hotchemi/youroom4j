@@ -31,11 +31,8 @@ public class Paging implements Serializable {
 
 	public Paging() {}
 
-	public Paging(String since, boolean flat, int page, String readState) {
-		this.since = since;
-		this.flat = flat;
-		this.page = page;
-		this.readState = readState;
+	public Paging(int groupParam) {
+		this.groupParam = groupParam;
 	}
 
 	public Paging(boolean flat, int page, String readState) {
@@ -44,17 +41,15 @@ public class Paging implements Serializable {
 		this.readState = readState;
 	}
 
-	public Paging(int groupParam) {
-		this.groupParam = groupParam;
+	public Paging(String since, boolean flat, int page, String readState) {
+		this(flat, page, readState);
+		this.since = since;
 	}
 
 	public Paging(int groupParam, String since, String searchQuery, boolean flat, int page, String readState) {
+		this(since, flat, page, readState);
 		this.groupParam = groupParam;
-		this.since = since;
 		this.searchQuery = searchQuery;
-		this.flat = flat;
-		this.page = page;
-		this.readState = readState;
 	}
 
 	public int getGroupParam() {

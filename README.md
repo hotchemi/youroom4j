@@ -58,7 +58,7 @@ public static void main(String[] args) throws Exception {
 次回からはconsumer key/secretとaccess token/secretのみでユーザアカウントにアクセスできます｡
 取得したconsumer key/secretとaccess token/secretを設定します｡
 ```java
-Youroom youRoom = YouRoomFactory.createInstance();
+Youroom youRoom = YouRoomFactory.getInstance();
 youroom.setOAuthConsumer("consumerKey", "consumerSecret");
 youroom.setOAuthAccessToken("accessToken", "accessTokenSecret");
 ```

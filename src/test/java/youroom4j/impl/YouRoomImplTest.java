@@ -1,9 +1,7 @@
 package youroom4j.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -235,32 +233,5 @@ public class YouRoomImplTest {
     m.setAccessible(true);
     String ret = (String)m.invoke(c.newInstance(), new Paging(true, 1, "unread"), "http://youroom.in/entries.xml?");
     assertEquals("http://youroom.in/entries.xml?page=1&flat=true&read_state=unread&", ret);
-	}
-
-	@Test
-	public void assertLengthNormal() throws Exception {
-    Class<YouRoomImpl> c = YouRoomImpl.class;
-		Class[] args = {int.class};
-    Method m = c.getDeclaredMethod("assertLength", args);
-    m.setAccessible(true);
-    String ret = (String)m.invoke(c.newInstance(), 140);
-	}
-
-	@Test(expected= InvocationTargetException.class)
-	public void assertLengthWithZero() throws Exception {
-    Class<YouRoomImpl> c = YouRoomImpl.class;
-		Class[] args = {int.class};
-    Method m = c.getDeclaredMethod("assertLength", args);
-    m.setAccessible(true);
-    String ret = (String)m.invoke(c.newInstance(), 0);
-	}
-
-	@Test(expected= InvocationTargetException.class)
-	public void assertLengthWith281() throws Exception {
-    Class<YouRoomImpl> c = YouRoomImpl.class;
-		Class[] args = {int.class};
-    Method m = c.getDeclaredMethod("assertLength", args);
-    m.setAccessible(true);
-    String ret = (String)m.invoke(c.newInstance(), 281);
 	}
 }
