@@ -15,10 +15,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>https://github.com/yusuke/twitter4j</url>
-		<connection>scm:git:git://github.com/hotchemi/youroom4j.git</connection>
-		<developerConnection>scm:git:git://github.com/hotchemi/youroom4j.git
-		</developerConnection>
+		<url>https://github.com/hotchemi/youroom4j</url>
+		<connection>scm:git:git@github.com:hotchemi/youroom4j.git</connection>
+		<developerConnection>scm:git:git@github.com:hotchemi/youroom4j.git</developerConnection>
 	</scm>
 	<developers>
 		<developer>
