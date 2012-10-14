@@ -56,9 +56,9 @@ public class Category implements Serializable {
 	@Override
 	public String toString() {
 		return "Categroy{" +
-						"name=" + name +
-						", to_param=" + toParam +
-						", id=" + id +
-						", color=" + color + "}";
+			"name=" + name +
+			", to_param=" + toParam +
+			", id=" + id +
+			", color=" + color + "}";
 	}
 }

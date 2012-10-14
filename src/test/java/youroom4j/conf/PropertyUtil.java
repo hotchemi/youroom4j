@@ -13,19 +13,13 @@ import java.util.Properties;
  */
 public final class PropertyUtil {
 
-	private static final String CONF_FILE_PATH = "src/test/java/youroom4j/conf/youroom4j.properties";
+	PropertyUtil () {
+	}
 
-	private PropertyUtil () {}
-
-	/**
-	 * Get property element.
-	 *
-	 * @return map contains property.
-	 */
-	public static Properties loadElements() {
+	public static Properties load() {
 		Properties conf = new Properties();
 		try {
-			conf.load(new FileInputStream(CONF_FILE_PATH));
+			conf.load(new FileInputStream("src/test/java/youroom4j/conf/youroom4j.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

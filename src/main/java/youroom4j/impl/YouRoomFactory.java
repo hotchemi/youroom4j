@@ -1,7 +1,6 @@
 package youroom4j.impl;
 
 import youroom4j.YouRoom;
-import youroom4j.impl.YouRoomImpl;
 
 /**
  * This class provides methods to create ready to use YouRoomImpl.
@@ -10,7 +9,8 @@ import youroom4j.impl.YouRoomImpl;
  */
 public final class YouRoomFactory {
 
-	private YouRoomFactory() {}
+	private YouRoomFactory() {
+	}
 
 	/** 
 	 * @return new instance of YouRoomImpl.

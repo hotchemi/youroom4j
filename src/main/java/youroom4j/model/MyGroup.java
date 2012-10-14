@@ -96,13 +96,13 @@ public class MyGroup implements BaseGroup, Serializable {
 	@Override
 	public String toString() {
 		return "MyGroup{" +
-						"created_at=" + createdAt +
-						", id=" + id +
-						", name=" + name +
-						", opened=" + opened +
-						", updated_at=" + updatedAt +
-						", to_param=" + toParam +
-						", is_expired=" + isExpired +
-						", billing=" + billing + "}";
+			"created_at=" + createdAt +
+			", id=" + id +
+			", name=" + name +
+			", opened=" + opened +
+			", updated_at=" + updatedAt +
+			", to_param=" + toParam +
+			", is_expired=" + isExpired +
+			", billing=" + billing + "}";
 	}
 }

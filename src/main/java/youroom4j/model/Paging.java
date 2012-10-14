@@ -103,11 +103,11 @@ public class Paging implements Serializable {
 	@Override
 	public String toString() {
 		return "Paging{" +
-						"group_param=" + groupParam +
-						", since=" + since +
-						", search_query=" + searchQuery +
-						", flat=" + flat +
-						", page=" + page +
-						", read_stat=" + readState + "}";
+			"group_param=" + groupParam +
+			", since=" + since +
+			", search_query=" + searchQuery +
+			", flat=" + flat +
+			", page=" + page +
+			", read_stat=" + readState + "}";
 	}
 }

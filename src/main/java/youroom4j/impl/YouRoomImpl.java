@@ -1,5 +1,6 @@
 package youroom4j.impl;
 
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import youroom4j.model.User;
 import youroom4j.util.XmlParse;
 import youroom4j.auth.YouRoomApi;
 import youroom4j.YouRoom;
+import youroom4j.model.AccessToken;
 
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
@@ -24,26 +26,34 @@ import org.scribe.builder.ServiceBuilder;
  *
  * @author Shintaro Katafuchi
  */
-public class YouRoomImpl implements YouRoom {
+public class YouRoomImpl implements YouRoom, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private OAuthService service;
 
 	private Token token;
 
-	YouRoomImpl() {}
+	YouRoomImpl() {
+	}
 
 	@Override
 	public void setOAuthConsumer(String consumerKey, String consumerSecret) {
 		this.service = new ServiceBuilder()
-						.provider(YouRoomApi.class)
-						.apiKey(consumerKey)
-						.apiSecret(consumerSecret)
-						.build();
+      .provider(YouRoomApi.class)
+      .apiKey(consumerKey)
+      .apiSecret(consumerSecret)
+			.build();
 	}
 
 	@Override
 	public void setOAuthAccessToken(String accessToken, String accessTokenSecret) {
 		this.token = new Token(accessToken, accessTokenSecret);
+	}
+
+	@Override
+	public void setOAuthAccessToken(AccessToken token) {
+		this.token = new Token(token.getAceessToken(), token.getAceessTokenSecret());
 	}
 
 	@Override
@@ -57,7 +67,6 @@ public class YouRoomImpl implements YouRoom {
 		String searchQuery = paging.getSearchQuery();
 		if (searchQuery != null && searchQuery.length() != 0)
 			url.append("search_query=").append(searchQuery).append("&");
-
 		return XmlParse.getTimeline(getResponse(Verb.GET, addParamater(paging, url.toString())));
 	}
 
@@ -68,12 +77,11 @@ public class YouRoomImpl implements YouRoom {
 
 	@Override
 	public Entry createEntry(String content, int parentId, int groupParam) throws IllegalArgumentException {
+		String url = ROOM_URL + groupParam + "/entries.xml";
 		StringBuilder payload = new StringBuilder("<entry><content>" + content + "</content>");
 		if (parentId > 0)
 			payload.append("<parent_id>").append(parentId).append("</parent_id>");
 		payload.append("</entry>");
-
-		String url = ROOM_URL + groupParam + "/entries.xml";
 		return XmlParse.getEntry(getPostResponse(Verb.POST, url, payload.toString(), content.length()));
 	}
 

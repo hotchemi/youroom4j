@@ -86,12 +86,12 @@ public class Participation implements Serializable {
 	@Override
 	public String toString() {
 		return "Participation{" +
-						"name=" + name +
-						", group=" + group +
-						", id=" + id +
-						", admin=" + admin +
-						", created_at=" + createdAt +
-						", updated_at=" + updatedAt +
-						", application_admin=" + applicationAdmin + "}";
+			"name=" + name +
+			", group=" + group +
+			", id=" + id +
+			", admin=" + admin +
+			", created_at=" + createdAt +
+			", updated_at=" + updatedAt +
+			", application_admin=" + applicationAdmin + "}";
 	}
 }

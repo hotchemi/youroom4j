@@ -66,10 +66,10 @@ public class Attachment implements Serializable {
 	@Override
 	public String toString() {
 		return "Attachment{" +
-						"original_file_name=" + originalFilename +
-						", data=" + data +
-						", content_type=" + contentType +
-						", attachment_type=" + attachmentType +
-						", file_name=" + fileName + "}";
+			"original_file_name=" + originalFilename +
+			", data=" + data +
+			", content_type=" + contentType +
+			", attachment_type=" + attachmentType +
+			", file_name=" + fileName + "}";
 	}
 }

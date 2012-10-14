@@ -2,6 +2,7 @@ package youroom4j.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -70,7 +71,7 @@ public class User implements Serializable {
 	}
 
 	public List<Participation> getParticipations() {
-		return participations;
+		return Collections.unmodifiableList(participations);
 	}
 
 	public void setParticipations(List<Participation> participations) {
@@ -84,11 +85,11 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User{" +
-						"created_at=" + createdAt +
-						", email=" + email +
-						", id=" + id +
-						", last_request_at=" + lastRequestAt +
-						", updated_at=" + updatedAt +
-						", participations=" + participations + "}";
+			"created_at=" + createdAt +
+			", email=" + email +
+			", id=" + id +
+			", last_request_at=" + lastRequestAt +
+			", updated_at=" + updatedAt +
+			", participations=" + participations + "}";
 	}
 }

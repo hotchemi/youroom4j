@@ -1,6 +1,7 @@
 package youroom4j;
 
 import java.util.List;
+import youroom4j.model.AccessToken;
 
 import youroom4j.model.Entry;
 import youroom4j.model.Paging;
@@ -12,13 +13,13 @@ import youroom4j.model.User;
  */
 public interface YouRoom {
 
-	static final String HOME_TIMELINE_URL = "https://www.youroom.in/entries.xml?";
+	String HOME_TIMELINE_URL = "https://www.youroom.in/entries.xml?";
 
-	static final String ROOM_URL = "https://www.youroom.in/r/";
+	String ROOM_URL = "https://www.youroom.in/r/";
 
-	static final String MY_GROUPS_URL = "https://www.youroom.in/groups/my.xml";
+	String MY_GROUPS_URL = "https://www.youroom.in/groups/my.xml";
 
-	static final String USER_VERIFY_CREDENTIALS_URL = "https://www.youroom.in/verify_credentials.xml";
+	String USER_VERIFY_CREDENTIALS_URL = "https://www.youroom.in/verify_credentials.xml";
 
 	/**
 	 * @param consumerKey
@@ -31,6 +32,11 @@ public interface YouRoom {
 	 * @param accessTokenSecret
 	 */
 	void setOAuthAccessToken(String accessToken, String accessTokenSecret);
+
+	/**
+	 * @param token
+	 */
+	void setOAuthAccessToken(AccessToken token);
 
 	/**
 	 * Get home timeline.
@@ -75,6 +81,15 @@ public interface YouRoom {
 	 */
 	Entry createEntry(String content, int parentId, int groupParam) throws IllegalArgumentException;
 
+	/**
+	 * Create one single entry.
+	 *
+	 * @param content The text of Entry's content. Text over 280 characters will cause a 422 error to be returned from the API.
+	 * @param groupParam The subdomain of the room include entry to create.
+	 * @return entry.
+	 * @throws IllegalArgumentException
+	 * @see <a href="http://apidoc.youroom.in/rest-entry-create">API Doc</a>
+	 */
 	Entry createEntry(String content, int groupParam) throws IllegalArgumentException;
 
 	/**
@@ -128,7 +143,9 @@ public interface YouRoom {
 	User verifyCredentials();
 
 	/**
-	 * Get picture.
+	 * Get picture.<br/>
+	 * When you designate illegal participationId, API returns deafult picture.<br/>
+	 * https://www.youroom.in/images/default_group_picture.png
 	 *
 	 * @param groupParam The subdomain of the room include entry.
 	 * @param participationId The ID of the entry.

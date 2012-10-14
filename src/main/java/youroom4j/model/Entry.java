@@ -2,7 +2,7 @@ package youroom4j.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,7 +43,7 @@ public class Entry implements Serializable {
 	public Entry() {}
 
 	public List<Integer> getUnreadCommentIds() {
-		return unreadCommentIds;
+		return Collections.unmodifiableList(unreadCommentIds);
 	}
 
 	public void setUnreadCommentIds(String unreadCommentIds) {
@@ -156,17 +156,17 @@ public class Entry implements Serializable {
 	@Override
 	public String toString() {
 		return "Entry{" +
-						"unread_comment_ids=" + unreadCommentIds +
-						", created_at=" + createdAt +
-						", updated_at=" + updatedAt +
-						", root_id=" + rootId +
-						", level=" + level +
-						", parent_id=" + parentId +
-						", content=" + content +
-						", can_update=" + canUpdate +
-						", descendants_count=" + descendantsCount +
-						", has_read=" + hasRead +
-						", Participation:" + participation +
-						", Attachment=" + attachment + "}";
+			"unread_comment_ids=" + unreadCommentIds +
+			", created_at=" + createdAt +
+			", updated_at=" + updatedAt +
+			", root_id=" + rootId +
+			", level=" + level +
+			", parent_id=" + parentId +
+			", content=" + content +
+			", can_update=" + canUpdate +
+			", descendants_count=" + descendantsCount +
+			", has_read=" + hasRead +
+			", Participation:" + participation +
+			", Attachment=" + attachment + "}";
 	}
 }

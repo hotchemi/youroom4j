@@ -34,7 +34,7 @@ public class AccessToken implements Serializable {
 	@Override
 	public String toString() {
 		return "AccessToken{" +
-						"accessToken=" + accessToken +
-						", accessTokenSecret=" + accessTokenSecret + "}";
+			"accessToken=" + accessToken +
+			", accessTokenSecret=" + accessTokenSecret + "}";
 	}
 }

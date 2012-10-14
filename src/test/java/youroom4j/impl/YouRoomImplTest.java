@@ -23,7 +23,7 @@ import youroom4j.model.User;
  */
 public class YouRoomImplTest {
 
-	YouRoom youroom;
+	private YouRoom youroom;
 
 	final int groupParam = 32096;
 
@@ -32,7 +32,7 @@ public class YouRoomImplTest {
 	@Before
 	public void setUp(){
 		youroom = YouRoomFactory.getInstance();
-		Properties conf = PropertyUtil.loadElements();
+		Properties conf = PropertyUtil.load();
 		youroom.setOAuthConsumer(conf.getProperty("consumerKey"), conf.getProperty("consumerSecret"));
 		youroom.setOAuthAccessToken(conf.getProperty("accessToken"), conf.getProperty("accessTokenSecret"));
 	}

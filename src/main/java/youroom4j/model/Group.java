@@ -2,6 +2,7 @@ package youroom4j.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class Group implements BaseGroup, Serializable {
 	}
 
 	public List<Category> getCategories() {
-		return categories;
+		return Collections.unmodifiableList(categories);
 	}
 
 	public void setCategories(List<Category> categories) {
@@ -54,8 +55,8 @@ public class Group implements BaseGroup, Serializable {
 	@Override
 	public String toString() {
 		return "Group{" +
-						"name=" + name +
-						", to_param=" + toParam +
-						", categories=" + categories + "}";
+			"name=" + name +
+			", to_param=" + toParam +
+			", categories=" + categories + "}";
 	}
 }
