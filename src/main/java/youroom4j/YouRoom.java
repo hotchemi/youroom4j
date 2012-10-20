@@ -1,19 +1,15 @@
 package youroom4j;
 
-import java.util.List;
-import youroom4j.model.AccessToken;
+import youroom4j.model.*;
 
-import youroom4j.model.Entry;
-import youroom4j.model.Paging;
-import youroom4j.model.MyGroup;
-import youroom4j.model.User;
+import java.util.List;
 
 /**
  * @author Shintaro Katafuchi
  */
 public interface YouRoom {
 
-	String HOME_TIMELINE_URL = "https://www.youroom.in/entries.xml?";
+  String HOME_TIMELINE_URL = "https://www.youroom.in/entries.xml?";
 
 	String ROOM_URL = "https://www.youroom.in/r/";
 

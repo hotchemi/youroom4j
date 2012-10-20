@@ -3,5 +3,7 @@
 *.ear
 *.DS_Store
 
+.idea/
+youroom4j.iml
+
 target/
-nb-configuration.xml

@@ -1,20 +1,20 @@
 package youroom4j.impl;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Logger;
-
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Before;
-
+import org.junit.Test;
 import youroom4j.YouRoom;
 import youroom4j.conf.PropertyUtil;
 import youroom4j.model.Entry;
 import youroom4j.model.MyGroup;
 import youroom4j.model.Paging;
 import youroom4j.model.User;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Logger;
+
+import static org.junit.Assert.*;
 
 /**
  * Test for {@link YouRoomImpl}.
@@ -127,7 +127,7 @@ public class YouRoomImplTest {
 	public void createEntryWith281() {
 		youroom.createEntry("youroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyouroom4jyo", groupParam);
 	}
-
+	
 	@Test
 	public void updateEntryNormal() {
 		Entry entry = youroom.createEntry("test from youRoom4j.", groupParam);
