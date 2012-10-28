@@ -13,14 +13,15 @@ public class Data implements Serializable {
 
 	private String text;
 
-	public Data() {}
-
-	public String getText() {
-		return text;
-	}
+	public Data() {
+  }
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public String getText() {
+		return text;
 	}
 
 	@Override

@@ -49,11 +49,11 @@ public class Entry implements Serializable {
 	public void setUnreadCommentIds(String unreadCommentIds) {
 		this.unreadCommentIds = new ArrayList<Integer>();
 
-		if (!(unreadCommentIds == null || unreadCommentIds.length() == 0)) {
+		if (unreadCommentIds != null && unreadCommentIds.length() != 0) {
 			String[] array = unreadCommentIds.split(",");
-			for(int i = 0, j = array.length; i < j; i++){
-				this.unreadCommentIds.add(Integer.parseInt(array[i]));
-			}
+      for (String anArray : array) {
+        this.unreadCommentIds.add(Integer.parseInt(anArray));
+      }
 		}
 	}
 

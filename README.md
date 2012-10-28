@@ -25,25 +25,25 @@ Javaが分かっていれば<a target="blank" href="http://youroom4j.herokuapp.c
 ### 1. OAuth
 OAuth認証を利用するとユーザーにメールアドレスとパスワードを提供してもらうことなくユーザのアカウントにアクセスできます｡<br/>
 OAuthを利用するにはhttp://apidoc.youroom.in/authentication で事前に申請を行いconsumer key/secretを取得しておく必要があります｡<br/>
-取得したconsumer key/secretはOAuthAuthorization#setOAuthConsumerクラスに設定します｡<br/>
+取得したconsumer key/secretはYouRoom#setOAuthConsumerメソッドで設定します｡<br/>
 この際､認証後にコールバックされるURLも同時に指定する必要があります｡
 ```java
-OAuthAuthorization authorization= new OAuthAuthorization();
-authorization.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
+YouRoom youRoom = YouRoomFactory.getInstance();
+youRoom.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
 ```
-以下のようにauthorization URLにユーザを誘導し､AccessTokenを取得する必要があります。
+以下の様にauthorization URLにユーザを誘導し､AccessTokenを取得する必要があります。
 ```java
 public static void main(String[] args) throws Exception {
-  OAuthAuthorization authorization= new OAuthAuthorization();
-  authorization.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
-  
+  YouRoom youRoom = YouRoomFactory.getInstance();
+  youRoom.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
+
   System.out.println(authorization.getAuthorizationUrl());
   System.out.print("enter oauth_verifier:");
   BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
   String oauthVerifier = "";
   
   try {
-    // コールバックURLについてくるoauth_verifier=以下を入力
+    // コールバックURLに付与されるoauth_verifier=以下を入力
     oauthVerifier = br.readLine();
   } catch (IOException e) {
     e.printStackTrace();

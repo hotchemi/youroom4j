@@ -17,22 +17,37 @@ public interface YouRoom {
 
 	String USER_VERIFY_CREDENTIALS_URL = "https://www.youroom.in/verify_credentials.xml";
 
-	/**
-	 * @param consumerKey
-	 * @param consumerSecret
-	 */
-	void setOAuthConsumer(String consumerKey, String consumerSecret);
+  /**
+   * @param consumerKey youRoom consumer key.
+   * @param consumerSecret youRoom consumer secret.
+   * @param callback callback url you want.
+   */
+  void setOAuthConsumer(String consumerKey, String consumerSecret, String callback);
 
-	/**
+  /**
+   * @param consumerKey youRoom consumer key.
+   * @param consumerSecret youRoom consumer secret.
+   */
+  void setOAuthConsumer(String consumerKey, String consumerSecret);
+
+  /**
+   * @return authorization url.
+   */
+  String getAuthorizationUrl();
+
+  /**
+   * Return AccessToken Instance.
+   *
+   * @param verifier verifier.
+   * @return AccessToken
+   */
+  AccessToken getAccessToken(String verifier);
+
+  /**
 	 * @param accessToken
 	 * @param accessTokenSecret
 	 */
 	void setOAuthAccessToken(String accessToken, String accessTokenSecret);
-
-	/**
-	 * @param token
-	 */
-	void setOAuthAccessToken(AccessToken token);
 
 	/**
 	 * Get home timeline.
@@ -150,4 +165,5 @@ public interface YouRoom {
 	 * @see <a href="http://apidoc.youroom.in/rest-picture-show">API Doc</a>
 	 */
 	byte[] showPicture(int groupParam, int participationId) throws IllegalArgumentException;
+
 }

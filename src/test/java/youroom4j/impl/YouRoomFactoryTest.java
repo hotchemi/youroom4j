@@ -10,7 +10,6 @@ import youroom4j.YouRoom;
  * @author Shintaro Katafuchi
  */
 public class YouRoomFactoryTest {
-
 	@Test
 	public void createInstance() {
 		YouRoom youroom = YouRoomFactory.getInstance();

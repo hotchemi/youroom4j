@@ -15,26 +15,34 @@ public class AccessToken implements Serializable {
 
 	private String accessTokenSecret;
 
-	public AccessToken(String accessToken, String AccessTokenSecret) {
+  public AccessToken() {
+  }
+
+	public AccessToken(String accessToken, String accessTokenSecret) {
 		this.accessToken = accessToken;
-		this.accessTokenSecret = AccessTokenSecret;
+		this.accessTokenSecret = accessTokenSecret;
 	}
 
-	public String getAceessToken() {
+  public void setAcceessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
+	public String getAccessToken() {
 		return accessToken;
 	}
 
-	public String getAceessTokenSecret() {
-		return accessTokenSecret;
-	}
+  public void setAccessTokenSecret(String accessTokenSecret) {
+    this.accessTokenSecret = accessTokenSecret;
+  }
 
-	public AccessToken() {
-	}
+  public String getAcceessTokenSecret() {
+    return accessTokenSecret;
+  }
 
-	@Override
-	public String toString() {
-		return "AccessToken{" +
-			"accessToken=" + accessToken +
-			", accessTokenSecret=" + accessTokenSecret + "}";
-	}
+  @Override
+  public String toString() {
+    return "AccessToken{" +
+      "accessToken=" + accessToken +
+      ", accessTokenSecret=" + accessTokenSecret + "}";
+  }
 }
