@@ -6,6 +6,7 @@ import org.scribe.oauth.OAuthService;
 
 import youroom4j.YouRoom;
 import youroom4j.auth.YouRoomApi;
+import youroom4j.exception.YouRoomException;
 import youroom4j.model.*;
 import youroom4j.util.XmlParse;
 
@@ -19,7 +20,7 @@ import java.nio.charset.Charset;
  *
  * @author Shintaro Katafuchi
  */
-public class YouRoomImpl implements YouRoom, Serializable {
+public final class YouRoomImpl implements YouRoom, Serializable {
 
   private OAuthService service;
 
@@ -29,7 +30,7 @@ public class YouRoomImpl implements YouRoom, Serializable {
   }
 
   @Override
-	public final void setOAuthConsumer(String consumerKey, String consumerSecret, String callback) {
+	public void setOAuthConsumer(String consumerKey, String consumerSecret, String callback) {
 		service = new ServiceBuilder()
 			.provider(YouRoomApi.class)
 			.apiKey(consumerKey)
@@ -49,16 +50,22 @@ public class YouRoomImpl implements YouRoom, Serializable {
   }
 
   @Override
-	public String getAuthorizationUrl() {
+	public String getAuthorizationUrl() throws YouRoomException {
+    if (service == null) {
+      throw new YouRoomException("Illegal access. You must set oauth consumer before call this method.");
+    }
 		return service.getAuthorizationUrl(token);
 	}
 
   @Override
-	public AccessToken getAccessToken (String verifier) {
+	public AccessToken getOAuthAccessToken (String verifier) throws YouRoomException {
+    if (service == null) {
+      throw new YouRoomException("Illegal access. You must set oauth consumer before call this method.");
+    }
     Token requestToken = token;
-		token = service.getAccessToken(requestToken, new Verifier(verifier));
+    token = service.getAccessToken(requestToken, new Verifier(verifier));
     return new AccessToken(token.getToken(), token.getSecret());
-	}
+  }
 
   @Override
   public void setOAuthAccessToken(String accessToken, String accessTokenSecret) {
@@ -73,12 +80,13 @@ public class YouRoomImpl implements YouRoom, Serializable {
 
   @Override
   public List<Entry> getRoomTimeline(Paging paging) throws IllegalArgumentException {
-    StringBuilder url = new StringBuilder(ROOM_URL + paging.getGroupParam() + "/entries.xml?");
+    StringBuilder tmpUrl = new StringBuilder(ROOM_URL + paging.getGroupParam() + "/entries.xml?");
     String searchQuery = paging.getSearchQuery();
     if (searchQuery != null && searchQuery.length() != 0) {
-      url.append("search_query=").append(searchQuery).append("&");
+      tmpUrl.append("search_query=").append(searchQuery).append("&");
     }
-    return XmlParse.getTimeline(getResponse(Verb.GET, addParamater(paging, url.toString())));
+    String url = addParamater(paging, tmpUrl.toString());
+    return XmlParse.getTimeline(getResponse(Verb.GET, url));
   }
 
   @Override
@@ -190,5 +198,4 @@ public class YouRoomImpl implements YouRoom, Serializable {
     service.signRequest(token, request);
     return request.send().getBody();
   }
-
 }

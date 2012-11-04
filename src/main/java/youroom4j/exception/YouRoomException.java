@@ -1,0 +1,1 @@
+package youroom4j.exception;/** * Thrown to indicate that a method has been accessed with an illegal way. * * @author Shintaro Katafuchi */public class YouRoomException extends Exception {  public YouRoomException() {    super();  }  public YouRoomException (String s) {    super(s);  }  public YouRoomException(String s, Throwable e) {    super(s, e);  }}

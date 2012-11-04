@@ -1,5 +1,6 @@
 package youroom4j;
 
+import youroom4j.exception.YouRoomException;
 import youroom4j.model.*;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public interface YouRoom {
   /**
    * @return authorization url.
    */
-  String getAuthorizationUrl();
+  String getAuthorizationUrl() throws YouRoomException;
 
   /**
    * Return AccessToken Instance.
@@ -41,7 +42,7 @@ public interface YouRoom {
    * @param verifier verifier.
    * @return AccessToken
    */
-  AccessToken getAccessToken(String verifier);
+  AccessToken getOAuthAccessToken(String verifier) throws YouRoomException;
 
   /**
 	 * @param accessToken

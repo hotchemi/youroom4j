@@ -27,7 +27,7 @@
       <id>hotchemi</id>
       <name>hotchemi</name>
       <email>hot.chemistry21@gmail.com</email>
-      <url>http://hotchemi.hateblo.jp/</url>
+      <url>https://github.com/hotchemi</url>
       <roles>
         <role>lead</role>
         <role>architect</role>
@@ -50,7 +50,6 @@
       <url>file:${user.home}/maven2/</url>
     </snapshotRepository>
   </distributionManagement>
-
   <build>
     <plugins>
       <plugin>
@@ -63,7 +62,6 @@
           <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
-
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -88,14 +86,12 @@
       </plugin>
     </plugins>
   </build>
-
   <dependencies>
     <dependency>
       <groupId>org.jooq</groupId>
       <artifactId>joox</artifactId>
       <version>1.1.0</version>
     </dependency>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -103,7 +99,6 @@
       <scope>test</scope>
       <type>jar</type>
     </dependency>
-
     <dependency>
       <groupId>org.scribe</groupId>
       <artifactId>scribe</artifactId>

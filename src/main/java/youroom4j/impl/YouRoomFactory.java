@@ -9,13 +9,13 @@ import youroom4j.YouRoom;
  */
 public final class YouRoomFactory {
 
-	private YouRoomFactory() {
-	}
+  private YouRoomFactory() {
+  }
 
-	/** 
-	 * @return new instance of YouRoomImpl.
-	 */
-	public static YouRoom getInstance() {
+  /**
+   * @return new instance of YouRoomImpl.
+   */
+  public static YouRoom getInstance() {
     return new YouRoomImpl();
-	}
+  }
 }

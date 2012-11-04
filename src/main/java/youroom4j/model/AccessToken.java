@@ -11,38 +11,38 @@ public class AccessToken implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String accessToken;
+	private String token;
 
-	private String accessTokenSecret;
+	private String tokenSecret;
 
   public AccessToken() {
   }
 
-	public AccessToken(String accessToken, String accessTokenSecret) {
-		this.accessToken = accessToken;
-		this.accessTokenSecret = accessTokenSecret;
+	public AccessToken(String token, String tokenSecret) {
+		this.token = token;
+		this.tokenSecret = tokenSecret;
 	}
 
-  public void setAcceessToken(String accessToken) {
-		this.accessToken = accessToken;
+	public String getToken() {
+		return token;
 	}
 
-	public String getAccessToken() {
-		return accessToken;
+  public void setToken(String token) {
+		this.token = token;
 	}
 
-  public void setAccessTokenSecret(String accessTokenSecret) {
-    this.accessTokenSecret = accessTokenSecret;
+  public String getTokenSecret() {
+    return tokenSecret;
   }
 
-  public String getAcceessTokenSecret() {
-    return accessTokenSecret;
+  public void setTokenSecret(String tokenSecret) {
+    this.tokenSecret = tokenSecret;
   }
 
   @Override
   public String toString() {
     return "AccessToken{" +
-      "accessToken=" + accessToken +
-      ", accessTokenSecret=" + accessTokenSecret + "}";
+      "token=" + token +
+      ", tokenSecret=" + tokenSecret + "}";
   }
 }

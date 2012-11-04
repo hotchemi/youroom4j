@@ -7,7 +7,7 @@ youRoom4Jは非公式のライブラリです｡
 * OAuthに対応｡
 * XAuthは対応予定｡
 * Enterprise methodsは現在対応中｡
-* Android､GAEは対応予定｡
+* Androidに対応予定｡
 
 ##Source Code
 プロジェクトのリポジトリには以下のURLからアクセスできます｡
@@ -37,6 +37,7 @@ public static void main(String[] args) throws Exception {
   YouRoom youRoom = YouRoomFactory.getInstance();
   youRoom.setOAuthConsumer("consumerKey", "consumerSecret", "callbackUrl");
 
+  //URLにアクセス
   System.out.println(authorization.getAuthorizationUrl());
   System.out.print("enter oauth_verifier:");
   BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -50,9 +51,9 @@ public static void main(String[] args) throws Exception {
   }
 
   // accessToken.getAceessToken()とaccessToken.getAceessTokenSecret()を永続化
-  AccessToken accessToken = authorization.getAccessToken(oauthVerifier);
-  System.out.println("accessToken=" + accessToken.getAceessToken());
-  System.out.println("accessTokenSecret" + accessToken.getAceessTokenSecret());
+  AccessToken accessToken = youRoom.getOAuthAccessToken(oauthVerifier);
+  System.out.println("accessToken=" + accessToken.getToken());
+  System.out.println("accessTokenSecret" + accessToken.getTokenSecret());
 }
 ```
 次回からはconsumer key/secretとaccess token/secretのみでユーザアカウントにアクセスできます｡
