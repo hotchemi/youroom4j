@@ -12,51 +12,51 @@ import java.util.List;
  */
 public class Group implements BaseGroup, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String name;
+  private String name;
 
-	private int toParam;
+  private int toParam;
 
-	private List<Category> categories;
+  private List<Category> categories;
 
-	public Group() {
-		categories = new ArrayList<Category>();
-	}
+  public Group() {
+    categories = new ArrayList<Category>();
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public int getToParam() {
-		return toParam;
-	}
+  public int getToParam() {
+    return toParam;
+  }
 
-	public void setToParam(int toParam) {
-		this.toParam = toParam;
-	}
+  public void setToParam(int toParam) {
+    this.toParam = toParam;
+  }
 
-	public List<Category> getCategories() {
-		return Collections.unmodifiableList(categories);
-	}
+  public List<Category> getCategories() {
+    return Collections.unmodifiableList(categories);
+  }
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
+  public void setCategories(List<Category> categories) {
+    this.categories = categories;
+  }
 
-	public void setCategory(Category category) {
-		this.categories.add(category);
-	}
+  public void setCategory(Category category) {
+    this.categories.add(category);
+  }
 
-	@Override
-	public String toString() {
-		return "Group{" +
-			"name=" + name +
-			", to_param=" + toParam +
-			", categories=" + categories + "}";
-	}
+  @Override
+  public String toString() {
+    return "Group{" +
+        "name=" + name +
+        ", to_param=" + toParam +
+        ", categories=" + categories + "}";
+  }
 }

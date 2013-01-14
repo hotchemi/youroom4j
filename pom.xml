@@ -1,15 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>youroom4j</groupId>
+  <groupId>org.youroom4j</groupId>
   <artifactId>youroom4j</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <name>youroom4j</name>
-  <url>http://maven.apache.org</url>
-  <description>youRoom4J is a Java library for the youRoom API.</description>
+  <url>http://hotchemi.github.com/youroom4j/</url>
+  <description>A Java library for the youRoom API</description>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
   <licenses>
     <license>
       <name>The MIT License (MIT)</name>
@@ -17,17 +19,19 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
   <scm>
     <url>https://github.com/hotchemi/youroom4j</url>
-    <connection>scm:git:git@github.com:hotchemi/youroom4j.git</connection>
-    <developerConnection>scm:git:git@github.com:hotchemi/youroom4j.git</developerConnection>
+    <connection>scm:git:git://github.com/hotchemi/youroom4j.git</connection>
+    <developerConnection>scm:git:git://github.com/hotchemi/youroom4j.git</developerConnection>
   </scm>
+
   <developers>
     <developer>
       <id>hotchemi</id>
-      <name>hotchemi</name>
+      <name>Shintaro Katafuchi</name>
       <email>hot.chemistry21@gmail.com</email>
-      <url>https://github.com/hotchemi</url>
+      <url>http://hotchemi.hateblo.jp</url>
       <roles>
         <role>lead</role>
         <role>architect</role>
@@ -36,6 +40,7 @@
       <timezone>-9</timezone>
     </developer>
   </developers>
+
   <distributionManagement>
     <repository>
       <id>sonatype-nexus-staging</id>
@@ -50,8 +55,10 @@
       <url>file:${user.home}/maven2/</url>
     </snapshotRepository>
   </distributionManagement>
+
   <build>
     <plugins>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -62,6 +69,7 @@
           <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -84,14 +92,17 @@
           </execution>
         </executions>
       </plugin>
+
     </plugins>
   </build>
+
   <dependencies>
     <dependency>
       <groupId>org.jooq</groupId>
       <artifactId>joox</artifactId>
       <version>1.1.0</version>
     </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -99,10 +110,12 @@
       <scope>test</scope>
       <type>jar</type>
     </dependency>
+
     <dependency>
       <groupId>org.scribe</groupId>
       <artifactId>scribe</artifactId>
       <version>1.3.2</version>
     </dependency>
+
   </dependencies>
 </project>

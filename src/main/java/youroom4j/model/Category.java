@@ -9,56 +9,56 @@ import java.io.Serializable;
  */
 public class Category implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String name;
+  private String name;
 
-	private int toParam;
+  private int toParam;
 
-	private int id;
+  private int id;
 
-	private String color;
-	
-	public Category() {}
+  private String color;
 
-	public String getName() {
-		return name;
-	}
+  public Category() {}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public int getToParam() {
-		return toParam;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setToParam(int toParam) {
-		this.toParam = toParam;
-	}
+  public int getToParam() {
+    return toParam;
+  }
 
-	public int getId() {
-		return id;
-	}
+  public void setToParam(int toParam) {
+    this.toParam = toParam;
+  }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public String getColor() {
-		return color;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+  public String getColor() {
+    return color;
+  }
 
-	@Override
-	public String toString() {
-		return "Categroy{" +
-			"name=" + name +
-			", to_param=" + toParam +
-			", id=" + id +
-			", color=" + color + "}";
-	}
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  @Override
+  public String toString() {
+    return "Categroy{" +
+        "name=" + name +
+        ", to_param=" + toParam +
+        ", id=" + id +
+        ", color=" + color + "}";
+  }
 }

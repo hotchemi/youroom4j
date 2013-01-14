@@ -27,38 +27,39 @@ public final class YouRoomImpl implements YouRoom, Serializable {
   private Token token;
 
   YouRoomImpl() {
+
   }
 
   @Override
-	public void setOAuthConsumer(String consumerKey, String consumerSecret, String callback) {
-		service = new ServiceBuilder()
-			.provider(YouRoomApi.class)
-			.apiKey(consumerKey)
-			.apiSecret(consumerSecret)
-			.callback(callback)
-			.build();
-		token = service.getRequestToken();
-	}
+  public void setOAuthConsumer(String consumerKey, String consumerSecret, String callback) {
+    service = new ServiceBuilder()
+        .provider(YouRoomApi.class)
+        .apiKey(consumerKey)
+        .apiSecret(consumerSecret)
+        .callback(callback)
+        .build();
+    token = service.getRequestToken();
+  }
 
   @Override
   public void setOAuthConsumer(String consumerKey, String consumerSecret) {
     service = new ServiceBuilder()
-      .provider(YouRoomApi.class)
-      .apiKey(consumerKey)
-      .apiSecret(consumerSecret)
-      .build();
+        .provider(YouRoomApi.class)
+        .apiKey(consumerKey)
+        .apiSecret(consumerSecret)
+        .build();
   }
 
   @Override
-	public String getAuthorizationUrl() throws YouRoomException {
+  public String getAuthorizationUrl() throws YouRoomException {
     if (service == null) {
-      throw new YouRoomException("Illegal access. You must set oauth consumer before call this method.");
+      throw new YouRoomException("Illegal access.You must set oauth consumer before call this method.");
     }
-		return service.getAuthorizationUrl(token);
-	}
+    return service.getAuthorizationUrl(token);
+  }
 
   @Override
-	public AccessToken getOAuthAccessToken (String verifier) throws YouRoomException {
+  public AccessToken getOAuthAccessToken (String verifier) throws YouRoomException {
     if (service == null) {
       throw new YouRoomException("Illegal access. You must set oauth consumer before call this method.");
     }
@@ -75,7 +76,8 @@ public final class YouRoomImpl implements YouRoom, Serializable {
   @Override
   public List<Entry> getHomeTimeline(Paging paging) throws IllegalArgumentException {
     String url = addParamater(paging, HOME_TIMELINE_URL);
-    return XmlParse.getTimeline(getResponse(Verb.GET, url));
+    String response = getResponse(Verb.GET, url);
+    return XmlParse.getTimeline(response);
   }
 
   @Override
@@ -86,13 +88,15 @@ public final class YouRoomImpl implements YouRoom, Serializable {
       tmpUrl.append("search_query=").append(searchQuery).append("&");
     }
     String url = addParamater(paging, tmpUrl.toString());
-    return XmlParse.getTimeline(getResponse(Verb.GET, url));
+    String response = getResponse(Verb.GET, url);
+    return XmlParse.getTimeline(response);
   }
 
   @Override
   public Entry showEntry(int id, int groupParam) throws IllegalArgumentException {
     String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
-    return XmlParse.getEntry(getResponse(Verb.GET, url));
+    String response = getResponse(Verb.GET, url);
+    return XmlParse.getEntry(response);
   }
 
   @Override
@@ -103,27 +107,31 @@ public final class YouRoomImpl implements YouRoom, Serializable {
       payload.append("<parent_id>").append(parentId).append("</parent_id>");
     }
     payload.append("</entry>");
-    return XmlParse.getEntry(getPostResponse(Verb.POST, url, payload.toString(), content.length()));
+    String response = getPostResponse(Verb.POST, url, payload.toString(), content.length());
+    return XmlParse.getEntry(response);
   }
 
   @Override
   public Entry createEntry(String content, int groupParam) throws IllegalArgumentException {
     String url = ROOM_URL + groupParam + "/entries.xml";
     String payload = "<entry><content>" + content + "</content></entry>";
-    return XmlParse.getEntry(getPostResponse(Verb.POST, url, payload, content.length()));
+    String response = getPostResponse(Verb.POST, url, payload, content.length());
+    return XmlParse.getEntry(response);
   }
 
   @Override
   public Entry updateEntry(int id, String content, int groupParam) throws IllegalArgumentException {
     String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
     String payload = "<entry><content>" + content + "</content></entry>";
-    return XmlParse.getEntry(getPostResponse(Verb.PUT, url, payload, content.length()));
+    String response = getPostResponse(Verb.PUT, url, payload, content.length());
+    return XmlParse.getEntry(response);
   }
 
   @Override
   public Entry destroyEntry(int id, int groupParam) {
     String url = ROOM_URL + groupParam + "/entries/" + id + ".xml";
-    return XmlParse.getEntry(getResponse(Verb.DELETE, url));
+    String response = getResponse(Verb.DELETE, url);
+    return XmlParse.getEntry(response);
   }
 
   @Override
@@ -134,12 +142,14 @@ public final class YouRoomImpl implements YouRoom, Serializable {
 
   @Override
   public List<MyGroup> getMyGroups() {
-    return XmlParse.getMyGroups(getResponse(Verb.GET, MY_GROUPS_URL));
+    String response = getResponse(Verb.GET, MY_GROUPS_URL);
+    return XmlParse.getMyGroups(response);
   }
 
   @Override
   public User verifyCredentials() {
-    return XmlParse.getUser(getResponse(Verb.GET, USER_VERIFY_CREDENTIALS_URL));
+    String response = getResponse(Verb.GET, USER_VERIFY_CREDENTIALS_URL);
+    return XmlParse.getUser(response);
   }
 
   @Override
@@ -198,4 +208,5 @@ public final class YouRoomImpl implements YouRoom, Serializable {
     service.signRequest(token, request);
     return request.send().getBody();
   }
+
 }

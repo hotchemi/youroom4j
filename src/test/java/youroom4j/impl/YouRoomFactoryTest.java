@@ -10,10 +10,12 @@ import youroom4j.YouRoom;
  * @author Shintaro Katafuchi
  */
 public class YouRoomFactoryTest {
-	@Test
-	public void createInstance() {
-		YouRoom youroom = YouRoomFactory.getInstance();
-		String className = youroom.getClass().getCanonicalName();
-		assertEquals(className, "youroom4j.impl.YouRoomImpl");
-	}
+
+  @Test
+  public void createInstance() {
+    YouRoom youroom = YouRoomFactory.getInstance();
+    String className = youroom.getClass().getCanonicalName();
+    assertEquals(className, "youroom4j.impl.YouRoomImpl");
+  }
+
 }

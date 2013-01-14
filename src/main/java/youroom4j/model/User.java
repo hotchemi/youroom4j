@@ -12,84 +12,84 @@ import java.util.List;
  */
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String createdAt;
+  private String createdAt;
 
-	private String email;
+  private String email;
 
-	private int id;
+  private int id;
 
-	private String lastRequestAt;
+  private String lastRequestAt;
 
-	private String updatedAt;
+  private String updatedAt;
 
-	private List<Participation> participations;
+  private List<Participation> participations;
 
-	public User() {
-		participations = new ArrayList<Participation>();
-	}
+  public User() {
+    participations = new ArrayList<Participation>();
+  }
 
-	public String getCreatedAt() {
-		return createdAt;
-	}
+  public String getCreatedAt() {
+    return createdAt;
+  }
 
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
+  }
 
-	public String getEmail() {
-		return email;
-	}
+  public String getEmail() {
+    return email;
+  }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-	public int getId() {
-		return id;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public String getLastRequestAt() {
-		return lastRequestAt;
-	}
+  public String getLastRequestAt() {
+    return lastRequestAt;
+  }
 
-	public void setLastRequestAt(String lastRequestAt) {
-		this.lastRequestAt = lastRequestAt;
-	}
+  public void setLastRequestAt(String lastRequestAt) {
+    this.lastRequestAt = lastRequestAt;
+  }
 
-	public String getUpdatedAt() {
-		return updatedAt;
-	}
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
 
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 
-	public List<Participation> getParticipations() {
-		return Collections.unmodifiableList(participations);
-	}
+  public List<Participation> getParticipations() {
+    return Collections.unmodifiableList(participations);
+  }
 
-	public void setParticipations(List<Participation> participations) {
-		this.participations = participations;
-	}
+  public void setParticipations(List<Participation> participations) {
+    this.participations = participations;
+  }
 
-	public void setParticipation(Participation participation) {
-		this.participations.add(participation);
-	}
+  public void setParticipation(Participation participation) {
+    this.participations.add(participation);
+  }
 
-	@Override
-	public String toString() {
-		return "User{" +
-			"created_at=" + createdAt +
-			", email=" + email +
-			", id=" + id +
-			", last_request_at=" + lastRequestAt +
-			", updated_at=" + updatedAt +
-			", participations=" + participations + "}";
-	}
+  @Override
+  public String toString() {
+    return "User{" +
+        "created_at=" + createdAt +
+        ", email=" + email +
+        ", id=" + id +
+        ", last_request_at=" + lastRequestAt +
+        ", updated_at=" + updatedAt +
+        ", participations=" + participations + "}";
+  }
 }

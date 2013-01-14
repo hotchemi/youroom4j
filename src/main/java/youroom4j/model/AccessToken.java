@@ -9,27 +9,27 @@ import java.io.Serializable;
  */
 public class AccessToken implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String token;
+  private String token;
 
-	private String tokenSecret;
+  private String tokenSecret;
 
   public AccessToken() {
   }
 
-	public AccessToken(String token, String tokenSecret) {
-		this.token = token;
-		this.tokenSecret = tokenSecret;
-	}
+  public AccessToken(String token, String tokenSecret) {
+    this.token = token;
+    this.tokenSecret = tokenSecret;
+  }
 
-	public String getToken() {
-		return token;
-	}
+  public String getToken() {
+    return token;
+  }
 
   public void setToken(String token) {
-		this.token = token;
-	}
+    this.token = token;
+  }
 
   public String getTokenSecret() {
     return tokenSecret;
@@ -42,7 +42,7 @@ public class AccessToken implements Serializable {
   @Override
   public String toString() {
     return "AccessToken{" +
-      "token=" + token +
-      ", tokenSecret=" + tokenSecret + "}";
+        "token=" + token +
+        ", tokenSecret=" + tokenSecret + "}";
   }
 }

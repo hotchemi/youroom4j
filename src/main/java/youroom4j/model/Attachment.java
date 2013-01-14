@@ -9,67 +9,67 @@ import java.io.Serializable;
  */
 public class Attachment implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String originalFilename;
+  private String originalFilename;
 
-	private Data data;
+  private Data data;
 
-	private String contentType;
+  private String contentType;
 
-	private String attachmentType;
+  private String attachmentType;
 
-	private String fileName;
+  private String fileName;
 
-	public Attachment() {}
+  public Attachment() {}
 
-	public String getOriginalFilename() {
-		return originalFilename;
-	}
+  public String getOriginalFilename() {
+    return originalFilename;
+  }
 
-	public void setOriginalFilename(String originalFilename) {
-		this.originalFilename = originalFilename;
-	}
+  public void setOriginalFilename(String originalFilename) {
+    this.originalFilename = originalFilename;
+  }
 
-	public Data getData() {
-		return data;
-	}
+  public Data getData() {
+    return data;
+  }
 
-	public void setData(Data data) {
-		this.data = data;
-	}
+  public void setData(Data data) {
+    this.data = data;
+  }
 
-	public String getContentType() {
-		return contentType;
-	}
+  public String getContentType() {
+    return contentType;
+  }
 
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-	}
+  public void setContentType(String contentType) {
+    this.contentType = contentType;
+  }
 
-	public String getAttachmentType() {
-		return attachmentType;
-	}
+  public String getAttachmentType() {
+    return attachmentType;
+  }
 
-	public void setAttachmentType(String attachmentType) {
-		this.attachmentType = attachmentType;
-	}
+  public void setAttachmentType(String attachmentType) {
+    this.attachmentType = attachmentType;
+  }
 
-	public String getFileName() {
-		return fileName;
-	}
+  public String getFileName() {
+    return fileName;
+  }
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
+  }
 
-	@Override
-	public String toString() {
-		return "Attachment{" +
-			"original_file_name=" + originalFilename +
-			", data=" + data +
-			", content_type=" + contentType +
-			", attachment_type=" + attachmentType +
-			", file_name=" + fileName + "}";
-	}
+  @Override
+  public String toString() {
+    return "Attachment{" +
+        "original_file_name=" + originalFilename +
+        ", data=" + data +
+        ", content_type=" + contentType +
+        ", attachment_type=" + attachmentType +
+        ", file_name=" + fileName + "}";
+  }
 }
